@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 
 const styles = StyleSheet.create({
-  button: {
+button: {
     width: 100,
     height: 30,
     padding: 10,
@@ -10,7 +10,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     margin: 3
-  }
+},
+
 });
 
 export default class Counter extends Component {
