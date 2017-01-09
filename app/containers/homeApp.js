@@ -5,6 +5,7 @@ import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 import Counter from '../components/counter';
 import CounterPage from './counterPage';
+import ScanPage from './scanPage';
 import * as counterActions from '../actions/counterActions';
 import ScrollableTabView, {DefaultTabBar } from 'react-native-scrollable-tab-view';
 import {
@@ -25,7 +26,9 @@ class HomeApp extends Component {
             <View tabLabel='发现'>
                  <CounterPage  />
             </View>
-            <Text tabLabel='扫码点餐'/>
+            <View tabLabel='扫码点餐'>
+                 <ScanPage  />
+            </View>
             <Text tabLabel='我的'/>
         </ScrollableTabView>
     );
