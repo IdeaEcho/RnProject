@@ -1,5 +1,8 @@
+'use strict';
+import {combineReducers} from 'redux';
 import counter from './counter';
 
-export {
-  counter
-};
+const rootReducer = combineReducers({
+      counter
+})
+export default rootReducer;

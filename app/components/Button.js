@@ -8,36 +8,25 @@ import {
     View,
     TouchableOpacity
 } from 'react-native';
-import Button from '../components/Button'
 
-class UserPage extends Component {
+export default class Button extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            username:'',
-            level:'',
-            sweet: 0,
-            acid: 0,
-            hot: 0,
-            salty: 0,
-            bitter: 0,
-        };
     }
     loginPressHandler = () => {
         alert('你按下了按钮');
     };
     render() {
-        const { state, actions } = this.props;
+        //解构
+        const { text } = this.props;
         return (
             <View style={styles.container}>
-                <View>
-                    <Text>个人信息</Text>
-                </View>
-                <View>
-                    <Text>口味分析</Text>
-                </View>
-                <Button text="登陆"/>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={this.loginPressHandler}
+                >
+                    <Text style={styles.buttonText}>{text}</Text>
+                </TouchableOpacity>
             </View>
         );
     }
@@ -48,6 +37,9 @@ const styles = StyleSheet.create({
         height: 40,
         width: 100,
         borderRadius: 5,
+        borderColor: '#fff',
+        borderWidth: 2,
+        backgroundColor: '#f6af9d',
         justifyContent: 'center',
         overflow: 'hidden',
     },
@@ -59,5 +51,3 @@ const styles = StyleSheet.create({
         flex: 1,
   }
 });
-
-export default UserPage;

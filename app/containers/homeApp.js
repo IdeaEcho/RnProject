@@ -3,15 +3,19 @@
 import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
-import Counter from '../components/counter';
-import CounterPage from './counterPage';
-import ScanPage from './scanPage';
-import * as counterActions from '../actions/counterActions';
 import ScrollableTabView, {DefaultTabBar } from 'react-native-scrollable-tab-view';
 import {
     Text,
     View
  } from 'react-native';
+
+ import Counter from '../components/counter';
+ import CounterPage from './counterPage';
+ import MenuPage from './menuPage';
+ import ScanPage from './scanPage';
+ import UserPage from './userPage';
+ import * as counterActions from '../actions/counterActions';
+
 
 class HomeApp extends Component {
   constructor(props) {
@@ -19,17 +23,20 @@ class HomeApp extends Component {
   }
   render() {
     const { state, actions } = this.props;
+    console.log('ssss');
     return (
         <ScrollableTabView
             tabBarPosition='bottom'
             renderTabBar={() => <DefaultTabBar/>}>
-            <View tabLabel='发现'>
-                 <CounterPage  />
+            <View tabLabel='主页'>
+                 <MenuPage  />
             </View>
             <View tabLabel='扫码点餐'>
                  <ScanPage  />
             </View>
-            <Text tabLabel='我的'/>
+            <View tabLabel='我的'>
+                 <UserPage  />
+            </View>
         </ScrollableTabView>
     );
   }
