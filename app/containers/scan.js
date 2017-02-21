@@ -14,7 +14,7 @@ import {
 // @connect(state => ({
 //   state: state.counter
 // }))
-class ScanPage extends Component {
+class Scan extends Component {
   constructor(props) {
     super(props);
 
@@ -70,4 +70,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ScanPage;
+export default Scan;

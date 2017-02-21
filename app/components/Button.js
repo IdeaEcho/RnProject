@@ -23,9 +23,12 @@ export default class Button extends Component {
             <View style={styles.container}>
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={this.loginPressHandler}
+                    onPress={onPress}
+                    disabled={disabled}
                 >
-                    <Text style={styles.buttonText}>{text}</Text>
+                <Text style={styles.buttonText}>
+                {text}
+                </Text>
                 </TouchableOpacity>
             </View>
         );
