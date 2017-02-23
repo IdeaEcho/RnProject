@@ -1,20 +1,18 @@
-import React, {Component} from 'react';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
-import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
+import React, {Component} from 'react'
+import{} from 'react-native';
+import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
 
-import * as reducers from './reducers';
-import HomeApp from './containers/homeApp';
+import configureStore from './store/configure-store'
+import Root from './root'
 
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
-const reducer = combineReducers(reducers);
-const store = createStoreWithMiddleware(reducer);
+const store = configureStore();
 
 export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <HomeApp />
+        <Root />
       </Provider>
     );
   }
