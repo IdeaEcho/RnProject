@@ -237,7 +237,7 @@ const styles=StyleSheet.create({
         flex:1
     },
     textInput_icon:{
-        width:18,
+        width:19,
         height:18,
         marginLeft:13
     }

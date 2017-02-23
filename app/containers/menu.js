@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+
+import React, { Component,PropTypes } from 'react'
 import {
   Dimensions,
   Image,
@@ -10,15 +11,15 @@ import {
   InteractionManager
 } from 'react-native';
 
-// import { NaviGoBack } from '../utils/CommonUtils';
-// import { STORE_DETAILS_DATA } from '../common/VirtualData';
-// import {formatStore,calculateGood} from '../utils/StoreFormat';
-// import PureListView from '../component/PureListView';
-// import { toastShort } from '../utils/ToastUtil';
+import { NaviGoBack } from '../utils/CommonUtils';
+import { STORE_DETAILS_DATA } from '../common/VirtualData';
+import {formatStore,calculateGood} from '../utils/StoreFormat';
+import PureListView from '../components/PureListView';
+import { toastShort } from '../utils/ToastUtil';
 import GoodDetails from './GoodDetails';
 // import Merchants from './Merchants';
-// import Loading from '../component/Loading_DD';
-// import LoadingView from '../component/LoadingView';
+import Loading from '../components/Loading_DD';
+import LoadingView from '../components/LoadingView';
 
 import { connect } from 'react-redux';
 import { fetchGoodsAction,changeCategoryAction} from '../actions/GoodsAction'
@@ -28,24 +29,25 @@ const {height,width} = Dimensions.get('window');
 let defaultColor = '#f5f5f5';  //默认颜色
 let selectedColor = '#fff';  //选中颜色
 
-class MenuPage extends Component {
+class Menu extends Component {
   constructor(props) {
       super(props);
       this.buttonBackAction=this.buttonBackAction.bind(this);
-      this.topItemAction=this.topItemAction.bind(this);
+    //   this.topItemAction=this.topItemAction.bind(this);
       this.onPressItemLeft=this.onPressItemLeft.bind(this);
       this.onPressItemRight=this.onPressItemRight.bind(this);
       this.renderItemLeft = this.renderItemLeft.bind(this);
       this.renderItemRight=this.renderItemRight.bind(this);
       this.collectAction=this.collectAction.bind(this);
-    //   this.renderBottom=this.renderBottom.bind(this);
+      this.renderBottom=this.renderBottom.bind(this);
+      //ListView.DataSource:从原始输入数据中抽取数据来创建ListViewDataSource对象
       this.state={
          dataSource: new ListView.DataSource({
            getRowData: (dataBlob, sid, rid) => dataBlob[sid][rid],
            getSectionHeaderData: (dataBlob, sid) => dataBlob[sid],
            rowHasChanged: (row1, row2) => row1 !== row2,
            sectionHeaderHasChanged: (s1, s2) => s1 !== s2
-         }),
+         })
       }
   }
 
@@ -57,20 +59,20 @@ class MenuPage extends Component {
 
     //返回
   buttonBackAction(){
-    //   const {navigator} = this.props;
-    //   return NaviGoBack(navigator);
-  }
-  topItemAction(){
       const {navigator} = this.props;
-       InteractionManager.runAfterInteractions(() => {
-            navigator.push({
-            //   component: Merchants,
-            //   name: 'Merchants',
-              });
-        });
+      return NaviGoBack(navigator);
   }
+  // topItemAction(){
+  //     const {navigator} = this.props;
+  //      InteractionManager.runAfterInteractions(() => {
+  //           navigator.push({
+  //             component: Merchants,
+  //             name: 'Merchants',
+  //             });
+  //       });
+  // }
   collectAction(){
-    //   toastShort('点击收藏按钮...');
+      toastShort('点击收藏按钮...');
   }
   /**
    * Render a separator between rows
@@ -199,7 +201,7 @@ class MenuPage extends Component {
                 <View style={{justifyContent:'flex-end'}}>
                      <TouchableOpacity style={{width:30,height:30,marginRight:10,marginBottom:10}}
                           onPress={()=>{
-                                //   toastShort('点击添加购物车图标...');
+                                  toastShort('点击添加购物车图标...');
                           }}
                           >
                           <Image source={require('../imgs/store/ic_store_add.png')}
@@ -225,12 +227,6 @@ class MenuPage extends Component {
                 <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
                      <Text style={{color:'white',fontSize:18}}>商品列表</Text>
                 </View>
-                <View style={{width:48,height:48,justifyContent:'flex-end',alignItems:'center',flexDirection:'row'}}>
-                    <TouchableOpacity onPress={()=>{this.topItemAction()}}>
-                         <Image source={require('../imgs/home/ic_home_top_search.png')}
-                           style={{width:24,height:24,marginRight:8,alignItems:'center'}}/>
-                    </TouchableOpacity>
-                </View>
           </View>
      );
   }
@@ -238,13 +234,13 @@ class MenuPage extends Component {
   renderStoreBaisc(){
      const {navigator} = this.props;
      return (
-       <TouchableOpacity onPress={()=>{this.topItemAction()}}>
+       <TouchableOpacity >
        <View style={{height: PARALLAX_HEADER_HEIGHT, flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Image source={require('../imgs/store/ic_store_top_bg.png')} style={{width:width,height:PARALLAX_HEADER_HEIGHT}}>
                 <View style={{flexDirection:'row',marginLeft:24,height:68,alignItems:'center',marginTop:12}}>
                      <Image source={require('../imgs/store/ic_store_default.png')}
                             style={{width:68,height:68,borderRadius:34}}/>
-                     <Text style={{color:'white',fontSize:16,marginLeft:26}}></Text>
+                     <Text style={{color:'white',fontSize:16,marginLeft:26}}>route.data.name</Text>
                      <View style={{flex:1,alignItems:'flex-end',marginRight:15}}>
                            <Image source={require('../imgs/ic_center_right_arrow.png')}
                                          style={{width:12,height:18}}/>
@@ -265,26 +261,26 @@ class MenuPage extends Component {
      );
   }
 
- // renderBottom(){
- //    const {goods} = this.props;
- //    if (goods.loading) {
- //        //   return <LoadingView />;
- //      }
- //    return (
- //        <View style={{flexDirection:'row',flex:1}}>
- //                <View style={{flex:1}}>
- //                    {
- //                      this.renderContentLeft(this.state.dataSource.cloneWithRows(
- //                         goods.left_items === undefined ? [] : goods.left_items))
- //                    }
- //                </View>
- //               <View style={{flex:3}}>
- //                    {this.renderContentRight(this.state.dataSource.cloneWithRowsAndSections(
- //                         goods.right_items === undefined ? [] : goods.right_items,goods.left_items))}
- //               </View>
- //        </View>
- //    );
- // }
+ renderBottom(){
+    const {goods} = this.props;
+    if (goods.loading) {
+          return <LoadingView />;
+      }
+    return (
+        <View style={{flexDirection:'row',flex:1}}>
+                <View style={{flex:1}}>
+                    {
+                      this.renderContentLeft(this.state.dataSource.cloneWithRows(
+                         goods.left_items === undefined ? [] : goods.left_items))
+                    }
+                </View>
+               <View style={{flex:3}}>
+                    {this.renderContentRight(this.state.dataSource.cloneWithRowsAndSections(
+                         goods.right_items === undefined ? [] : goods.right_items,goods.left_items))}
+               </View>
+        </View>
+    );
+ }
 
   render() {
     return (
@@ -293,7 +289,7 @@ class MenuPage extends Component {
           {this.renderTopLayout()}
           {this.renderStoreBaisc()}
         </View>
-
+        {this.renderBottom()}
       </View>
     );
   }
@@ -328,4 +324,4 @@ function mapStateToProps(state) {
     goods
   }
 }
-export default connect(mapStateToProps)(MenuPage);
+export default connect(mapStateToProps)(Menu);
