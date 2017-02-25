@@ -3,7 +3,7 @@
  */
 'use strict';
 import React, {Component} from 'react';
-import{ 
+import{
     View,
     Text,
     BackAndroid,
@@ -15,13 +15,13 @@ import{
 } from 'react-native';
 
 import { NaviGoBack } from '../../utils/CommonUtils';
-
+import Header from '../../components/Header';
 var content = '';
 var contact = '';
 class FeebBack extends Component {
   constructor(props) {
       super(props);
-      this.buttonBackAction=this.buttonBackAction.bind(this);   
+      this.buttonBackAction=this.buttonBackAction.bind(this);
       this.submiteFeedBack=this.submiteFeedBack.bind(this);
       this.selectFeedBack=this.selectFeedBack.bind(this);
       this._handleOnSelect=this._handleOnSelect.bind(this);
@@ -33,7 +33,7 @@ class FeebBack extends Component {
   _handleOnSelect (value) {
     this.setState({selectData:value})
   }
-  
+
   //返回
   buttonBackAction(){
       const {navigator} = this.props;
@@ -49,19 +49,7 @@ class FeebBack extends Component {
   render() {
         return (
              <View style={{backgroundColor:'#f5f5f5',flex:1}}>
-                <View style={{height:48,backgroundColor:'black',flexDirection:'row'}}>
-                    <TouchableOpacity onPress={() => {this.buttonBackAction()}} 
-                                      style={{width:48,height:48,alignItems:'center',justifyContent:'center'}}>
-                       <Image 
-                          style={{width:13,height:20}}
-                          source={require('../../imgs/ic_center_back.png')}
-                       />
-                    </TouchableOpacity>  
-                    <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
-                       <Text style={{fontSize:18,color:'white',alignSelf:'center'}}>问题报告</Text>   
-                    </View> 
-                    <View style={{width:48,height:48}}/> 
-                </View>
+             <Header title='问题报告' hasBack={true} backAction={()=>{this.buttonBackAction()}} />
                 <View style={{backgroundColor:'white',marginTop:10}}>
                      <View style={styles.fd_content_style}>
                            <View style={{justifyContent:'center'}}><Text style={{marginLeft:10}}>问题类型</Text></View>
@@ -77,7 +65,7 @@ class FeebBack extends Component {
                            </View>
                      </View>
                      <Image source={require('../../imgs/ic_large_bar.png')}/>
-                     <TextInput 
+                     <TextInput
                             style={{ fontSize: 15, textAlignVertical: 'top' }}
                             placeholder="请写下您宝贵的意见或建议..."
                             placeholderTextColor="#aaaaaa"
@@ -90,10 +78,10 @@ class FeebBack extends Component {
                                content = text;
                             }}
                       />
-                    <Image source={require('../../imgs/ic_large_bar.png')}/>  
+                    <Image source={require('../../imgs/ic_large_bar.png')}/>
                     <View style={{flexDirection:'row',height:45,alignItems:'center'}}>
                           <Text style={{marginLeft:13}}>联系方式:</Text>
-                          <TextInput 
+                          <TextInput
                             style={{height:40,fontSize: 15,textAlign: 'left',textAlignVertical:'center',flex:1}}
                             placeholder="必填"
                             placeholderTextColor="#aaaaaa"

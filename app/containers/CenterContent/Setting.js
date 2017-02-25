@@ -11,6 +11,7 @@ import{
 } from 'react-native';
 
 import { NaviGoBack } from '../../utils/CommonUtils';
+import Header from '../../components/Header';
 import SettingItem from '../../components/SettingItem';
 import ShortLine from '../../components/ShortLine';
 import Language from './Language';
@@ -76,19 +77,7 @@ class Setting extends Component {
   render() {
         return (
              <View style={{backgroundColor:'#f5f5f5',flex:1}}>
-                <View style={{height:48,backgroundColor:'black',flexDirection:'row'}}>
-                    <TouchableOpacity onPress={() => {this.buttonBackAction()}}
-                                     style={{justifyContent:'center',alignItems:'center',height:48,width:48}}>
-                       <Image
-                          style={{width:13,height:20}}
-                          source={require('../../imgs/ic_center_back.png')}
-                       />
-                    </TouchableOpacity>
-                    <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
-                       <Text style={{fontSize:18,color:'white',alignSelf:'center'}}>设置</Text>
-                    </View>
-                    <View style={{width:48,height:48}}/>
-                </View>
+                <Header title='设置' hasBack={true} backAction={()=>{this.buttonBackAction()}} />
                 <View style={{flexDirection:'column',flex:1,marginTop:10}}>
                     <SettingItem title="更改密码" onPress={()=>{this.itemButtonAction(2)}}/>
                     <ShortLine/>

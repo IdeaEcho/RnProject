@@ -10,6 +10,7 @@ import{
     TextInput,
 } from 'react-native';
 import { NaviGoBack } from '../../utils/CommonUtils';
+import Header from '../../components/Header';
 import ShortLineTwo from '../../components/ShortLineTwo';
 
 var firstname = '';

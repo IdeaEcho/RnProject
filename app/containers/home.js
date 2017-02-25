@@ -34,14 +34,17 @@ class Home extends Component {
             renderIcon={() => <Image source={require("../imgs/tab_good.png")} style={styles.iconStyle}/>}
             renderSelectedIcon={() => <Image source={require("../imgs/tab_good_press.png")} style={styles.iconStyle}/>}
             onPress={() => this.setState({ selectedTab: 'home' })}>
-            <Menu {...this.props}/>
+            <Scan {...this.props}/>
             </TabNavigator.Item>
             <TabNavigator.Item
             title="订单"
             selected={this.state.selectedTab === 'order'}
             selectedTitleStyle={styles.selectedTextStyle}
             titleStyle={styles.textStyle}
+            renderIcon={() => <Image source={require("../imgs/tab_menu.png")} style={styles.iconStyle}/>}
+            renderSelectedIcon={() => <Image source={require("../imgs/tab_menu_press.png")} style={styles.iconStyle}/>}
             onPress={() => this.setState({ selectedTab: 'order' })}>
+            <Menu {...this.props} />
             </TabNavigator.Item>
 
             <TabNavigator.Item

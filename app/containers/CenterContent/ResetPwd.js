@@ -12,6 +12,7 @@ import{
 } from 'react-native';
 
 import { NaviGoBack } from '../../utils/CommonUtils';
+import Header from '../../components/Header';
 import ShortLineTwo from '../../components/ShortLineTwo';
 
 var username = '';
@@ -42,20 +43,8 @@ class Login extends Component {
   }
   render() {
         return (
-             <View style={{backgroundColor:'#f5f5f5',flex:1}}>
-                <View style={{height:48,backgroundColor:'black',flexDirection:'row'}}>
-                    <TouchableOpacity onPress={() => {this.buttonBackAction()}}
-                                      style={{width:48,height:48,alignItems:'center',justifyContent:'center'}}>
-                       <Image
-                          style={{width:13,height:20}}
-                          source={require('../../imgs/ic_center_back.png')}
-                       />
-                    </TouchableOpacity>
-                    <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
-                       <Text style={{fontSize:18,color:'white',alignSelf:'center'}}>重置密码</Text>
-                    </View>
-                    <View style={{width:48,height:48}}/>
-                </View>
+             <View style={styles.containers}>
+                <Header title='重置密码' hasBack={true} backAction={()=>{this.buttonBackAction()}} />
                 <View style={{backgroundColor:'white',marginTop:13}}>
                     <View style={{flexDirection:'row',height:45,alignItems:'center'}}>
                           <TextInput
@@ -134,21 +123,33 @@ class Login extends Component {
                     </View>
                 </View>
                 <TouchableOpacity onPress={() => {this.resetSuccesAction()}}
-                                  style={{justifyContent:'center',marginTop:13,alignItems:'center'}}>
-                    <Image source={require('../../imgs/logre/ic_login_btn.png')}
-                           style={{width:300,height:40,justifyContent:'center',alignItems:'center'}}>
-                          <Text style={{color:'white',backgroundColor:'rgba(1,1,1,0)'}}>完成</Text>
-                    </Image>
+                                  style={styles.btn}>
+                          <Text style={{color:'#ff7e5e'}}>完成</Text>
                 </TouchableOpacity>
              </View>
         );
     }
 }
 const styles=StyleSheet.create({
+    container: {
+        backgroundColor:'#f5f5f5',
+        flex:1,
+        alignItems:'center'
+    },
     item_layout:{
         backgroundColor:'white',
         height:45,
         justifyContent:'center'
+    },
+    btn:{
+        width:300,
+        height:40,
+        marginTop:20,
+        borderRadius:5,
+        justifyContent:'center',
+        alignItems:'center',
+        borderWidth: 2,
+        borderColor: '#ff7e5e'
     }
 });
 export default Login;
