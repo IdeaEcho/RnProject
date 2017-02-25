@@ -11,9 +11,9 @@ import {
   InteractionManager
 } from 'react-native';
 
-import { NaviGoBack } from '../utils/CommonUtils';
 import { STORE_DETAILS_DATA } from '../common/VirtualData';
 import {formatStore,calculateGood} from '../utils/StoreFormat';
+import Header from '../components/Header';
 import PureListView from '../components/PureListView';
 import { toastShort } from '../utils/ToastUtil';
 import GoodDetails from './GoodDetails';
@@ -32,7 +32,6 @@ let selectedColor = '#fff';  //选中颜色
 class Menu extends Component {
   constructor(props) {
       super(props);
-      this.buttonBackAction=this.buttonBackAction.bind(this);
     //   this.topItemAction=this.topItemAction.bind(this);
       this.onPressItemLeft=this.onPressItemLeft.bind(this);
       this.onPressItemRight=this.onPressItemRight.bind(this);
@@ -57,11 +56,6 @@ class Menu extends Component {
      dispatch(fetchGoodsAction());
   }
 
-    //返回
-  buttonBackAction(){
-      const {navigator} = this.props;
-      return NaviGoBack(navigator);
-  }
   // topItemAction(){
   //     const {navigator} = this.props;
   //      InteractionManager.runAfterInteractions(() => {
@@ -212,30 +206,12 @@ class Menu extends Component {
       </TouchableOpacity>
     );
   }
-  //渲染顶部头布局
-  renderTopLayout(){
-     return (
-       <View style={{height:48,backgroundColor:'black',flexDirection:'row'}}>
-                <View style={{width:48,height:48,justifyContent:'center'}}>
-                     <TouchableOpacity onPress={() => {this.buttonBackAction()}} style={{justifyContent:'center',alignItems:'center'}} >
-                           <Image
-                                 style={{width:13,height:20}}
-                                 source={require('../imgs/ic_center_back.png')}
-                           />
-                     </TouchableOpacity>
-                </View>
-                <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                     <Text style={{color:'white',fontSize:18}}>商品列表</Text>
-                </View>
-          </View>
-     );
-  }
   //渲染商家基本信息布局
   renderStoreBaisc(){
      const {navigator} = this.props;
      return (
        <TouchableOpacity >
-       <View style={{height: PARALLAX_HEADER_HEIGHT, flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+       <View style={styles.container}>
             <Image source={require('../imgs/store/ic_store_top_bg.png')} style={{width:width,height:PARALLAX_HEADER_HEIGHT}}>
                 <View style={{flexDirection:'row',marginLeft:24,height:68,alignItems:'center',marginTop:12}}>
                      <Image source={require('../imgs/store/ic_store_default.png')}
@@ -250,9 +226,9 @@ class Menu extends Component {
                      <TouchableOpacity style={{flexDirection:'row',marginRight:10,alignItems:'center'}}
                          onPress={()=>{this.collectAction()}}>
                          <Image source={require('../imgs/store/ic_store_collection_selected.png')}
-                                style={{width:15,height:13}}
+                                style={{width:20,height:20}}
                          />
-                         <Text style={{color:'black',fontSize:13,marginLeft:6}}>收藏</Text>
+                         <Text style={{color:'black',fontSize:13,marginLeft:4}}>收藏</Text>
                      </TouchableOpacity>
                 </View>
             </Image>
@@ -282,40 +258,72 @@ class Menu extends Component {
     );
  }
 
-  render() {
+    render() {
     return (
-       <View style={{flex:1}}>
-         <View>
-          {this.renderTopLayout()}
-          {this.renderStoreBaisc()}
+        <View style={{flex:1}}>
+            <View>
+                {/*渲染顶部头布局*/}
+                 <Header title='商品列表' hasBack={true} backAction={() => {this.buttonBackAction()}} />
+                {this.renderStoreBaisc()}
+            </View>
+                {this.renderBottom()}
         </View>
-        {this.renderBottom()}
-      </View>
     );
-  }
+    }
 }
 
 const PARALLAX_HEADER_HEIGHT = 100;
 const STICKY_HEADER_HEIGHT = 45;
 
 const styles = StyleSheet.create({
+    container: {
+        height: PARALLAX_HEADER_HEIGHT,
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    topbar_bg:{
+        height:48,
+        backgroundColor:'#ff7e5e',
+        flexDirection:'row'
+    },
+    topbar_left_item:{
+        width:48,
+        height:48,
+        alignItems:'center',
+        justifyContent:'center'
+    },
+    topbar_back_btn:{
+        width:20,
+        height:20,
+    },
+    topbar_center_bg:{
+        flex:1,
+        alignItems:'center',
+        justifyContent:'center'
+    },
+    topbar_center_tv:{
+        fontSize:18,
+        color:'white',
+        alignSelf:'center'
+    },
     separator: {
-       marginLeft:8
+        marginLeft:8
     },
     separatorGood: {
-       height: 1,
-       backgroundColor: '#eee'
-  },
-  font: {
-    fontSize: 12.5,
-    color: '#555555'
-  },
-  item_image:{
-    width:60,
-    height:60,
-    margin:10,
-    borderRadius:5
-  }
+        height: 1,
+        backgroundColor: '#eee'
+    },
+    font: {
+        fontSize: 12.5,
+        color: '#555555'
+    },
+    item_image:{
+        width:60,
+        height:60,
+        margin:10,
+        borderRadius:5
+    }
 });
 
 function mapStateToProps(state) {

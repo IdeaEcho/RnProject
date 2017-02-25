@@ -26,42 +26,46 @@ class Home extends Component {
   render() {
     return (
         <TabNavigator>
-             <TabNavigator.Item
-               title="主页"
-               selected={this.state.selectedTab === 'home'}
-               selectedTitleStyle={styles.selectedTextStyle}
-               titleStyle={styles.textStyle}
-               onPress={() => this.setState({ selectedTab: 'home' })}>
-               <Menu {...this.props}/>
-             </TabNavigator.Item>
-             <TabNavigator.Item
-               title="订单"
-               selected={this.state.selectedTab === 'order'}
-               selectedTitleStyle={styles.selectedTextStyle}
-               titleStyle={styles.textStyle}
-               onPress={() => this.setState({ selectedTab: 'order' })}>
+            <TabNavigator.Item
+            title="推荐"
+            selected={this.state.selectedTab === 'home'}
+            selectedTitleStyle={styles.selectedTextStyle}
+            titleStyle={styles.textStyle}
+            renderIcon={() => <Image source={require("../imgs/tab_good.png")} style={styles.iconStyle}/>}
+            renderSelectedIcon={() => <Image source={require("../imgs/tab_good_press.png")} style={styles.iconStyle}/>}
+            onPress={() => this.setState({ selectedTab: 'home' })}>
+            <Menu {...this.props}/>
+            </TabNavigator.Item>
+            <TabNavigator.Item
+            title="订单"
+            selected={this.state.selectedTab === 'order'}
+            selectedTitleStyle={styles.selectedTextStyle}
+            titleStyle={styles.textStyle}
+            onPress={() => this.setState({ selectedTab: 'order' })}>
+            </TabNavigator.Item>
 
-             </TabNavigator.Item>
-             <TabNavigator.Item
-               title="购物车"
-               selected={this.state.selectedTab === 'cart'}
-               selectedTitleStyle={styles.selectedTextStyle}
-               titleStyle={styles.textStyle}
-               onPress={() => this.setState({ selectedTab: 'cart' })}>
+            <TabNavigator.Item
+            title="购物车"
+            selected={this.state.selectedTab === 'cart'}
+            selectedTitleStyle={styles.selectedTextStyle}
+            titleStyle={styles.textStyle}
+            onPress={() => this.setState({ selectedTab: 'cart' })}>
+            </TabNavigator.Item>
 
-             </TabNavigator.Item>
-             <TabNavigator.Item
-               title="我的"
-               selected={this.state.selectedTab === 'user'}
-               selectedTitleStyle={styles.selectedTextStyle}
-               titleStyle={styles.textStyle}
-               onPress={() => this.setState({ selectedTab: 'user' })}>
-               <User {...this.props}/>
-             </TabNavigator.Item>
-           </TabNavigator>
-    );
-  }
-}
+            <TabNavigator.Item
+            title="我的"
+            selected={this.state.selectedTab === 'user'}
+            selectedTitleStyle={styles.selectedTextStyle}
+            titleStyle={styles.textStyle}
+            renderIcon={() => <Image source={require("../imgs/tab_user.png")} style={styles.iconStyle}/>}
+            renderSelectedIcon={() => <Image source={require("../imgs/tab_user_press.png")} style={styles.iconStyle}/>}
+            onPress={() => this.setState({ selectedTab: 'user' })}>
+            <User {...this.props}/>
+            </TabNavigator.Item>
+        </TabNavigator>
+        );
+        }
+        }
 const styles=StyleSheet.create({
    iconStyle:{
        width:26,
@@ -71,7 +75,7 @@ const styles=StyleSheet.create({
        color:'#999',
    },
    selectedTextStyle:{
-       color:'black',
+       color:'#fb633a',
    }
 });
 export default connect(state => ({

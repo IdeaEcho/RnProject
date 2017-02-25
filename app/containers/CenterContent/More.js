@@ -10,6 +10,7 @@ import{
     InteractionManager,
 } from 'react-native';
 import { NaviGoBack } from '../../utils/CommonUtils';
+import Header from '../../components/Header';
 import ShortLine from '../../components/ShortLine';
 import ShareToFriend from './ShareToFriend';
 
@@ -40,22 +41,10 @@ class More extends Component {
   render() {
         return (
              <View style={{backgroundColor:'white',flex:1}}>
-                <View style={{height:48,backgroundColor:'black',flexDirection:'row'}}>
-                    <TouchableOpacity onPress={() => {this.buttonBackAction()}}
-                                      style={{width:48,height:48,alignItems:'center',justifyContent:'center'}}>
-                       <Image
-                          style={{width:13,height:20}}
-                          source={require('../../imgs/ic_center_back.png')}
-                       />
-                    </TouchableOpacity>
-                    <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
-                       <Text style={{fontSize:18,color:'white',alignSelf:'center'}}>更多</Text>
-                    </View>
-                    <View style={{width:48,height:48}}/>
-                </View>
+                <Header title='更多' hasBack={true} backAction={() => {this.buttonBackAction()}} />
                 <View style={styles.top_layout}>
-                    <Image source={require('../../imgs/ic_center_more_icon.png')} style={{width:100,height:78}}/>
-                    <Text style={{fontSize:15,marginTop:10}}>嘎嘎商城V1.0</Text>
+                    <Image source={require('../../imgs/logo@108.png')} style={{width:108,height:108,borderRadius:20}}/>
+                    <Text style={{fontSize:15,marginTop:10}}>夹虾米V1.0</Text>
                 </View>
                 <TouchableOpacity style={styles.item_layout} onPress={()=>{this.itemButtonAction(0)}}>
                     <Text style={{marginLeft:10}}>检查更新</Text>
@@ -64,7 +53,6 @@ class More extends Component {
                 <TouchableOpacity style={styles.item_layout} onPress={()=>{this.itemButtonAction(1)}}>
                     <Text style={{marginLeft:10}}>分享给好友</Text>
                 </TouchableOpacity>
-                <Image source={require('../../imgs/ic_large_bar.png')}/>
              </View>
         );
     }

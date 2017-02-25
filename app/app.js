@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import{} from 'react-native';
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 

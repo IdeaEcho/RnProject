@@ -3,7 +3,7 @@
  */
 'use strict';
 import React, {Component} from 'react';
-import{ 
+import{
     View,
     Text,
     BackAndroid,
@@ -16,6 +16,7 @@ import{
 } from 'react-native';
 
 import { NaviGoBack } from '../../utils/CommonUtils';
+import Header from '../../components/Header';
 import { CHARGE_DATA } from '../../common/VirtualData';
 import ChargeModify from './ChargeModify';
 
@@ -28,13 +29,13 @@ class Charge extends Component {
          }),
          chargeList : eval(CHARGE_DATA).data,
       }
-      this.buttonBackAction=this.buttonBackAction.bind(this);    
+      this.buttonBackAction=this.buttonBackAction.bind(this);
       this.onPressItem=this.onPressItem.bind(this);
-      this.renderItem = this.renderItem.bind(this); 
+      this.renderItem = this.renderItem.bind(this);
       this.renderFooter = this.renderFooter.bind(this);
       this.addChargeAction=this.addChargeAction.bind(this);
   }
-  
+
   componentDidMount() {
 
   }
@@ -45,7 +46,7 @@ class Charge extends Component {
       return NaviGoBack(navigator);
   }
   onEndReached(typeId) {
-     
+
   }
   //点击列表每一项响应按钮
   onPressItem(charge){
@@ -88,7 +89,7 @@ class Charge extends Component {
     return (
       <View key={`${sectionID}-${rowID}`} style={styles.separator} />
     );
-  } 
+  }
   //渲染每一项的数据
   renderItem(charge) {
     return (
@@ -99,7 +100,7 @@ class Charge extends Component {
                    <Text style={styles.item_tv}>{charge.cardNumber}</Text>
               </View>
               <View style={styles.foot_item_view}>
-                   <Image source={require('../../imgs/ic_center_addressm_card_add.png')} 
+                   <Image source={require('../../imgs/ic_center_addressm_card_add.png')}
                         style={{width:25,height:25,marginRight:10}}/>
               </View>
           </View>
@@ -111,12 +112,12 @@ class Charge extends Component {
         <View style={{height:55,backgroundColor:'#f5f5f5'}}>
            <TouchableOpacity onPress={()=>{this.addChargeAction()}}>
                <View style={{ height: 45, flexDirection: 'row',backgroundColor:'white',marginTop:10}}>
-                 <Image source={require('../../imgs/ic_card_icon.png')} style={{marginLeft:10,width:24,height:18,alignSelf:'center'}}/>
+                 <Image source={require('../../imgs/add_card.png')} style={{marginLeft:10,width:24,height:18,alignSelf:'center'}}/>
                  <View style={{justifyContent:'center'}}>
                     <Text style={[styles.item_tv,{color:'black'}]}>添加信用卡</Text>
                  </View>
                  <View style={[styles.foot_item_view]}>
-                    <Image source={require('../../imgs/ic_center_addressm_add.png')} 
+                    <Image source={require('../../imgs/ic_center_addressm_add.png')}
                            style={{width:25,height:25,marginRight:8}}/>
                  </View>
             </View>
@@ -126,20 +127,8 @@ class Charge extends Component {
   }
   render() {
         return (
-             <View style={{backgroundColor:'#f5f5f5',flex:1}}>
-                <View style={{height:48,backgroundColor:'black',flexDirection:'row'}}>
-                    <TouchableOpacity onPress={() => {this.buttonBackAction()}} 
-                                      style={{width:48,height:48,alignItems:'center',justifyContent:'center'}}>
-                       <Image 
-                          style={{width:13,height:20}}
-                          source={require('../../imgs/ic_center_back.png')}
-                       />
-                    </TouchableOpacity>  
-                    <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
-                       <Text style={{fontSize:18,color:'white',alignSelf:'center'}}>信用卡管理</Text>   
-                    </View> 
-                    <View style={{width:48,height:48}}/> 
-                </View>
+             <View style={styles.container}>
+                <Header title='信用卡管理' hasBack={true} backAction={()=>{this.buttonBackAction()}} />
                 <View >
                      {this.renderContent(this.state.dataSource.cloneWithRows(
                          this.state.chargeList === undefined ? [] : this.state.chargeList))}
@@ -149,6 +138,10 @@ class Charge extends Component {
     }
 }
 const styles=StyleSheet.create({
+    container: {
+        backgroundColor:'#f5f5f5',
+        flex:1
+    },
     top_layout:{
         height:226,
         justifyContent:'center',

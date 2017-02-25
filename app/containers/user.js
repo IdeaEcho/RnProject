@@ -14,6 +14,7 @@ import{
 import Setting from './CenterContent/Setting';
 import More from './CenterContent/More';
 import Login from './CenterContent/Login';
+import Header from '../components/Header';
 import CenterItem from '../components/CenterItem';
 import ImageButton from '../components/ImageButton';
 import ModifyInformation from './CenterContent/ModifyInformation';
@@ -105,21 +106,8 @@ class User extends Component {
 
     render() {
         return (
-            <View style={{flex:1,backgroundColor:'#f5f5f5'}}>
-               <View style={{height:45,backgroundColor:'black',flexDirection:'row'}}>
-                   <View style={{flex:1}}></View>
-                   <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
-                      <Text style={{fontSize:18,color:'white',alignSelf:'center'}}>我的</Text>
-                   </View>
-                   <View style={{flex:1,justifyContent:'flex-end',alignItems:'center',flexDirection:'row'}}>
-                   <TouchableOpacity onPress={() => {this.settingButtonAction()}} style={{marginRight:10,justifyContent:'center'}}>
-                      <Image
-                         style={{width:24,height:22}}
-                         source={require('../imgs/ic_center_setting.png')}
-                      />
-                   </TouchableOpacity>
-                   </View>
-               </View>
+            <View style={styles.container}>
+               <Header title='我的' />
 
                <View style={{backgroundColor:'white'}}>
                    <View style={{flexDirection:'row',height:100}}>
@@ -144,24 +132,24 @@ class User extends Component {
 
                <CenterItem
                   title='信用卡管理'
-                  icon={require('../imgs/ic_center_card.png')}
+                  icon={require('../imgs/user_card.png')}
                   onPress={()=>this.itemActionIndex(2)}/>
                <View style={[styles.top_line,styles.center_line]}></View>
                <CenterItem
                   title='收藏'
-                  icon={require('../imgs/ic_center_collect.png')}
+                  icon={require('../imgs/user_collect.png')}
                   onPress={()=>this.itemActionIndex(3)}/>
                <View style={[styles.top_line,styles.center_line]}></View>
+
                <CenterItem
-                  title='商家合作'
-                  icon={require('../imgs/ic_center_hezuo.png')}
-                  onPress={()=>this.itemActionIndex(4)}/>
+                  title='设置'
+                  icon={require('../imgs/user_setting.png')}
+                  onPress={()=>this.settingButtonAction()}/>
                <View style={[styles.top_line,styles.center_line]}></View>
 
-               <View style={[styles.top_line,{marginTop:10}]}></View>
                <CenterItem
                   title='更多'
-                  icon={require('../imgs/ic_center_more.png')}
+                  icon={require('../imgs/user_more.png')}
                   onPress={()=>this.itemActionIndex(5)}/>
                <View style={styles.top_line}></View>
 
@@ -174,6 +162,15 @@ class User extends Component {
 }
 
 const styles = StyleSheet.create({
+    container:{
+        backgroundColor:'#f5f5f5',
+        flex:1
+    },
+    topbar_bg:{
+        height:48,
+        backgroundColor:'#ff7e5e',
+        flexDirection:'row'
+    },
     button: {
         height: 40,
         width: 100,
@@ -185,10 +182,7 @@ const styles = StyleSheet.create({
         textAlign:'center',
         color: 'white',
     },
-    container: {
-        flex: 1,
-  },
-  top_line:{
+    top_line:{
         height:1,
         backgroundColor:'#ccc'
     },

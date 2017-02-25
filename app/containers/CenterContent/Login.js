@@ -15,6 +15,7 @@ import{
 //(Platform.OS === 'ios') ? '' : '';
 import { NaviGoBack } from '../../utils/CommonUtils';
 import Register from './Register';
+import Header from '../../components/Header';
 import ShortLineTwo from '../../components/ShortLineTwo';
 import ResetPwd from  './ResetPwd';
 import FetchHttpClient, { form,header } from 'fetch-http-client';
@@ -102,26 +103,13 @@ class Login extends Component {
     render() {
       const {login} = this.props;
       return (
-             <View style={{backgroundColor:'#f5f5f5',flex:1}}>
-                <View style={styles.topbar_bg}>
-                    <TouchableOpacity onPress={() => {this.buttonBackAction()}}
-                                      style={styles.topbar_left_item}>
-                       <Image
-                          style={{width:13,height:20}}
-                          source={require('../../imgs/ic_center_back.png')}
-                       />
-                    </TouchableOpacity>
-                    <View style={styles.topbar_center_bg}>
-                       <Text style={styles.topbar_center_tv}>登录</Text>
-                    </View>
-                    <TouchableOpacity onPress={() => {this.buttonRegisterOrLoginAction(1)}}
-                                      style={styles.topbar_right_item}>
-                       <Text style={styles.topbar_right_tv}>注册</Text>
-                    </TouchableOpacity>
-                </View>
+             <View style={styles.container}>
+                <Header title='登陆' right='注册' hasBack={true} hasRight={true}
+                backAction={()=>{this.buttonBackAction()}}
+                rightAction={() => {this.buttonRegisterOrLoginAction(1)}} />
                 <View style={{backgroundColor:'white',marginTop:13}}>
                     <View style={{flexDirection:'row',height:45,alignItems:'center'}}>
-                          <Image source={require('../../imgs/logre/ic_tele.png')}
+                          <Image source={require('../../imgs/logre/tele.png')}
                                  style={styles.textInput_icon}/>
                           <TextInput
                             style={styles.textInput}
@@ -139,7 +127,7 @@ class Login extends Component {
                     </View>
                     <ShortLineTwo/>
                     <View style={{flexDirection:'row',height:45,alignItems:'center'}}>
-                          <Image source={require('../../imgs/logre/ic_pwd.png')}
+                          <Image source={require('../../imgs/logre/pwd.png')}
                                  style={styles.textInput_icon}/>
                           <TextInput
                             style={styles.textInput}
@@ -161,11 +149,8 @@ class Login extends Component {
                     </View>
                 </View>
                 <TouchableOpacity onPress={() => {this.buttonRegisterOrLoginAction(0)}}
-                                  style={{justifyContent:'center',marginTop:13,alignItems:'center'}}>
-                    <Image source={require('../../imgs/logre/ic_login_btn.png')}
-                           style={{width:300,height:40,justifyContent:'center',alignItems:'center'}}>
-                          <Text style={{color:'white'}}>登录</Text>
-                    </Image>
+                           style={styles.btn}>
+                          <Text style={{color:'#ff7e5e'}}>登录</Text>
                 </TouchableOpacity>
                 <View style={{alignItems:'flex-end',marginTop:13}}>
                     <TouchableOpacity onPress={()=>{this.findPwdAction()}} style={{marginRight:10}}>
@@ -192,6 +177,11 @@ class Login extends Component {
     }
 }
 const styles=StyleSheet.create({
+    container: {
+        backgroundColor:'#f5f5f5',
+        flex:1,
+        alignItems:'center'
+    },
     item_layout:{
         backgroundColor:'white',
         height:48,
@@ -199,7 +189,7 @@ const styles=StyleSheet.create({
     },
     topbar_bg:{
         height:48,
-        backgroundColor:'black',
+        backgroundColor:'#ff7e5e',
         flexDirection:'row'
     },
     topbar_left_item:{
@@ -207,6 +197,10 @@ const styles=StyleSheet.create({
         height:48,
         alignItems:'center',
         justifyContent:'center'
+    },
+    topbar_back_btn:{
+        width:20,
+        height:20,
     },
     topbar_center_bg:{
         flex:1,
@@ -240,6 +234,16 @@ const styles=StyleSheet.create({
         width:19,
         height:18,
         marginLeft:13
+    },
+    btn:{
+        width:300,
+        height:40,
+        marginTop:20,
+        borderRadius:5,
+        justifyContent:'center',
+        alignItems:'center',
+        borderWidth: 2,
+        borderColor: '#ff7e5e'
     }
 });
 
