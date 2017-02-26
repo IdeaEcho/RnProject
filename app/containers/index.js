@@ -14,6 +14,7 @@ import{
     InteractionManager,
 } from 'react-native';
 import {IndicatorViewPager, PagerDotIndicator} from 'rn-viewpager';
+import Scan from './scan';
 import ShortLine from '../components/ShortLine';
 // import WebViewDetails from './WebViewDetails';
 
@@ -123,15 +124,8 @@ class Index extends Component {
       if(position === 0){
           InteractionManager.runAfterInteractions(() => {
             navigator.push({
-              component: City,
-              name: 'City'
-              });
-            });
-      }else if(position === 1){
-          InteractionManager.runAfterInteractions(() => {
-            navigator.push({
-              component: Search,
-              name: 'Search'
+              component: Scan,
+              name: 'Scan'
               });
             });
       }
@@ -143,22 +137,13 @@ class Index extends Component {
         return (
            <View style={{backgroundColor:'#f5f5f5',flex:1}}>
               <View style={{height:48,backgroundColor:'black',flexDirection:'row'}}>
-                <View style={{flex:1,justifyContent:'center'}}>
-                     <TouchableOpacity onPress={()=>{this.topItemAction(0)}}>
-                          <View style={{justifyContent:'flex-start',flexDirection:'row',alignItems:'center'}}>
-                                <Image source={require('../imgs/home/ic_home_top_location.png')}
-                                       style={{width:20,height:26,marginLeft:8}}/>
-                                <Text style={{color:'white',fontSize:13,marginLeft:3}}>定位中</Text>
-                          </View>
-                    </TouchableOpacity>
-                </View>
                 <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
-                    <Image source={require('../imgs/home/ic_home_top_icon.png')} style={{width:32,height:25}}/>
+                    <Image source={require('../imgs/logo@108.png')} style={{width:25,height:25}}/>
                 </View>
                 <View style={{justifyContent:'flex-end',alignItems:'center',flex:1,flexDirection:'row'}}>
-                    <TouchableOpacity onPress={()=>{this.topItemAction(1)}}>
-                         <Image source={require('../imgs/home/ic_home_top_search.png')}
-                           style={{width:24,height:24,marginRight:8,alignItems:'center'}}/>
+                    <TouchableOpacity onPress={()=>{this.topItemAction(0)}}>
+                         <Image source={require('../imgs/scan.png')}
+                           style={{width:25,height:25,marginRight:8,alignItems:'center'}}/>
                     </TouchableOpacity>
                 </View>
               </View>

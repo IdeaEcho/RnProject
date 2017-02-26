@@ -3,7 +3,7 @@
  */
 'use strict';
 import React, {Component} from 'react';
-import{ 
+import{
     View,
     Text,
     Dimensions,
@@ -13,17 +13,17 @@ import{
     WebView,
 } from 'react-native';
 import { NaviGoBack } from '../utils/CommonUtils';
-import LoadingView from '../component/LoadingView';
+import LoadingView from '../components/LoadingView';
 
 let canGoBack = false;
 
 class WebViewDetails extends Component {
-   
+
   constructor(props) {
     super(props);
-    this.buttonBackAction=this.buttonBackAction.bind(this);    
-  } 
-  
+    this.buttonBackAction=this.buttonBackAction.bind(this);
+  }
+
    //返回
   buttonBackAction(){
     if (canGoBack) {
@@ -41,11 +41,11 @@ class WebViewDetails extends Component {
        <View style={{height:48,backgroundColor:'black',flexDirection:'row'}}>
                 <View style={{width:48,height:48,justifyContent:'center'}}>
                      <TouchableOpacity onPress={() => {this.buttonBackAction()}} style={{justifyContent:'center',alignItems:'center'}} >
-                           <Image 
+                           <Image
                                  style={{width:13,height:20}}
                                  source={require('../imgs/ic_center_back.png')}
                            />
-                     </TouchableOpacity>  
+                     </TouchableOpacity>
                 </View>
                 <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
                      <Text style={{color:'white',fontSize:18}}>网页页面</Text>
@@ -58,7 +58,7 @@ class WebViewDetails extends Component {
   renderLoading() {
     return <LoadingView />;
   }
-   
+
    render() {
     return (
         <View style={{flex:1,backgroundColor:'white'}}>
@@ -80,7 +80,7 @@ class WebViewDetails extends Component {
           onNavigationStateChange={this.onNavigationStateChange}
           renderLoading={this.renderLoading}
         />
-      </View>  
+      </View>
     );
   }
 }

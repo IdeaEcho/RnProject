@@ -36,7 +36,7 @@ class Home extends Component {
             renderIcon={() => <Image source={require("../imgs/tab_good.png")} style={styles.iconStyle}/>}
             renderSelectedIcon={() => <Image source={require("../imgs/tab_good_press.png")} style={styles.iconStyle}/>}
             onPress={() => this.setState({ selectedTab: 'home' })}>
-            <Scan {...this.props}/>
+            <Index {...this.props}/>
             </TabNavigator.Item>
             <TabNavigator.Item
             title="订单"
