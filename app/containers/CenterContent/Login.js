@@ -148,8 +148,7 @@ class Login extends Component {
                           </TouchableOpacity>
                     </View>
                 </View>
-                <TouchableOpacity onPress={() => {this.buttonRegisterOrLoginAction(0)}}
-                           style={styles.btn}>
+                <TouchableOpacity onPress={() => {this.buttonRegisterOrLoginAction(0)}}  style={styles.btn}>
                           <Text style={{color:'#ff7e5e'}}>登录</Text>
                 </TouchableOpacity>
                 <View style={{alignItems:'flex-end',marginTop:13}}>

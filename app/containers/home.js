@@ -11,6 +11,8 @@ import {
  } from 'react-native';
 import TabNavigator from 'react-native-tab-navigator';
 import Menu from './menu';
+import Cart from './cart';
+import Index from './index';
 import Scan from './scan';
 import User from './user';
 import * as counterActions from '../actions/counterActions';
@@ -52,7 +54,10 @@ class Home extends Component {
             selected={this.state.selectedTab === 'cart'}
             selectedTitleStyle={styles.selectedTextStyle}
             titleStyle={styles.textStyle}
+            renderIcon={() => <Image source={require("../imgs/tab_cart.png")} style={styles.iconStyle}/>}
+            renderSelectedIcon={() => <Image source={require("../imgs/tab_cart_press.png")} style={styles.iconStyle}/>}
             onPress={() => this.setState({ selectedTab: 'cart' })}>
+            <Cart {...this.props} />
             </TabNavigator.Item>
 
             <TabNavigator.Item

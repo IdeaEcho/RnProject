@@ -43,7 +43,7 @@ class Login extends Component {
   }
   render() {
         return (
-             <View style={styles.containers}>
+             <View style={styles.container}>
                 <Header title='重置密码' hasBack={true} backAction={()=>{this.buttonBackAction()}} />
                 <View style={{backgroundColor:'white',marginTop:13}}>
                     <View style={{flexDirection:'row',height:45,alignItems:'center'}}>
@@ -122,8 +122,7 @@ class Login extends Component {
                           </TouchableOpacity>
                     </View>
                 </View>
-                <TouchableOpacity onPress={() => {this.resetSuccesAction()}}
-                                  style={styles.btn}>
+                <TouchableOpacity onPress={() => {this.resetSuccesAction()}} style={styles.btn}>
                           <Text style={{color:'#ff7e5e'}}>完成</Text>
                 </TouchableOpacity>
              </View>
@@ -132,14 +131,14 @@ class Login extends Component {
 }
 const styles=StyleSheet.create({
     container: {
-        backgroundColor:'#f5f5f5',
-        flex:1,
-        alignItems:'center'
+        backgroundColor: '#f5f5f5',
+        flex: 1,
+        alignItems: 'center'
     },
     item_layout:{
-        backgroundColor:'white',
-        height:45,
-        justifyContent:'center'
+        backgroundColor: 'white',
+        height: 45,
+        justifyContent: 'center'
     },
     btn:{
         width:300,
@@ -147,7 +146,7 @@ const styles=StyleSheet.create({
         marginTop:20,
         borderRadius:5,
         justifyContent:'center',
-        alignItems:'center',
+        alignItems: 'center',
         borderWidth: 2,
         borderColor: '#ff7e5e'
     }
