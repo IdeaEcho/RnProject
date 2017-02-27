@@ -3,25 +3,29 @@
 import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import BarcodeScanner from 'react-native-barcodescanner';
+
 import {
   AppRegistry,
   StyleSheet,
   Text,
   Vibration,
-  View
+  View,
+  InteractionManager
 } from 'react-native';
-
+import Url from '../utils/Url';
+import Menu from './menu';
 // @connect(state => ({
 //   state: state.counter
 // }))
 class Scan extends Component {
   constructor(props) {
     super(props);
-
+    var url = 'http://eat.ichancer.cn/index.php/orderinterface/getmenu.html?token=a44f8138457ecb9e87daa34bd8501cb5&id=1'
+    var text = Url.getUrlParam(url, 'token');
     this.state = {
       barcode: '',
       cameraType: 'back',
-      text: 'Scan Barcode',
+      text: text,
       torchMode: 'off',
       type: '',
     };
@@ -30,11 +34,20 @@ class Scan extends Component {
   barcodeReceived(e) {
     if (e.data !== this.state.barcode || e.type !== this.state.type) Vibration.vibrate();
 
-    this.setState({
-      barcode: e.data,
-      text: `${e.data} (${e.type})`,
-      type: e.type,
-    });
+
+    // this.setState({
+    //   barcode: e.data,
+    //   text: `${e.data} (${e.type})`,
+    //   type: e.type,
+    // });
+    // const {navigator} = this.props;
+    //  InteractionManager.runAfterInteractions(() => {
+    //       navigator.push({
+    //         component: Menu,
+    //         name: 'Menu',
+    //         data: data
+    //       });
+    //     });
   }
 
 

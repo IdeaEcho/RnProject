@@ -1,12 +1,11 @@
 'use strict';
 
-let HOST= 'http://10.18.3.32:8080/';
+let HOST= 'http://eat.ichancer.cn/index.php/';
 
 export function requestData(url,method,body){
   return new Promise((resolve, reject) => {
     fetch(HOST + url, {
         headers: {
-             'apikey': '8a9283a0567d5bea01567d5beaf90000',
              'Accept': 'application/json',
              'Content-Type': 'application/x-www-form-urlencoded',
           },

@@ -99,80 +99,30 @@ export const CHARGE_DATA={
 
 export const STORE_DETAILS_DATA={
     "data":{
-        "food_spu_tags": [
+        "store_info": {
+            "name": "店铺名",
+            "icon": "店铺头像",
+            "phone": "18959386000"
+        },
+        "food_tags": [
             {
-                "tag": "100",
+                "id": "100",
                 "name": "热销",
-                "icon": "http://p1.meituan.net/xianfu/10ba72e043ef4eca806cafb1a90a22662048.png",
-                "current_page": 0,
-                "has_next_page": true,
-                "product_count": 0,
+                "food_count": 0,
                 "type": 3,
-                "selected": 0,
-                "tag_description": "",
+                "status": 0,
                 "description": "",
-                "sequence": 0,
-                "spus": [
+                "food": [
                     {
                         "id": 34783476,
                         "name": "蒜酱炸鸡半份",
-                        "min_price": 35,
-                        "praise_num": 169,
-                        "praise_content": "赞169",
-                        "tread_num": 1,
-                        "praise_num_new": 29,
-                        "unit": "",
-                        "description": "",
-                        "picture": "http://p1.meituan.net/xianfu/310054aabfaff083e50b6a52a57a33b647104.jpg.webp",
-                        "month_saled": 285,
-                        "month_saled_content": "月售285",
                         "status": 0,
-                        "status_description": "",
-                        "status_remind_list": [],
-                        "attrs": [],
-                        "sku_label": "规格",
-                        "skus": [
-                            {
-                                "id": 35405075,
-                                "spec": "",
-                                "description": "",
-                                "picture": "http://p1.meituan.net/xianfu/310054aabfaff083e50b6a52a57a33b647104.jpg.webp",
-                                "price": 35,
-                                "origin_price": 35,
-                                "box_num": 1,
-                                "box_price": 1,
-                                "min_order_count": 1,
-                                "status": 0,
-                                "stock": 0,
-                                "real_stock": -1,
-                                "activity_stock": 0,
-                                "restrict": 0,
-                                "promotion_info": ""
-                            }
-                        ],
-                        "tag": "12591400",
-                        "sequence": 12,
-                        "promotion_info": "",
-                        "activity_tag": "",
-                        "share_tip": {
-                            "description": "",
-                            "description_icon": "",
-                            "share_button_icon": "",
-                            "activity_id": 0,
-                            "share_info": {
-                                "icon": "",
-                                "title": "",
-                                "content": "",
-                                "url": ""
-                            }
-                        },
-                        "activity_type": 0,
-                        "activity_policy": {
-                            "discount_by_count": {
-                                "count": 0,
-                                "discount": 1
-                            }
-                        }
+                        "grades":5,
+                        "price": 35,
+                        "praise_num": 169,
+                        "month_saled": 285,
+                        "description": "",
+                        "picture": "http://p1.meituan.net/xianfu/310054aabfaff083e50b6a52a57a33b647104.jpg.webp"
                     },
                     {
                         "id": 34783471,
@@ -744,12 +694,10 @@ export const STORE_DETAILS_DATA={
                         }
                     }
                 ],
-                "buzType": 0
             },
             {
                 "tag": "d1715540",
                 "name": "折扣",
-                "icon": "http://p0.meituan.net/xianfu/c0ed373ef24e9159dedcfc0cb4bf4f2c2048.png",
                 "current_page": 0,
                 "has_next_page": true,
                 "product_count": 0,
@@ -758,7 +706,7 @@ export const STORE_DETAILS_DATA={
                 "tag_description": "",
                 "description": "",
                 "sequence": 1,
-                "spus": [
+                "food": [
                     {
                         "id": 105989019,
                         "name": "薄荷柠檬苏打",
@@ -1079,7 +1027,7 @@ export const STORE_DETAILS_DATA={
                 "tag_description": "",
                 "description": "",
                 "sequence": 0,
-                "spus": [
+                "food": [
                     {
                         "id": 98853099,
                         "name": "风味芝士鸡块整份",
@@ -1583,7 +1531,7 @@ export const STORE_DETAILS_DATA={
                 "tag_description": "",
                 "description": "",
                 "sequence": 1,
-                "spus": [
+                "food": [
                     {
                         "id": 34783471,
                         "name": "果酱炸鸡半份",
@@ -2595,7 +2543,7 @@ export const STORE_DETAILS_DATA={
                 "tag_description": "",
                 "description": "",
                 "sequence": 2,
-                "spus": [
+                "food": [
                     {
                         "id": 34783481,
                         "name": "原味鸡块半份",
@@ -3597,7 +3545,7 @@ export const STORE_DETAILS_DATA={
                 "tag_description": "",
                 "description": "",
                 "sequence": 3,
-                "spus": [
+                "food": [
                     {
                         "id": 34783493,
                         "name": "原味鸡翅半份",
@@ -4589,7 +4537,7 @@ export const STORE_DETAILS_DATA={
                 "tag_description": "",
                 "description": "",
                 "sequence": 4,
-                "spus": [
+                "food": [
                     {
                         "id": 34783508,
                         "name": "韩式年糕汤",
@@ -5235,7 +5183,7 @@ export const STORE_DETAILS_DATA={
                 "tag_description": "",
                 "description": "",
                 "sequence": 5,
-                "spus": [
+                "food": [
                     {
                         "id": 102895082,
                         "name": "德国古力黑啤",

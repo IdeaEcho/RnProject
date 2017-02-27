@@ -187,10 +187,10 @@ class Menu extends Component {
                 <View style={{flex:1,marginTop:10,marginBottom:10}}>
                      <Text style={{marginRight:8,color:'black'}}>{data.name}</Text>
                      <View style={{flexDirection:'row',marginTop:5}}>
-                            <Text style={{fontSize:10,color:'#aaa'}}>{data.month_saled_content}</Text>
-                            <Text style={{marginLeft:10,fontSize:11,color:'#aaa'}}>{data.praise_content}</Text>
+                            <Text style={{fontSize:10,color:'#aaa'}}>月售{data.month_saled}</Text>
+                            <Text style={{marginLeft:10,fontSize:11,color:'#aaa'}}>赞{data.praise}</Text>
                      </View>
-                     <Text style={{color:'red',fontSize:15,marginTop:5}}>¥{data.min_price}</Text>
+                     <Text style={{color:'red',fontSize:15,marginTop:5}}>¥{data.price}</Text>
                 </View>
                 <View style={{justifyContent:'flex-end'}}>
                      <TouchableOpacity style={{width:30,height:30,marginRight:10,marginBottom:10}}
