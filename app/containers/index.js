@@ -152,10 +152,10 @@ class Index extends Component {
                     style={{height:140}}
                     indicator={this._renderDotIndicator()}
                      >
-                    <View><Image source={BANNER_IMGS[0]}/></View>
-                    <View><Image source={BANNER_IMGS[1]}/></View>
-                    <View><Image source={BANNER_IMGS[2]}/></View>
-                    <View><Image source={BANNER_IMGS[3]}/></View>
+                    <View><Image style={{resizeMode:'contain'}} source={BANNER_IMGS[0]}/></View>
+                    <View><Image style={{resizeMode:'contain'}} source={BANNER_IMGS[1]}/></View>
+                    <View><Image style={{resizeMode:'contain'}} source={BANNER_IMGS[2]}/></View>
+                    <View><Image style={{resizeMode:'contain'}} source={BANNER_IMGS[3]}/></View>
              </IndicatorViewPager>
 
              <View style={{marginTop:8}}>
@@ -203,7 +203,7 @@ class Index extends Component {
                   <View style={{flexDirection:'row',height:70}}>
                         <TouchableOpacity onPress={()=>{this.centerItemAction(0)}}>
                         <View style={{flexDirection:'row',width:item_width,marginTop:5}}>
-                              <Image source={CENTER_IMGS[4]} style={{width:66,height:47,marginLeft:20}}/>
+                              <Image source={CENTER_IMGS[4]} style={styles.four_item_img}/>
                               <View style={{marginLeft:10}}>
                                   <Text>每日优惠</Text>
                                   <Text style={{color:'#999',fontSize:13,marginTop:5}}>优惠早知道</Text>
@@ -214,7 +214,7 @@ class Index extends Component {
                         <Image source={require('../imgs/home/ic_home_shu.png')} style={{height:60,marginTop:10}}/>
                         <TouchableOpacity onPress={()=>{this.centerItemAction(1)}}>
                         <View style={{flexDirection:'row',width:item_width,marginTop:8}}>
-                              <Image source={CENTER_IMGS[5]} style={{width:40,height:53,marginLeft:20}}/>
+                              <Image source={CENTER_IMGS[5]} style={styles.four_item_img}/>
                               <View style={{marginLeft:10}}>
                                   <Text>充值返现</Text>
                                   <Text style={{color:'#999',fontSize:13,marginTop:5}}>充100送50</Text>
@@ -226,7 +226,7 @@ class Index extends Component {
                   <ShortLine/>
                   <View style={{flexDirection:'row',height:70}}>
                         <View style={{flexDirection:'row',width:item_width,marginTop:3}}>
-                              <Image source={CENTER_IMGS[6]} style={{width:50,height:67,marginLeft:20}}/>
+                              <Image source={CENTER_IMGS[6]} style={styles.four_item_img}/>
                               <View style={{marginLeft:10,marginTop:8}}>
                                   <Text>评论送积分</Text>
                                   <Text style={{color:'#999',fontSize:13,marginTop:5}}>评价免费拿积分</Text>
@@ -234,10 +234,10 @@ class Index extends Component {
                         </View>
                         <Image source={require('../imgs/home/ic_home_shu.png')} style={{height:60}}/>
                         <View style={{flexDirection:'row',width:item_width,marginTop:8}}>
-                              <Image source={CENTER_IMGS[7]} style={{width:40,height:40,marginLeft:20,marginTop:5}}/>
+                              <Image source={CENTER_IMGS[7]} style={styles.four_item_img}/>
                               <View style={{marginLeft:10}}>
-                                  <Text>嘎嘎商城</Text>
-                                  <Text style={{color:'#999',fontSize:13,marginTop:5}}>注册嘎嘎商城</Text>
+                                  <Text>夹虾米</Text>
+                                  <Text style={{color:'#999',fontSize:13,marginTop:5}}>注册夹虾米</Text>
                               </View>
                         </View>
                   </View>
@@ -314,6 +314,11 @@ const styles=StyleSheet.create({
         fontSize:14,
         marginBottom:8,
         backgroundColor:'#00000000'
+    },
+    four_item_img:{
+        width:66,
+        height:47,
+        marginLeft:10
     }
 });
 export default Index;
