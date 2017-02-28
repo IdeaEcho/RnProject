@@ -46,7 +46,8 @@ class Menu extends Component {
            getSectionHeaderData: (dataBlob, sid) => dataBlob[sid],
            rowHasChanged: (row1, row2) => row1 !== row2,
            sectionHeaderHasChanged: (s1, s2) => s1 !== s2
-         })
+       }),
+         cart:null
       }
   }
 
@@ -67,6 +68,16 @@ class Menu extends Component {
   // }
   collectAction(){
       toastShort('点击收藏按钮...');
+  }
+  //加入购物车
+  addToCartAction(data) {
+
+      toastShort('点击添加购物车图标...'+data.id+data.name+ data.price+data.picture);
+      //添加到购物车列表
+      //addProduct(id, name, price, url);
+      //更新菜品数量
+      //更新总价
+      //show cart
   }
   /**
    * Render a separator between rows
@@ -104,7 +115,6 @@ class Menu extends Component {
 
   //进行渲染左侧列表数据-商品分类
   renderContentLeft(dataSource) {
-
     return (
       <ListView
         initialListSize={1}
@@ -194,9 +204,7 @@ class Menu extends Component {
                 </View>
                 <View style={{justifyContent:'flex-end'}}>
                      <TouchableOpacity style={{width:30,height:30,marginRight:10,marginBottom:10}}
-                          onPress={()=>{
-                                  toastShort('点击添加购物车图标...');
-                          }}
+                          onPress={()=>{this.addToCartAction(data)}}
                           >
                           <Image source={require('../imgs/store/ic_store_add.png')}
                                  style={{width:20,height:20}}/>
