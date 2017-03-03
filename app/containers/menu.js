@@ -1,4 +1,3 @@
-
 import React, { Component,PropTypes } from 'react'
 import {
   Dimensions,
@@ -16,6 +15,7 @@ import {formatStore,calculateGood} from '../utils/StoreFormat';
 import Header from '../components/Header';
 import PureListView from '../components/PureListView';
 import { toastShort } from '../utils/ToastUtil';
+// import { addToCart } from '../actions'
 import GoodDetails from './GoodDetails';
 // import Merchants from './Merchants';
 import Loading from '../components/Loading_DD';
@@ -37,6 +37,7 @@ class Menu extends Component {
       this.onPressItemRight=this.onPressItemRight.bind(this);
       this.renderItemLeft = this.renderItemLeft.bind(this);
       this.renderItemRight=this.renderItemRight.bind(this);
+    //   this.addToCartAction=this.addToCartAction.bind(this);
       this.collectAction=this.collectAction.bind(this);
       this.renderBottom=this.renderBottom.bind(this);
       //ListView.DataSource:从原始输入数据中抽取数据来创建ListViewDataSource对象
@@ -46,8 +47,7 @@ class Menu extends Component {
            getSectionHeaderData: (dataBlob, sid) => dataBlob[sid],
            rowHasChanged: (row1, row2) => row1 !== row2,
            sectionHeaderHasChanged: (s1, s2) => s1 !== s2
-       }),
-         cart:null
+       })
       }
   }
 
@@ -70,17 +70,18 @@ class Menu extends Component {
       toastShort('点击收藏按钮...');
   }
   //加入购物车
-  addToCartAction(data) {
-
-      toastShort('点击添加购物车图标...'+data.id+data.name+ data.price+data.picture);
-      //添加到购物车列表
-      //addProduct(id, name, price, url);
-      //更新菜品数量
-      //更新总价
-      //show cart
-  }
+  // addToCartAction(data) {
+  //
+  //     toastShort('点击添加购物车图标...'+data.id+data.name+ data.price+data.picture);
+  //
+  //     //添加到购物车列表
+  //     //addProduct(id, name, price, url);
+  //     //更新菜品数量
+  //     //更新总价
+  //     //show cart
+  // }
   /**
-   * Render a separator between rows
+   * 渲染分割线
    */
   _renderSeparatorView(sectionID, rowID, adjacentRowHighlighted) {
     return (
@@ -189,22 +190,22 @@ class Menu extends Component {
          )
      }
   }
+//渲染每一项的数据
   renderItemRight(data) {
     return (
       <TouchableOpacity onPress={()=>{this.onPressItemRight(data)}}>
            <View style={{backgroundColor:'white',flexDirection:'row'}}>
                 {this.renderItemImage(data)}
                 <View style={{flex:1,marginTop:10,marginBottom:10}}>
-                     <Text style={{marginRight:8,color:'black'}}>{data.name}</Text>
+                     <Text style={styles.item_title}>{data.name}</Text>
                      <View style={{flexDirection:'row',marginTop:5}}>
-                            <Text style={{fontSize:10,color:'#aaa'}}>月售{data.month_saled}</Text>
-                            <Text style={{marginLeft:10,fontSize:11,color:'#aaa'}}>赞{data.praise}</Text>
+                            <Text style={styles.item_des}>月售{data.month_saled}</Text>
+                            <Text style={styles.item_des}>赞{data.praise}</Text>
                      </View>
-                     <Text style={{color:'red',fontSize:15,marginTop:5}}>¥{data.price}</Text>
+                     <Text style={styles.item_price}>¥{data.price}</Text>
                 </View>
                 <View style={{justifyContent:'flex-end'}}>
-                     <TouchableOpacity style={{width:30,height:30,marginRight:10,marginBottom:10}}
-                          onPress={()=>{this.addToCartAction(data)}}
+                     <TouchableOpacity style={styles.btn_add}
                           >
                           <Image source={require('../imgs/store/ic_store_add.png')}
                                  style={{width:20,height:20}}/>
@@ -331,6 +332,26 @@ const styles = StyleSheet.create({
         height:60,
         margin:10,
         borderRadius:5
+    },
+    item_title:{
+        marginRight:8,
+        color:'black'
+    },
+    item_des:{
+        marginRight:10,
+        fontSize:11,
+        color:'#aaa'
+    },
+    item_price:{
+        color:'red',
+        fontSize:15,
+        marginTop:5
+    },
+    btn_add:{
+        width:30,
+        height:30,
+        marginRight:10,
+        marginBottom:10
     }
 });
 
@@ -340,4 +361,6 @@ function mapStateToProps(state) {
     goods
   }
 }
-export default connect(mapStateToProps)(Menu);
+export default connect(
+    mapStateToProps
+)(Menu);

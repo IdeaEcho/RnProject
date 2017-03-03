@@ -20,7 +20,17 @@ class Cart extends Component {
         super(props);
         this.topItemAction=this.topItemAction.bind(this);
         this.payItemAction=this.payItemAction.bind(this);
-
+        this.state = {
+            dataSource: new ListView.DataSource({
+              getRowData: (dataBlob, sid, rid) => dataBlob[sid][rid],
+              rowHasChanged: (row1, row2) => row1 !== row2,
+            })
+        }
+    }
+    componentWillMount() {
+       const {dispatch} = this.props;
+       //开始加载商品列表数据
+       dispatch(fetchGoodsAction());
     }
     topItemAction(position){
         if(position === 0){
@@ -28,8 +38,7 @@ class Cart extends Component {
         }
     }
     renderItemImage(data){
-    //    if(data.picture === ''){
-    if(true){
+        if(true){
          return (
               <Image source={require('../imgs/ic_center_icon.png')} style={styles.item_image} />
            )

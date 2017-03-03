@@ -43,8 +43,7 @@ export default class extends Component {
   render () {
     const {renderEmptyView} = this.props
     return (
-      this.length > 0
-    ? <ListView
+      this.length > 0 ? <ListView
         {...this.props}
         ref='listview'
         initialListSize={10}
