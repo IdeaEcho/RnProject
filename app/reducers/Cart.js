@@ -40,9 +40,12 @@ export default function cart(state = initialState, action){
             }
         //从购物车删除菜品
         case types.DELETE_FOOD:
-            return state.foods.filter( food =>
+            return {
+                foods:state.foods.filter( food =>
                 food.id!==action.id
-            )
+            ),
+            total:0
+        }
         //清空购物车
         case types.CLEAR_CART:
             return {

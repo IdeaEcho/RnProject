@@ -11,9 +11,10 @@ import {
   StyleSheet,
   TouchableOpacity,
   ListView,
-} from 'react-native';
-import { NaviGoBack } from '../utils/CommonUtils';
-var {height, width} = Dimensions.get('window');
+} from 'react-native'
+import { NaviGoBack } from '../utils/CommonUtils'
+import Header from '../components/Header'
+var {height, width} = Dimensions.get('window')
 
 class OrderResult extends React.Component {
   constructor(props) {
@@ -37,22 +38,10 @@ class OrderResult extends React.Component {
     const {navigator,route} = this.props;
     return (
         <View style={{backgroundColor:'#f5f5f5',flex:1}}>
-             <View style={{height:45,backgroundColor:'black',flexDirection:'row'}}>
-                <TouchableOpacity onPress={() => {this.buttonBackAction()}}
-                   style={{width:45,height:45,justifyContent:'center',alignItems:'center'}}>
-                    <Image
-                          style={{width:13,height:20}}
-                          source={require('../imgs/ic_center_back.png')}
-                     />
-                </TouchableOpacity>
-                <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
-                    <Text style={{fontSize:18,color:'white',alignSelf:'center'}}>订单结果</Text>
-                </View>
-                <View style={{width:45,height:45,}}></View>
-          </View>
+             <Header title='订单结果' hasBack={true} backAction={()=>{this.buttonBackAction()}}/>
           <View style={{marginTop:10,marginLeft:10,marginRight:10,backgroundColor:'white'}}>
                 <View style={{justifyContent:'center',alignItems:'center',height:100}}>
-                     <Image source={require('../imgs/ic_center_more_icon.png')} style={{width:38,height:30}}/>
+                     <Image source={require('../imgs/ic_center_icon.png')} style={{width:40,height:40}}/>
                      <Text style={{color:'black',fontSize:15,marginTop:15}}>恭喜您,订单提交成功!</Text>
                 </View>
                 <Image source={require('../imgs/ic_center_line.png')} style={{height:1}}/>
