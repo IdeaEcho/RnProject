@@ -15,7 +15,7 @@ const initialState = [
 export default function cart(state = initialState, action){
     switch (action.type) {
         //加入购物车
-        case types.ADD_TO_CART:
+        case types.ADD_FOOD:
             return [
                 {
                     id: action.data.id,
@@ -25,6 +25,10 @@ export default function cart(state = initialState, action){
                 },
                 ...state
             ]
+        case types.DELETE_FOOD:
+            return state.filter(food =>
+                food.id!==action.id
+            )
         case  types.CLEAR_CART:
             return []
         default:

@@ -39,7 +39,7 @@ class Menu extends Component {
         this.onPressItemRight=this.onPressItemRight.bind(this);
         this.renderItemLeft = this.renderItemLeft.bind(this);
         this.renderItemRight=this.renderItemRight.bind(this);
-        this.addToCart=this.addToCart.bind(this);
+        this.addFood=this.addFood.bind(this);
         this.collectAction=this.collectAction.bind(this);
         this.renderBottom=this.renderBottom.bind(this);
         //ListView.DataSource:从原始输入数据中抽取数据来创建ListViewDataSource对象
@@ -63,9 +63,9 @@ class Menu extends Component {
         toastShort('点击收藏按钮...');
     }
     //加入购物车
-    addToCart(data) {
+    addFood(data) {
         // toastShort('点击添加购物车图标...'+data.id+data.name+ data.price+data.picture);
-        this.props.addToCartAction(data)
+        this.props.addFoodAction(data)
         // this.props.addSum(data.price)
         //添加到购物车列表
         //addProduct(id, name, price, url);
@@ -198,7 +198,7 @@ class Menu extends Component {
                      <Text style={styles.item_price}>¥{data.price}</Text>
                 </View>
                 <View style={{justifyContent:'flex-end'}}>
-                     <TouchableOpacity style={styles.btn_add} onPress={()=>{this.addToCart(data)}}>
+                     <TouchableOpacity style={styles.btn_add} onPress={()=>{this.addFood(data)}}>
                           <Image source={require('../imgs/store/ic_store_add.png')}
                                  style={{width:20,height:20}}/>
                      </TouchableOpacity>

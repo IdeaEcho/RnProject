@@ -8,7 +8,9 @@ import { STORE_DETAILS_DATA } from '../common/VirtualData';
 import {formatStore,calculateGood,calculateLength} from '../utils/StoreFormat';
 
 //添加到购物车
-export const addToCartAction=(data) => ({ type: types.ADD_TO_CART, data })
+export const addFoodAction=(data) => ({ type: types.ADD_FOOD, data })
+//从购物车删除
+export const deleteFoodAction=(id) => ({ type: types.DELETE_FOOD, id })
 //清空购物车
 export const clearCartAction=() => ({ type: types.CLEAR_CART })
 

@@ -9,7 +9,8 @@ import{
 
 export default class CartItem extends Component {
     static propTypes = {
-        food: PropTypes.object.isRequired
+        food: PropTypes.object.isRequired,
+        deleteFoodAction: PropTypes.func.isRequired
     }
     renderItemImage(data){
         if(!data.picture){
@@ -30,7 +31,7 @@ export default class CartItem extends Component {
                 <View style={styles.item_content}>
                     <Text style={styles.item_title}>{food.name}</Text>
                     <View style={{flexDirection:'row',marginTop:10}}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={this.props.deleteFoodAction}>
                             <Text style={styles.item_btn}>删除</Text>
                         </TouchableOpacity>
                         <Text style={styles.item_btn}>数量</Text>

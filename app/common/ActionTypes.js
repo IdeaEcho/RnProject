@@ -13,5 +13,6 @@ export const RECEIVE_GOODS_ACTION = "RECEIVE_GOODS_ACTION"  //获取到商品列
 export const CHANGE_CATEGORY_ACTION = "CHANGE_CATEGORY_ACTION" //切换列表，显示对应商品列表
 
 //商品列表与购物车相关逻辑
-export const ADD_TO_CART = 'ADD_TO_CART'
+export const ADD_FOOD = 'ADD_FOOD'
+export const DELETE_FOOD = 'DELETE_FOOD'
 export const CLEAR_CART = 'CLEAR_CART'

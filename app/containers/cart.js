@@ -28,6 +28,9 @@ class Cart extends Component {
     onClearCart() {
         this.props.actions.clearCartAction()
     }
+    onDeleteFood(id) {
+        this.props.actions.deleteFoodAction(id)
+    }
     //结算按钮
     payItemAction(){
         const {navigator} = this.props;
@@ -44,7 +47,7 @@ class Cart extends Component {
         <View style={styles.container}>
             <Header title='购物车' right='清空' hasRight={true} rightAction={()=>{this.onClearCart()}} />
             {cart.map(food =>
-                <CartItem key={food.id} food={food} />
+                <CartItem key={food.id} food={food} deleteFoodAction={()=>{this.onDeleteFood(food.id)}} />
              )}
             <View style={{flex:1,justifyContent:'flex-end'}}>
                 <View style={{backgroundColor:'white',width:width,height:40}}>
