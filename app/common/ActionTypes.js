@@ -16,3 +16,6 @@ export const CHANGE_CATEGORY_ACTION = "CHANGE_CATEGORY_ACTION" //切换列表，
 export const ADD_FOOD = 'ADD_FOOD'
 export const DELETE_FOOD = 'DELETE_FOOD'
 export const CLEAR_CART = 'CLEAR_CART'
+export const ADD_NUM = 'ADD_NUM'
+export const CUT_NUM = 'CUT_NUM'
+export const UPDATE_SUM = 'UPDATE_SUM'

@@ -13,6 +13,12 @@ export const addFoodAction=(data) => ({ type: types.ADD_FOOD, data })
 export const deleteFoodAction=(id) => ({ type: types.DELETE_FOOD, id })
 //清空购物车
 export const clearCartAction=() => ({ type: types.CLEAR_CART })
+//数量+1
+export const addNumAction=(id) => ({ type: types.ADD_NUM, id })
+//数量-1
+export const cutNumAction=(id) => ({ type: types.CUT_NUM, id })
+
+export const updateSumAction=() => ({ type: types.UPDATE_SUM })
 
 //获取商品列表
 export function fetchGoodsAction(){

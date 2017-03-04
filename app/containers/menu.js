@@ -199,7 +199,7 @@ class Menu extends Component {
                 </View>
                 <View style={{justifyContent:'flex-end'}}>
                      <TouchableOpacity style={styles.btn_add} onPress={()=>{this.addFood(data)}}>
-                          <Image source={require('../imgs/store/ic_store_add.png')}
+                          <Image source={require('../imgs/store/addfood.png')}
                                  style={{width:20,height:20}}/>
                      </TouchableOpacity>
                 </View>

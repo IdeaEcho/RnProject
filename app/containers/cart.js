@@ -24,12 +24,42 @@ class Cart extends Component {
         super(props);
         this.onClearCart=this.onClearCart.bind(this);
         this.payItemAction=this.payItemAction.bind(this);
+        this.onAddNum=this.onAddNum.bind(this);
+        this.onCutNum=this.onCutNum.bind(this);
+        // this.updateTotalprice=this.updateTotalprice.bind(this);
+        this.state={
+            sum:0
+        }
+    }
+    componentWillMount() {
+        this.updateTotalprice()
+        // const {actions} = this.props
+        // actions.updateSum()
     }
     onClearCart() {
-        this.props.actions.clearCartAction()
+        const {actions} = this.props
+        actions.clearCartAction()
+        // actions.updateSum()
     }
     onDeleteFood(id) {
-        this.props.actions.deleteFoodAction(id)
+        const {actions} = this.props
+        actions.deleteFoodAction(id)
+        // actions.updateSum()
+    }
+    onAddNum(id) {
+        const {actions} = this.props
+        actions.addNumAction(id)
+        // actions.updateSumAction(price,'add')
+    }
+    onCutNum(id,price) {
+        const {actions} = this.props
+        actions.cutNumAction(id)
+        // actions.updateSumAction(price,'cut')
+    }
+    updateTotalprice() {
+        this.state.sum=0
+
+        this.props.cart.forEach(food => {this.state.sum = parseFloat(this.state.sum) + parseFloat(food.price)*parseInt(food.num);console.log(food.num);} )
     }
     //结算按钮
     payItemAction(){
@@ -47,7 +77,11 @@ class Cart extends Component {
         <View style={styles.container}>
             <Header title='购物车' right='清空' hasRight={true} rightAction={()=>{this.onClearCart()}} />
             {cart.map(food =>
-                <CartItem key={food.id} food={food} deleteFoodAction={()=>{this.onDeleteFood(food.id)}} />
+                <CartItem key={food.id}
+                                  food={food}
+                                  deleteFoodAction={()=>{this.onDeleteFood(food.id)}}
+                                  addNumAction={()=>{this.onAddNum(food.id,food.price)}}
+                                  cutNumAction={()=>{this.onCutNum(food.id,food.price)}} />
              )}
             <View style={{flex:1,justifyContent:'flex-end'}}>
                 <View style={{backgroundColor:'white',width:width,height:40}}>
@@ -59,7 +93,7 @@ class Cart extends Component {
                     </View>
                 </View>
                 <TouchableOpacity style={styles.btn} onPress={()=>{this.payItemAction()}}>
-                    <Text style={{color:'white',fontSize:15}}>提交订单-￥</Text>
+                    <Text style={{color:'white',fontSize:15}}>提交订单-￥{this.state.sum}</Text>
                 </TouchableOpacity>
             </View>
         </View>

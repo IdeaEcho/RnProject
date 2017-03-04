@@ -12,14 +12,14 @@ export default class CartItem extends Component {
         food: PropTypes.object.isRequired,
         deleteFoodAction: PropTypes.func.isRequired
     }
-    renderItemImage(data){
+    renderItemImage(data) {
         if(!data.picture){
          return (
-              <Image source={require('../imgs/ic_center_icon.png')} style={styles.item_image} />
+             <Image source={require('../imgs/ic_center_icon.png')} style={styles.item_image} />
            )
        } else {
          return (
-               <Image source={{uri:data.picture}} style={styles.item_image} />
+             <Image source={{uri:data.picture}} style={styles.item_image} />
            )
        }
     }
@@ -34,15 +34,19 @@ export default class CartItem extends Component {
                         <TouchableOpacity onPress={this.props.deleteFoodAction}>
                             <Text style={styles.item_btn}>删除</Text>
                         </TouchableOpacity>
-                        <Text style={styles.item_btn}>数量</Text>
-                        <TouchableOpacity style={{width:15,height:15}} >
-                            <Image source={require('../imgs/store/ic_store_add.png')}
+                        <TouchableOpacity onPress={this.props.cutNumAction} style={{width:15,height:15,marginRight:10}} >
+                            <Image source={require('../imgs/store/cut.png')}
+                            style={{width:15,height:15}} />
+                        </TouchableOpacity>
+                        <Text style={styles.item_btn}>{food.num}</Text>
+                        <TouchableOpacity onPress={this.props.addNumAction} style={{width:15,height:15}} >
+                            <Image source={require('../imgs/store/addnum.png')}
                             style={{width:15,height:15}} />
                         </TouchableOpacity>
                     </View>
                 </View>
                 <View style={{justifyContent:'flex-end'}}>
-                <Text style={{fontSize:15,marginRight:10,marginBottom:25}}>¥{food.price}</Text>
+                <Text style={{fontSize:15,marginRight:10,marginBottom:25}}>¥{food.price*food.num}</Text>
                 </View>
             </View>
         )
