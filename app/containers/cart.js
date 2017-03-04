@@ -2,7 +2,7 @@
  * 购物车页面
  */
 'use strict';
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import{
     View,
     Text,
@@ -14,23 +14,16 @@ import{
 } from 'react-native';
 var {height, width} = Dimensions.get('window');
 import Header from '../components/Header'
-import OrderConfirm from './OrderConfirm';
+import CartItem from '../components/CartItem'
+import OrderConfirm from './OrderConfirm'
 class Cart extends Component {
+    static propTypes = {
+        cart: PropTypes.array.isRequired
+    }
     constructor(props) {
         super(props);
         this.topItemAction=this.topItemAction.bind(this);
         this.payItemAction=this.payItemAction.bind(this);
-        this.state = {
-            dataSource: new ListView.DataSource({
-              getRowData: (dataBlob, sid, rid) => dataBlob[sid][rid],
-              rowHasChanged: (row1, row2) => row1 !== row2,
-            })
-        }
-    }
-    componentWillMount() {
-       const {dispatch} = this.props;
-       //开始加载商品列表数据
-       dispatch(fetchGoodsAction());
     }
     topItemAction(position){
         if(position === 0){
@@ -40,11 +33,11 @@ class Cart extends Component {
     renderItemImage(data){
         if(true){
          return (
-              <Image source={require('../imgs/ic_center_icon.png')} style={styles.item_image} />
+            <Image source={require('../imgs/ic_center_icon.png')} style={styles.item_image} />
            )
        } else {
          return (
-           <Image source={{uri:data.picture}} style={styles.item_image} />
+            <Image source={{uri:data.picture}} style={styles.item_image} />
            )
        }
     }
@@ -59,28 +52,13 @@ class Cart extends Component {
         });
     }
     render() {
+        const { cart } = this.props
         return (
         <View style={styles.container}>
             <Header title='购物车' right='清空' hasRight={true} rightAction={()=>{this.topItemAction(0)}} />
-            <View style={styles.item}>
-                {this.renderItemImage()}
-                <View style={styles.item_content}>
-                    <Text style={styles.item_title}>data.name</Text>
-                    <View style={{flexDirection:'row',marginTop:10}}>
-                        <TouchableOpacity>
-                            <Text style={styles.item_btn}>删除</Text>
-                        </TouchableOpacity>
-                        <Text style={styles.item_btn}>数量</Text>
-                        <TouchableOpacity style={{width:15,height:15}} >
-                            <Image source={require('../imgs/store/ic_store_add.png')}
-                            style={{width:15,height:15}} />
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                <View style={{justifyContent:'flex-end'}}>
-                <Text style={{fontSize:15,marginRight:10,marginBottom:25}}>¥data.min_price</Text>
-                </View>
-            </View>
+            {cart.map(food =>
+                <CartItem key={food.id} food={food} />
+             )}
             <View style={{flex:1,justifyContent:'flex-end'}}>
                 <View style={{backgroundColor:'white',width:width,height:40}}>
                     <View style={{flexDirection:'row',marginLeft:15,marginTop:5}}>

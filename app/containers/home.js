@@ -1,7 +1,7 @@
 'use strict';
 
-import React, {Component} from 'react';
-import {bindActionCreators} from 'redux';
+import React, {Component, PropTypes} from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
     Text,
@@ -15,8 +15,7 @@ import Cart from './cart';
 import Index from './index';
 import Scan from './scan';
 import User from './user';
-import * as counterActions from '../actions/counterActions';
-
+import * as GoodsAction from '../actions/GoodsAction'
 
 class Home extends Component {
     constructor(props) {
@@ -25,55 +24,57 @@ class Home extends Component {
             selectedTab:'home'
         };
     }
-  render() {
-    return (
+    render() {
+        const {  actions} = this.props
+        return (
         <TabNavigator>
             <TabNavigator.Item
-            title="推荐"
-            selected={this.state.selectedTab === 'home'}
-            selectedTitleStyle={styles.selectedTextStyle}
-            titleStyle={styles.textStyle}
-            renderIcon={() => <Image source={require("../imgs/tab_good.png")} style={styles.iconStyle}/>}
-            renderSelectedIcon={() => <Image source={require("../imgs/tab_good_press.png")} style={styles.iconStyle}/>}
-            onPress={() => this.setState({ selectedTab: 'home' })}>
-            <Index {...this.props}/>
-            </TabNavigator.Item>
-            <TabNavigator.Item
-            title="订单"
-            selected={this.state.selectedTab === 'order'}
-            selectedTitleStyle={styles.selectedTextStyle}
-            titleStyle={styles.textStyle}
-            renderIcon={() => <Image source={require("../imgs/tab_menu.png")} style={styles.iconStyle}/>}
-            renderSelectedIcon={() => <Image source={require("../imgs/tab_menu_press.png")} style={styles.iconStyle}/>}
-            onPress={() => this.setState({ selectedTab: 'order' })}>
-            <Menu {...this.props} />
-            </TabNavigator.Item>
+                title="推荐"
+                selected={this.state.selectedTab === 'home'}
+                selectedTitleStyle={styles.selectedTextStyle}
+                titleStyle={styles.textStyle}
+                renderIcon={() => <Image source={require("../imgs/tab_good.png")} style={styles.iconStyle}/>}
+                renderSelectedIcon={() => <Image source={require("../imgs/tab_good_press.png")} style={styles.iconStyle}/>}
+                onPress={() => this.setState({ selectedTab: 'home' })}>
+                <Index {...this.props}/>
+                </TabNavigator.Item>
 
             <TabNavigator.Item
-            title="购物车"
-            selected={this.state.selectedTab === 'cart'}
-            selectedTitleStyle={styles.selectedTextStyle}
-            titleStyle={styles.textStyle}
-            renderIcon={() => <Image source={require("../imgs/tab_cart.png")} style={styles.iconStyle}/>}
-            renderSelectedIcon={() => <Image source={require("../imgs/tab_cart_press.png")} style={styles.iconStyle}/>}
-            onPress={() => this.setState({ selectedTab: 'cart' })}>
-            <Cart {...this.props} />
-            </TabNavigator.Item>
+                title="订单"
+                selected={this.state.selectedTab === 'order'}
+                selectedTitleStyle={styles.selectedTextStyle}
+                titleStyle={styles.textStyle}
+                renderIcon={() => <Image source={require("../imgs/tab_menu.png")} style={styles.iconStyle}/>}
+                renderSelectedIcon={() => <Image source={require("../imgs/tab_menu_press.png")} style={styles.iconStyle}/>}
+                onPress={() => this.setState({ selectedTab: 'order' })}>
+                <Menu addToCartAction={actions.addToCartAction} />
+                </TabNavigator.Item>
 
             <TabNavigator.Item
-            title="我的"
-            selected={this.state.selectedTab === 'user'}
-            selectedTitleStyle={styles.selectedTextStyle}
-            titleStyle={styles.textStyle}
-            renderIcon={() => <Image source={require("../imgs/tab_user.png")} style={styles.iconStyle}/>}
-            renderSelectedIcon={() => <Image source={require("../imgs/tab_user_press.png")} style={styles.iconStyle}/>}
-            onPress={() => this.setState({ selectedTab: 'user' })}>
-            <User {...this.props}/>
-            </TabNavigator.Item>
+                title="购物车"
+                selected={this.state.selectedTab === 'cart'}
+                selectedTitleStyle={styles.selectedTextStyle}
+                titleStyle={styles.textStyle}
+                renderIcon={() => <Image source={require("../imgs/tab_cart.png")} style={styles.iconStyle}/>}
+                renderSelectedIcon={() => <Image source={require("../imgs/tab_cart_press.png")} style={styles.iconStyle}/>}
+                onPress={() => this.setState({ selectedTab: 'cart' })}>
+                <Cart {...this.props} />
+                </TabNavigator.Item>
+
+            <TabNavigator.Item
+                title="我的"
+                selected={this.state.selectedTab === 'user'}
+                selectedTitleStyle={styles.selectedTextStyle}
+                titleStyle={styles.textStyle}
+                renderIcon={() => <Image source={require("../imgs/tab_user.png")} style={styles.iconStyle}/>}
+                renderSelectedIcon={() => <Image source={require("../imgs/tab_user_press.png")} style={styles.iconStyle}/>}
+                onPress={() => this.setState({ selectedTab: 'user' })}>
+                <User {...this.props}/>
+                </TabNavigator.Item>
         </TabNavigator>
         );
-        }
-        }
+    }
+}
 const styles=StyleSheet.create({
    iconStyle:{
        width:26,
@@ -86,10 +87,20 @@ const styles=StyleSheet.create({
        color:'#fb633a',
    }
 });
-export default connect(state => ({
-    state: state.counter
-  }),
-  (dispatch) => ({
-    actions: bindActionCreators(counterActions, dispatch)
-  })
+
+Home.propTypes = {
+    cart: PropTypes.array.isRequired,
+    actions: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+    cart: state.cart
+})
+
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(GoodsAction, dispatch)
+})
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
 )(Home);

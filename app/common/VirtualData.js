@@ -127,63 +127,13 @@ export const STORE_DETAILS_DATA={
                     {
                         "id": 34783471,
                         "name": "果酱炸鸡半份",
-                        "min_price": 35,
-                        "praise_num": 99,
-                        "praise_content": "赞99",
-                        "tread_num": 1,
-                        "praise_num_new": 15,
-                        "unit": "",
-                        "description": "",
-                        "picture": "http://p1.meituan.net/xianfu/07ce1a9858f5337f60f536ad63f79fab516096.jpg.webp",
-                        "month_saled": 117,
-                        "month_saled_content": "月售117",
                         "status": 0,
-                        "status_description": "",
-                        "status_remind_list": [],
-                        "attrs": [],
-                        "sku_label": "规格",
-                        "skus": [
-                            {
-                                "id": 35405070,
-                                "spec": "",
-                                "description": "",
-                                "picture": "http://p1.meituan.net/xianfu/07ce1a9858f5337f60f536ad63f79fab516096.jpg.webp",
-                                "price": 35,
-                                "origin_price": 35,
-                                "box_num": 1,
-                                "box_price": 1,
-                                "min_order_count": 1,
-                                "status": 0,
-                                "stock": 0,
-                                "real_stock": -1,
-                                "activity_stock": 0,
-                                "restrict": 0,
-                                "promotion_info": ""
-                            }
-                        ],
-                        "tag": "12591400",
-                        "sequence": 7,
-                        "promotion_info": "",
-                        "activity_tag": "",
-                        "share_tip": {
-                            "description": "",
-                            "description_icon": "",
-                            "share_button_icon": "",
-                            "activity_id": 0,
-                            "share_info": {
-                                "icon": "",
-                                "title": "",
-                                "content": "",
-                                "url": ""
-                            }
-                        },
-                        "activity_type": 0,
-                        "activity_policy": {
-                            "discount_by_count": {
-                                "count": 0,
-                                "discount": 1
-                            }
-                        }
+                        "price": 20,
+                        "grades":5,
+                        "praise_num": 99,
+                        "month_saled": 117,
+                        "description": "",
+                        "picture": "http://p1.meituan.net/xianfu/07ce1a9858f5337f60f536ad63f79fab516096.jpg.webp"
                     },
                     {
                         "id": 34783549,

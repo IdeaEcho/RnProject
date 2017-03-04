@@ -1,4 +1,4 @@
-import React, { Component,PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
 import {
   Dimensions,
   Image,
@@ -15,14 +15,17 @@ import {formatStore,calculateGood} from '../utils/StoreFormat';
 import Header from '../components/Header';
 import PureListView from '../components/PureListView';
 import { toastShort } from '../utils/ToastUtil';
-// import { addToCart } from '../actions'
 import GoodDetails from './GoodDetails';
 // import Merchants from './Merchants';
 import Loading from '../components/Loading_DD';
 import LoadingView from '../components/LoadingView';
 
 import { connect } from 'react-redux';
-import { fetchGoodsAction,changeCategoryAction} from '../actions/GoodsAction'
+import {
+    fetchGoodsAction,
+    changeCategoryAction,
+    addToCartAction
+} from '../actions/GoodsAction'
 
 const {height,width} = Dimensions.get('window');
 
@@ -30,66 +33,56 @@ let defaultColor = '#f5f5f5';  //默认颜色
 let selectedColor = '#fff';  //选中颜色
 
 class Menu extends Component {
-  constructor(props) {
-      super(props);
-    //   this.topItemAction=this.topItemAction.bind(this);
-      this.onPressItemLeft=this.onPressItemLeft.bind(this);
-      this.onPressItemRight=this.onPressItemRight.bind(this);
-      this.renderItemLeft = this.renderItemLeft.bind(this);
-      this.renderItemRight=this.renderItemRight.bind(this);
-    //   this.addToCartAction=this.addToCartAction.bind(this);
-      this.collectAction=this.collectAction.bind(this);
-      this.renderBottom=this.renderBottom.bind(this);
-      //ListView.DataSource:从原始输入数据中抽取数据来创建ListViewDataSource对象
-      this.state={
+    constructor(props) {
+        super(props);
+        this.onPressItemLeft=this.onPressItemLeft.bind(this);
+        this.onPressItemRight=this.onPressItemRight.bind(this);
+        this.renderItemLeft = this.renderItemLeft.bind(this);
+        this.renderItemRight=this.renderItemRight.bind(this);
+        this.addToCart=this.addToCart.bind(this);
+        this.collectAction=this.collectAction.bind(this);
+        this.renderBottom=this.renderBottom.bind(this);
+        //ListView.DataSource:从原始输入数据中抽取数据来创建ListViewDataSource对象
+        this.state={
          dataSource: new ListView.DataSource({
            getRowData: (dataBlob, sid, rid) => dataBlob[sid][rid],
            getSectionHeaderData: (dataBlob, sid) => dataBlob[sid],
            rowHasChanged: (row1, row2) => row1 !== row2,
            sectionHeaderHasChanged: (s1, s2) => s1 !== s2
-       })
-      }
-  }
+        })
+        }
+    }
 
-  componentWillMount() {
-     const {dispatch} = this.props;
-     //开始加载商品列表数据
-     dispatch(fetchGoodsAction());
-  }
+    componentWillMount() {
+        const {dispatch} = this.props;
+        //开始加载商品列表数据
+        dispatch(fetchGoodsAction());
+    }
 
-  // topItemAction(){
-  //     const {navigator} = this.props;
-  //      InteractionManager.runAfterInteractions(() => {
-  //           navigator.push({
-  //             component: Merchants,
-  //             name: 'Merchants',
-  //             });
-  //       });
-  // }
-  collectAction(){
-      toastShort('点击收藏按钮...');
-  }
-  //加入购物车
-  // addToCartAction(data) {
-  //
-  //     toastShort('点击添加购物车图标...'+data.id+data.name+ data.price+data.picture);
-  //
-  //     //添加到购物车列表
-  //     //addProduct(id, name, price, url);
-  //     //更新菜品数量
-  //     //更新总价
-  //     //show cart
-  // }
-  /**
-   * 渲染分割线
-   */
-  _renderSeparatorView(sectionID, rowID, adjacentRowHighlighted) {
+    collectAction(){
+        toastShort('点击收藏按钮...');
+    }
+    //加入购物车
+    addToCart(data) {
+        // toastShort('点击添加购物车图标...'+data.id+data.name+ data.price+data.picture);
+        this.props.addToCartAction(data)
+        // this.props.addSum(data.price)
+        //添加到购物车列表
+        //addProduct(id, name, price, url);
+        //更新菜品数量
+        //更新总价
+        //show cart
+    }
+    /**
+    * 渲染分割线
+    */
+    _renderSeparatorView(sectionID, rowID, adjacentRowHighlighted) {
     return (
       <Image key={`${sectionID}-${rowID}`} style={styles.separator}  source={require('../imgs/order/ic_order_heng.png')}/>
     );
-  }
-  //点击列表每一项响应按钮
-  onPressItemLeft(data){
+    }
+    //点击列表每一项响应按钮
+    onPressItemLeft(data){
       const {goods,dispatch} = this.props;
       dispatch(changeCategoryAction(data));
       var distance = 0;
@@ -102,9 +95,9 @@ class Menu extends Component {
       }
 
       this.refs['goodLv'].scrollTo({x:0,y:distance,animated:true});
-  }
-  //点击右侧列表每一项相应按钮
-  onPressItemRight(data){
+    }
+    //点击右侧列表每一项相应按钮
+    onPressItemRight(data){
        const {navigator} = this.props;
        InteractionManager.runAfterInteractions(() => {
             navigator.push({
@@ -112,10 +105,10 @@ class Menu extends Component {
               name: 'GoodDetails',
               });
         });
-  }
+    }
 
-  //进行渲染左侧列表数据-商品分类
-  renderContentLeft(dataSource) {
+    //进行渲染左侧列表数据-商品分类
+    renderContentLeft(dataSource) {
     return (
       <ListView
         initialListSize={1}
@@ -128,9 +121,9 @@ class Menu extends Component {
         renderSeparator={this._renderSeparatorView}
       />
     );
-   }
-   //渲染右侧商品列表(带有section)
-  renderContentRight(dataSource) {
+    }
+    //渲染右侧商品列表(带有section)
+    renderContentRight(dataSource) {
     const {goods} = this.props;
     return (
       <ListView
@@ -143,7 +136,7 @@ class Menu extends Component {
         renderSectionHeader={this._renderSectionHeader}
       />
     );
-   }
+    }
 
   _renderSectionHeader(sectionData, sectionID){
      return(
@@ -154,7 +147,7 @@ class Menu extends Component {
   }
 
   //渲染每一项的数据
-  renderItemLeft(data) {
+    renderItemLeft(data) {
     const {goods} = this.props;
     if(data === goods.selectedItem){
       return (
@@ -177,9 +170,9 @@ class Menu extends Component {
          </View>
       );
     }
-  }
+    }
 
-  renderItemImage(data){
+    renderItemImage(data){
      if(data.picture === ''){
        return (
             <Image source={require('../imgs/ic_center_icon.png')} style={styles.item_image} />
@@ -189,9 +182,9 @@ class Menu extends Component {
          <Image source={{uri:data.picture}} style={styles.item_image} />
          )
      }
-  }
-//渲染每一项的数据
-  renderItemRight(data) {
+    }
+    //渲染每一项的数据
+    renderItemRight(data) {
     return (
       <TouchableOpacity onPress={()=>{this.onPressItemRight(data)}}>
            <View style={{backgroundColor:'white',flexDirection:'row'}}>
@@ -205,8 +198,7 @@ class Menu extends Component {
                      <Text style={styles.item_price}>¥{data.price}</Text>
                 </View>
                 <View style={{justifyContent:'flex-end'}}>
-                     <TouchableOpacity style={styles.btn_add}
-                          >
+                     <TouchableOpacity style={styles.btn_add} onPress={()=>{this.addToCart(data)}}>
                           <Image source={require('../imgs/store/ic_store_add.png')}
                                  style={{width:20,height:20}}/>
                      </TouchableOpacity>
@@ -214,9 +206,9 @@ class Menu extends Component {
            </View>
       </TouchableOpacity>
     );
-  }
-  //渲染商家基本信息布局
-  renderStoreBaisc(){
+    }
+    //渲染商家基本信息布局
+    renderStoreBaisc(){
      const {navigator} = this.props;
      return (
        <TouchableOpacity >
@@ -244,40 +236,40 @@ class Menu extends Component {
         </View>
         </TouchableOpacity>
      );
-  }
+    }
 
- renderBottom(){
-    const {goods} = this.props;
-    if (goods.loading) {
-          return <LoadingView />;
-      }
-    return (
-        <View style={{flexDirection:'row',flex:1}}>
-                <View style={{flex:1}}>
-                    {
-                      this.renderContentLeft(this.state.dataSource.cloneWithRows(
-                         goods.left_items === undefined ? [] : goods.left_items))
-                    }
-                </View>
-               <View style={{flex:3}}>
-                    {this.renderContentRight(this.state.dataSource.cloneWithRowsAndSections(
-                         goods.right_items === undefined ? [] : goods.right_items,goods.left_items))}
-               </View>
-        </View>
-    );
- }
+    renderBottom(){
+        const {goods} = this.props;
+        if (goods.loading) {
+              return <LoadingView />;
+          }
+        return (
+            <View style={{flexDirection:'row',flex:1}}>
+                    <View style={{flex:1}}>
+                        {
+                          this.renderContentLeft(this.state.dataSource.cloneWithRows(
+                             goods.left_items === undefined ? [] : goods.left_items))
+                        }
+                    </View>
+                   <View style={{flex:3}}>
+                        {this.renderContentRight(this.state.dataSource.cloneWithRowsAndSections(
+                             goods.right_items === undefined ? [] : goods.right_items,goods.left_items))}
+                   </View>
+            </View>
+        );
+    }
 
     render() {
-    return (
-        <View style={{flex:1}}>
-            <View>
-                {/*渲染顶部头布局*/}
-                 <Header title='商品列表' hasBack={true} backAction={() => {this.buttonBackAction()}} />
-                {this.renderStoreBaisc()}
+        return (
+            <View style={{flex:1}}>
+                <View>
+                    {/*渲染顶部头布局*/}
+                     <Header title='商品列表' hasBack={true} backAction={() => {this.buttonBackAction()}} />
+                    {this.renderStoreBaisc()}
+                </View>
+                    {this.renderBottom()}
             </View>
-                {this.renderBottom()}
-        </View>
-    );
+        );
     }
 }
 
@@ -356,9 +348,10 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  const { goods } = state;
+  const { goods, cart } = state;
   return {
-    goods
+    goods,
+    cart
   }
 }
 export default connect(
