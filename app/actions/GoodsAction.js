@@ -7,6 +7,11 @@ import * as types from '../common/ActionTypes';
 import { STORE_DETAILS_DATA } from '../common/VirtualData';
 import {formatStore,calculateGood,calculateLength} from '../utils/StoreFormat';
 
+//添加到购物车
+export const addToCartAction=(data) => ({ type: types.ADD_TO_CART, data })
+//清空购物车
+export const clearCartAction=() => ({ type: types.CLEAR_CART })
+
 //获取商品列表
 export function fetchGoodsAction(){
      return dispatch => {
@@ -25,12 +30,6 @@ export function changeCategoryAction(data){
      }
 }
 
-export function addToCartAction(data) {
-    return {
-      type: types.ADD_TO_CART,
-      data
-    };
-}
 function dispatchGoodsAction() {
         return {
             type: types.FETCH_GOOS_ACTION,

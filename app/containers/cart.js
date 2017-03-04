@@ -22,24 +22,11 @@ class Cart extends Component {
     }
     constructor(props) {
         super(props);
-        this.topItemAction=this.topItemAction.bind(this);
+        this.onClearCart=this.onClearCart.bind(this);
         this.payItemAction=this.payItemAction.bind(this);
     }
-    topItemAction(position){
-        if(position === 0){
-
-        }
-    }
-    renderItemImage(data){
-        if(true){
-         return (
-            <Image source={require('../imgs/ic_center_icon.png')} style={styles.item_image} />
-           )
-       } else {
-         return (
-            <Image source={{uri:data.picture}} style={styles.item_image} />
-           )
-       }
+    onClearCart() {
+        this.props.actions.clearCartAction()
     }
     //结算按钮
     payItemAction(){
@@ -55,7 +42,7 @@ class Cart extends Component {
         const { cart } = this.props
         return (
         <View style={styles.container}>
-            <Header title='购物车' right='清空' hasRight={true} rightAction={()=>{this.topItemAction(0)}} />
+            <Header title='购物车' right='清空' hasRight={true} rightAction={()=>{this.onClearCart()}} />
             {cart.map(food =>
                 <CartItem key={food.id} food={food} />
              )}

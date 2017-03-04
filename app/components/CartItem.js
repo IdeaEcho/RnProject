@@ -12,13 +12,13 @@ export default class CartItem extends Component {
         food: PropTypes.object.isRequired
     }
     renderItemImage(data){
-        if(true){
+        if(!data.picture){
          return (
               <Image source={require('../imgs/ic_center_icon.png')} style={styles.item_image} />
            )
        } else {
          return (
-           <Image source={{uri:data.picture}} style={styles.item_image} />
+               <Image source={{uri:data.picture}} style={styles.item_image} />
            )
        }
     }
@@ -26,7 +26,7 @@ export default class CartItem extends Component {
         const { food } = this.props
         return (
             <View style={styles.item}>
-                {this.renderItemImage()}
+                {this.renderItemImage(food)}
                 <View style={styles.item_content}>
                     <Text style={styles.item_title}>{food.name}</Text>
                     <View style={{flexDirection:'row',marginTop:10}}>

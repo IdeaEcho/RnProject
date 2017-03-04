@@ -2,7 +2,7 @@
  * 购物车列表Reducers
  */
 'use strict';
-import * as types from '../common/ActionTypes';
+import * as types from '../common/ActionTypes'
 
 const initialState = [
     {
@@ -16,16 +16,18 @@ export default function cart(state = initialState, action){
     switch (action.type) {
         //加入购物车
         case types.ADD_TO_CART:
-                return [
-                    {
+            return [
+                {
                     id: action.data.id,
                     name: action.data.name,
                     price: action.data.price,
                     picture: action.data.picture
-                    },
-                    ...state
-                ]
+                },
+                ...state
+            ]
+        case  types.CLEAR_CART:
+            return []
         default:
-            return state;
+            return state
     }
 }
