@@ -14,9 +14,9 @@ export const deleteFoodAction=(id) => ({ type: types.DELETE_FOOD, id })
 //清空购物车
 export const clearCartAction=() => ({ type: types.CLEAR_CART })
 //数量+1
-export const addNumAction=(id) => ({ type: types.ADD_NUM, id })
+export const addNumAction=(id,price) => ({ type: types.ADD_NUM, id,price })
 //数量-1
-export const cutNumAction=(id) => ({ type: types.CUT_NUM, id })
+export const cutNumAction=(id,price) => ({ type: types.CUT_NUM, id,price })
 
 export const updateSumAction=() => ({ type: types.UPDATE_SUM })
 

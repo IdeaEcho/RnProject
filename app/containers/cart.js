@@ -18,7 +18,7 @@ import CartItem from '../components/CartItem'
 import OrderConfirm from './OrderConfirm'
 class Cart extends Component {
     static propTypes = {
-        cart: PropTypes.array.isRequired
+        cart: PropTypes.object.isRequired
     }
     constructor(props) {
         super(props);
@@ -32,35 +32,34 @@ class Cart extends Component {
         }
     }
     componentWillMount() {
-        this.updateTotalprice()
-        // const {actions} = this.props
-        // actions.updateSum()
+        const {actions} = this.props
+        // actions.updateSumAction()
     }
     onClearCart() {
         const {actions} = this.props
         actions.clearCartAction()
-        // actions.updateSum()
+        // actions.updateSumAction()
     }
     onDeleteFood(id) {
         const {actions} = this.props
         actions.deleteFoodAction(id)
-        // actions.updateSum()
+        // actions.updateSumAction()
     }
-    onAddNum(id) {
+    onAddNum(id,price) {
         const {actions} = this.props
-        actions.addNumAction(id)
-        // actions.updateSumAction(price,'add')
+        actions.addNumAction(id,price)
+        // actions.updateSumAction()
     }
     onCutNum(id,price) {
         const {actions} = this.props
-        actions.cutNumAction(id)
-        // actions.updateSumAction(price,'cut')
+        actions.cutNumAction(id,price)
+        // actions.updateSumAction()
     }
-    updateTotalprice() {
-        this.state.sum=0
-
-        this.props.cart.forEach(food => {this.state.sum = parseFloat(this.state.sum) + parseFloat(food.price)*parseInt(food.num);console.log(food.num);} )
-    }
+    // updateTotalprice() {
+    //     this.state.sum=0
+    //
+    //     this.props.cart.forEach(food => {this.state.sum = parseFloat(this.state.sum) + parseFloat(food.price)*parseInt(food.num);console.log(food.num);} )
+    // }
     //结算按钮
     payItemAction(){
         const {navigator} = this.props;
@@ -76,7 +75,7 @@ class Cart extends Component {
         return (
         <View style={styles.container}>
             <Header title='购物车' right='清空' hasRight={true} rightAction={()=>{this.onClearCart()}} />
-            {cart.map(food =>
+            {cart.foods.map(food =>
                 <CartItem key={food.id}
                                   food={food}
                                   deleteFoodAction={()=>{this.onDeleteFood(food.id)}}
@@ -93,7 +92,7 @@ class Cart extends Component {
                     </View>
                 </View>
                 <TouchableOpacity style={styles.btn} onPress={()=>{this.payItemAction()}}>
-                    <Text style={{color:'white',fontSize:15}}>提交订单-￥{this.state.sum}</Text>
+                    <Text style={{color:'white',fontSize:15}}>提交订单-￥{cart.total}</Text>
                 </TouchableOpacity>
             </View>
         </View>

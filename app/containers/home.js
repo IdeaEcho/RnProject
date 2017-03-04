@@ -89,7 +89,7 @@ const styles=StyleSheet.create({
 });
 
 Home.propTypes = {
-    cart: PropTypes.array.isRequired,
+    cart: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired
 }
 
