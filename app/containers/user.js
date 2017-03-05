@@ -20,6 +20,7 @@ import ImageButton from '../components/ImageButton';
 import ModifyInformation from './CenterContent/ModifyInformation';
 import Charge from './CenterContent/Charge';
 import Prepaid from './CenterContent/Prepaid';
+import FeedBack from './CenterContent/FeedBack';
 
 var {height,width} =  Dimensions.get('window');
 

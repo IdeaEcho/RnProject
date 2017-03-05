@@ -41,7 +41,7 @@ const Header = ({ title, hasBack, hasRight, backAction, rightAction, right }) =>
 const styles=StyleSheet.create({
     topbar_bg:{
         height:48,
-        backgroundColor:'#ff7e5e',
+        backgroundColor:'#55798f',
         flexDirection:'row'
     },
     topbar_left_item:{

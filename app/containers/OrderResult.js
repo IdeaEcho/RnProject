@@ -70,17 +70,17 @@ class OrderResult extends React.Component {
                 <Image source={require('../imgs/ic_center_line.png')} style={{height:1,marginTop:22}}/>
                 <View style={{marginTop:22,marginLeft:13,marginRight:13}}>
                      <Text style={{fontSize:13,color:'#999'}}>温馨提示:请您在提交订单后20分钟内完成支付,否则订单会自动取消</Text>
-                     <View style={{flexDirection:'row',marginLeft:30,marginRight:30,marginTop:37,flex:1,paddingBottom:22}}>
+                     <View style={{flexDirection:'row',marginLeft:15,marginRight:15,marginTop:37,flex:1,paddingBottom:22}}>
                           <TouchableOpacity style={{flex:1}} onPress={()=>{this.itemButtonActiom(0)}}>
-                              <Image source={require('../imgs/btn_border.png')}
+                              <Image source={require('../imgs/cart/btn_order.png')}
                                      style={{justifyContent:'center',alignItems:'center'}}>
-                                     <Text style={{color:'#2c2c2c'}}>查看订单</Text>
+                                     <Text style={{color:'#fff'}}>查看订单</Text>
                               </Image>
                           </TouchableOpacity>
                           <TouchableOpacity style={{flex:1,marginLeft:8}} onPress={()=>{this.itemButtonActiom(1)}}>
-                              <Image source={require('../imgs/btn_border.png')}
+                              <Image source={require('../imgs/cart/btn_pay.png')}
                                      style={{justifyContent:'center',alignItems:'center'}}>
-                                     <Text style={{color:'#2c2c2c'}}>付款</Text>
+                                     <Text style={{color:'#fff'}}>付款</Text>
                               </Image>
                           </TouchableOpacity>
                      </View>
@@ -90,4 +90,18 @@ class OrderResult extends React.Component {
     );
   }
 }
+let styles = StyleSheet.create({
+    btn:{
+        width:260,
+        height:35,
+        justifyContent:'center',
+        backgroundColor:'#55798f',
+        borderRadius:5
+    },
+    btn_tv:{
+        color:'white',
+        alignSelf:'center',
+        backgroundColor:'#00000000'
+    }
+});
 export default OrderResult;

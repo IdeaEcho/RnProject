@@ -123,7 +123,7 @@ const styles=StyleSheet.create({
     },
     btn:{
         height:40,
-        backgroundColor:'#fb633a',
+        backgroundColor:'#ff7e5e',
         justifyContent:'center',
         alignItems:'center'
     }

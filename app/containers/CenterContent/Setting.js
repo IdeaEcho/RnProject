@@ -15,7 +15,6 @@ import Header from '../../components/Header';
 import SettingItem from '../../components/SettingItem';
 import ShortLine from '../../components/ShortLine';
 import Language from './Language';
-import FeedBack from './FeedBack';
 import About from './About';
 import ResetPwd from  './ResetPwd';
 import Prepaid from './Prepaid';

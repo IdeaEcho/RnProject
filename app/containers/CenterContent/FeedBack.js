@@ -96,10 +96,8 @@ class FeebBack extends Component {
                     </View>
                 </View>
                 <View style={styles.content_style}>
-                    <TouchableOpacity  onPress={()=>{this.submiteFeedBack()}}>
-                         <Image source={require('../../imgs/ic_center_other_share.png')} style={styles.share_img}>
-                              <Text style={styles.share_btn_tv}>提交反馈</Text>
-                        </Image>
+                    <TouchableOpacity  style={styles.btn} onPress={()=>{this.submiteFeedBack()}}>
+                              <Text style={styles.btn_tv}>提交反馈</Text>
                     </TouchableOpacity>
                 </View>
              </View>
@@ -116,12 +114,14 @@ const styles=StyleSheet.create({
         height:45,
         justifyContent:'center'
     },
-    share_img:{
+    btn:{
         width:260,
         height:35,
         justifyContent:'center',
+        backgroundColor:'#ff7e5e',
+        borderRadius:5
     },
-    share_btn_tv:{
+    btn_tv:{
         color:'white',
         alignSelf:'center',
         backgroundColor:'#00000000'

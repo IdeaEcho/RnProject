@@ -136,17 +136,17 @@ class Index extends Component {
   render() {
         return (
            <View style={{backgroundColor:'#f5f5f5',flex:1}}>
-              <View style={{height:48,backgroundColor:'black',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-              <View style={{width:48,height:48}}/>
-                <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
-                    <Text style={{fontSize:16,color:'#fff'}}>夹虾米</Text>
+              <View style={styles.topbar_bg}>
+                <View style={styles.topbar_left_item}>
+                    <Image style={styles.topbar_btn} source={require('../imgs/logo_with_bg.png')} />
                 </View>
-                <View style={{justifyContent:'flex-end',alignItems:'center',flex:1,flexDirection:'row',width:48,height:48}}>
-                    <TouchableOpacity onPress={()=>{this.topItemAction(0)}}>
-                         <Image source={require('../imgs/scan.png')}
-                           style={{width:25,height:25,marginRight:8,alignItems:'center'}}/>
-                    </TouchableOpacity>
+                <View style={styles.topbar_center_bg}>
+                   <Text style={styles.topbar_center_tv}>夹虾米</Text>
                 </View>
+                <TouchableOpacity style={styles.topbar_right_item} onPress={()=>{this.topItemAction(0)}}>
+                     <Image source={require('../imgs/scan.png')}
+                       style={styles.topbar_btn}/>
+                </TouchableOpacity>
               </View>
               <ScrollView style={{flex:1}} showsVerticalScrollIndicator={false}>
               <IndicatorViewPager
@@ -305,6 +305,40 @@ class Index extends Component {
     }
 }
 const styles=StyleSheet.create({
+    topbar_bg:{
+        height:48,
+        backgroundColor:'#55798f',
+        flexDirection:'row'
+    },
+    topbar_left_item:{
+        width:48,
+        height:48,
+        alignItems:'center',
+        justifyContent:'center'
+    },
+    topbar_btn:{
+        width:25,
+        height:25,
+        marginLeft:8,
+        marginRight:8,
+        alignItems:'center'
+    },
+    topbar_center_bg:{
+        flex:1,
+        alignItems:'center',
+        justifyContent:'center'
+    },
+    topbar_center_tv:{
+        fontSize:18,
+        color:'white',
+        alignSelf:'center'
+    },
+    topbar_right_item:{
+        width:48,
+        height:48,
+        alignItems:'center',
+        justifyContent:'center'
+    },
     center_item_wrap:{
         alignSelf:'center',
         alignItems:'center',

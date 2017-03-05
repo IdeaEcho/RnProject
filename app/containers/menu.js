@@ -219,6 +219,7 @@ class Menu extends Component {
                     </View>
                 </View>
         </View>
+        <Image source={require('../imgs/order/ic_order_heng.png')}/>
         </TouchableOpacity>
      );
     }
