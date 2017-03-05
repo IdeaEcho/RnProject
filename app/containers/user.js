@@ -147,7 +147,7 @@ class User extends Component {
 
                <CenterItem
                   title='报告问题'
-                  icon={require('../imgs/user_collect.png')}
+                  icon={require('../imgs/user_feedback.png')}
                   onPress={()=>this.itemActionIndex(4)}/>
                <View style={[styles.top_line,styles.center_line]}></View>
 

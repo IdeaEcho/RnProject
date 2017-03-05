@@ -7,22 +7,21 @@ import * as types from '../common/ActionTypes';
 import FetchHttpClient, { form,header } from 'fetch-http-client';
 import {HOST,LOGIN_ACTION} from  '../common/Request';
 import { toastShort } from '../utils/ToastUtil';
+import Base64 from 'base64-js';
 const client = new FetchHttpClient(HOST);
 
-export function performLoginAction(username,password){
+export function performLoginAction(data){
     return dispatch => {
         dispatch(performLogin());
         client.addMiddleware(form());
-        client.post(LOGIN_ACTION, {
-          form: {
-            username: username,
-            password: password,
-         },
-        }).then(response => {
-         return response.json();
+        client.post(LOGIN_ACTION,{
+            form: {data:  Base64.fromByteArray(data)} }
+        ).then(response => {
+            toastShort(Base64.toByteArray(response).json());
+            return Base64.toByteArray(response).json();
         }).then((result)=>{
          dispatch(receiveLoginResult(result));
-         if(result.code === '0'){
+         if(result.returnCode === '200'){
              //登录成功..
              toastShort('登录成功');
          }else{

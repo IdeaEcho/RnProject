@@ -22,6 +22,7 @@ import FetchHttpClient, { form,header } from 'fetch-http-client';
 import {HOST,LOGIN_ACTION} from  '../../common/Request';
 import { toastShort } from '../../utils/ToastUtil';
 import {NativeModules} from 'react-native';
+import Base64  from 'base64-js';
 var EncryptionModule = NativeModules.EncryptionModule;
 
 import Loading from '../../components/Loading_DD';
@@ -31,8 +32,8 @@ import { performLoginAction } from '../../actions/LoginAction'
 
 const client = new FetchHttpClient(HOST);
 
-var username = '';
-var password = '';
+var username = '18064563545';
+var password = 'haha123';
 
 class Login extends Component {
     constructor(props) {
@@ -69,11 +70,12 @@ class Login extends Component {
                toastShort('手机号错误');
                return;
            }
-           EncryptionModule.MD5ByCallBack(password,(msg)=>{
-           dispatch(performLoginAction(username,msg));
-             },(error)=>{
-               toastShort('密码加密失败');
-           });
+           var data = {
+               phone : username,
+               password : password
+           }
+           var string = JSON.stringify(data)
+           dispatch(performLoginAction(string))
         }else if(position === 1){
            //用户注册
            InteractionManager.runAfterInteractions(() => {
