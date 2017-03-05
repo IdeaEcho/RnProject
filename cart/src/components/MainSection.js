@@ -29,8 +29,6 @@ export default class MainSection extends Component {
 
   render() {
     const { todos, actions } = this.props
-
-
     return (
       <section className="main">
         <ul className="todo-list">

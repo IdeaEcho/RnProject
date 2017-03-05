@@ -46,13 +46,12 @@ class OrderConfirm extends React.Component {
     const {navigator,route} = this.props;
     return (
         <View style={{backgroundColor:'#f5f5f5',flex:1}}>
-             <Header title='订单确认' hasBack={true} backAction={()=>{this.buttonBackAction()}}/>
-
-          <View style={{flex:1,justifyContent:'flex-end'}}>
+            <Header title='订单确认' hasBack={true} backAction={()=>{this.buttonBackAction()}}/>
+            <View style={{flex:1,justifyContent:'flex-end'}}>
                 <TouchableOpacity style={styles.btn} onPress={()=>{this.payItemAction()}}>
                          <Text style={{color:'white',fontSize:14}}>确定提交</Text>
                </TouchableOpacity>
-          </View>
+            </View>
        </View>
     );
   }

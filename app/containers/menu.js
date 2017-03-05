@@ -208,15 +208,15 @@ class Menu extends Component {
         <TouchableOpacity >
             <View style={styles.container}>
                 <View style={{flexDirection:'row',marginLeft:15,height:35,alignItems:'center'}}>
-                     <Image source={goods.store_info.icon ? require(goods.store_info.icon) : require('../imgs/store/default.png')}
-                            style={{width:58,height:58,borderRadius:29,marginRight:20}}/>
-                     <Text style={{color:'#2c2c2c',fontSize:16}}>{goods.store_info.name}</Text>
-                     <View style={{flex:1,alignItems:'flex-end',marginRight:15}}>
+                    <Image source={goods.store_info.icon ? require(goods.store_info.icon) : require('../imgs/store/default.png')}
+                        style={{width:58,height:58,borderRadius:29,marginRight:20}}/>
+                    <Text style={{color:'#2c2c2c',fontSize:16}}>{goods.store_info.name}</Text>
+                    <View style={{flex:1,alignItems:'flex-end',marginRight:15}}>
                          <Image source={require('../imgs/store/table.png')}
                                 style={{width:22,height:22,marginRight:6}}
-                         />
-                         <Text style={{color:'#2c2c2c',fontSize:13,marginLeft:4}}>第{goods.store_info.table}桌</Text>
-                     </View>
+                     />
+                     <Text style={{color:'#2c2c2c',fontSize:13,marginLeft:4}}>第{goods.store_info.table}桌</Text>
+                    </View>
                 </View>
         </View>
         </TouchableOpacity>

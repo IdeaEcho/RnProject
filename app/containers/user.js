@@ -126,7 +126,7 @@ class User extends Component {
                       </View>
 
                       <View style={styles.modify_item}>
-                         <ImageButton icon={require('../imgs/ic_center_modify.png')} title='编辑'
+                         <ImageButton icon={require('../imgs/btn_border.png')} title='编辑'
                             onPress={()=>{this.itemModifyAction()}}
                          />
                       </View>

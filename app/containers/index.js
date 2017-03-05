@@ -136,11 +136,12 @@ class Index extends Component {
   render() {
         return (
            <View style={{backgroundColor:'#f5f5f5',flex:1}}>
-              <View style={{height:48,backgroundColor:'black',flexDirection:'row'}}>
+              <View style={{height:48,backgroundColor:'black',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+              <View style={{width:48,height:48}}/>
                 <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
-                    <Image source={require('../imgs/logo@108.png')} style={{width:25,height:25}}/>
+                    <Text style={{fontSize:16,color:'#fff'}}>夹虾米</Text>
                 </View>
-                <View style={{justifyContent:'flex-end',alignItems:'center',flex:1,flexDirection:'row'}}>
+                <View style={{justifyContent:'flex-end',alignItems:'center',flex:1,flexDirection:'row',width:48,height:48}}>
                     <TouchableOpacity onPress={()=>{this.topItemAction(0)}}>
                          <Image source={require('../imgs/scan.png')}
                            style={{width:25,height:25,marginRight:8,alignItems:'center'}}/>

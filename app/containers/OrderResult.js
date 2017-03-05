@@ -11,9 +11,11 @@ import {
   StyleSheet,
   TouchableOpacity,
   ListView,
+  InteractionManager
 } from 'react-native'
 import { NaviGoBack } from '../utils/CommonUtils'
 import Header from '../components/Header'
+import OrderDetails from './OrderDetails'
 var {height, width} = Dimensions.get('window')
 
 class OrderResult extends React.Component {
@@ -27,12 +29,18 @@ class OrderResult extends React.Component {
       const {navigator} = this.props;
       return NaviGoBack(navigator);
   }
-  itemButtonActiom(position){
-      if(position === 0){
+    itemButtonActiom(position){
+        const {navigator} = this.props;
+        if(position === 0){
+            InteractionManager.runAfterInteractions(() => {
+            navigator.push({
+              component: OrderDetails,
+              name: 'OrderDetails'
+               });
+            });
+        }else if(position === 1){
 
-      }else if(position === 1){
-
-      }
+        }
   }
   render() {
     const {navigator,route} = this.props;
@@ -56,23 +64,23 @@ class OrderResult extends React.Component {
                     </View>
                     <View style={{flexDirection:'row',marginTop:8}}>
                           <Text style={{width:70,fontSize:16,color:'black'}}>应付金额</Text>
-                          <Text style={{marginLeft:30,fontSize:16,color:'red'}}>¥{route.total}</Text>
+                          <Text style={{marginLeft:30,fontSize:16,color:'#ff3939'}}>¥{route.total}</Text>
                     </View>
                 </View>
                 <Image source={require('../imgs/ic_center_line.png')} style={{height:1,marginTop:22}}/>
                 <View style={{marginTop:22,marginLeft:13,marginRight:13}}>
                      <Text style={{fontSize:13,color:'#999'}}>温馨提示:请您在提交订单后20分钟内完成支付,否则订单会自动取消</Text>
-                     <View style={{flexDirection:'row',marginLeft:10,marginRight:10,marginTop:37,flex:1,paddingBottom:22}}>
+                     <View style={{flexDirection:'row',marginLeft:30,marginRight:30,marginTop:37,flex:1,paddingBottom:22}}>
                           <TouchableOpacity style={{flex:1}} onPress={()=>{this.itemButtonActiom(0)}}>
-                              <Image source={require('../imgs/cart/ic_cart_cha_order.png')}
+                              <Image source={require('../imgs/btn_border.png')}
                                      style={{justifyContent:'center',alignItems:'center'}}>
-                                     <Text style={{color:'white',backgroundColor:'#00000000'}}>查看订单</Text>
+                                     <Text style={{color:'#2c2c2c'}}>查看订单</Text>
                               </Image>
                           </TouchableOpacity>
                           <TouchableOpacity style={{flex:1,marginLeft:8}} onPress={()=>{this.itemButtonActiom(1)}}>
-                              <Image source={require('../imgs/cart/ic_cart_pay_order.png')}
+                              <Image source={require('../imgs/btn_border.png')}
                                      style={{justifyContent:'center',alignItems:'center'}}>
-                                     <Text style={{color:'white',backgroundColor:'#00000000'}}>付款</Text>
+                                     <Text style={{color:'#2c2c2c'}}>付款</Text>
                               </Image>
                           </TouchableOpacity>
                      </View>
