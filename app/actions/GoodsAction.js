@@ -5,29 +5,29 @@
 
 import * as types from '../common/ActionTypes';
 import { STORE_DETAILS_DATA } from '../common/VirtualData';
-import {formatStore,calculateGood,calculateLength} from '../utils/StoreFormat';
+import {formatStore,calculateGood,calculateLength,formatInfo} from '../utils/StoreFormat';
 
 //添加到购物车
 export const addFoodAction=(data) => ({ type: types.ADD_FOOD, data })
 //从购物车删除
-export const deleteFoodAction=(id) => ({ type: types.DELETE_FOOD, id })
+export const deleteFoodAction=(data) => ({ type: types.DELETE_FOOD, data })
 //清空购物车
-export const clearCartAction=() => ({ type: types.CLEAR_CART })
+export const clearCartAction=() => ({ type: types.CLEAR_CART})
 //数量+1
 export const addNumAction=(id,price) => ({ type: types.ADD_NUM, id,price })
 //数量-1
 export const cutNumAction=(id,price) => ({ type: types.CUT_NUM, id,price })
 
-export const updateSumAction=() => ({ type: types.UPDATE_SUM })
 
 //获取商品列表
 export function fetchGoodsAction(){
      return dispatch => {
         dispatch(dispatchGoodsAction());
+        var store_info = formatInfo(eval(STORE_DETAILS_DATA).data);
         var right_items = formatStore(eval(STORE_DETAILS_DATA).data);
         var left_items = Object.keys(right_items);
         var data_length = calculateLength(eval(STORE_DETAILS_DATA).data);
-        dispatch(receiveGoodsAction(left_items,right_items,data_length));
+        dispatch(receiveGoodsAction(store_info,left_items,right_items,data_length));
      }
 }
 
@@ -44,9 +44,10 @@ function dispatchGoodsAction() {
         }
 }
 //获取到数据
-function receiveGoodsAction(left_items,right_items,data_length){
+function receiveGoodsAction(store_info,left_items,right_items,data_length){
         return {
             type: types.RECEIVE_GOODS_ACTION,
+            store_info:store_info,
             left_items : left_items,
             right_items : right_items,
             selectedItem : left_items[0],

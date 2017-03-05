@@ -52,13 +52,6 @@ class Setting extends Component {
               name: 'Language'
            });
         });
-      }else if(position === 4){
-         InteractionManager.runAfterInteractions(() => {
-           navigator.push({
-              component: FeedBack,
-              name: 'FeedBack'
-           });
-        });
       }else if(position === 5){
 
       }else if(position === 6){
@@ -82,8 +75,6 @@ class Setting extends Component {
                     <SettingItem title="更改密码" onPress={()=>{this.itemButtonAction(2)}}/>
                     <ShortLine/>
                     <SettingItem title="语言" onPress={()=>{this.itemButtonAction(3)}}/>
-                    <ShortLine/>
-                    <SettingItem title="报告问题" onPress={()=>{this.itemButtonAction(4)}}/>
                     <ShortLine/>
                     <SettingItem title="评分" onPress={()=>{this.itemButtonAction(5)}}/>
                     <ShortLine/>

@@ -100,9 +100,10 @@ export const CHARGE_DATA={
 export const STORE_DETAILS_DATA={
     "data":{
         "store_info": {
-            "name": "店铺名",
-            "icon": "店铺头像",
-            "phone": "18959386000"
+            "name": "鸡蛋鉴赏会的菜单",
+            "icon": "",
+            "phone": "18959386000",
+            "table":1
         },
         "food_tags": [
             {

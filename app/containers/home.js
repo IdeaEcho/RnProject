@@ -25,7 +25,7 @@ class Home extends Component {
         };
     }
     render() {
-        const {  actions} = this.props
+        const { cart,actions} = this.props
         return (
         <TabNavigator>
             <TabNavigator.Item
@@ -40,7 +40,7 @@ class Home extends Component {
                 </TabNavigator.Item>
 
             <TabNavigator.Item
-                title="订单"
+                title="菜单"
                 selected={this.state.selectedTab === 'order'}
                 selectedTitleStyle={styles.selectedTextStyle}
                 titleStyle={styles.textStyle}
@@ -55,6 +55,7 @@ class Home extends Component {
                 selected={this.state.selectedTab === 'cart'}
                 selectedTitleStyle={styles.selectedTextStyle}
                 titleStyle={styles.textStyle}
+                renderBadge={()=> cart.count>0 ? <View style={styles.badgeBg}><Text style={styles.badgeText}>{cart.count}</Text></View>: null}
                 renderIcon={() => <Image source={require("../imgs/tab_cart.png")} style={styles.iconStyle}/>}
                 renderSelectedIcon={() => <Image source={require("../imgs/tab_cart_press.png")} style={styles.iconStyle}/>}
                 onPress={() => this.setState({ selectedTab: 'cart' })}>
@@ -85,7 +86,21 @@ const styles=StyleSheet.create({
    },
    selectedTextStyle:{
        color:'#fb633a',
-   }
+   },
+   badgeBg:{
+       backgroundColor:'#fb633a',
+       marginTop:3,
+       marginLeft:2,
+       alignItems:'center',
+       justifyContent:'center',
+       width:12,
+       height:12,
+       borderRadius:12
+   },
+    badgeText:{
+         color:'#fff',
+         fontSize:8,
+    }
 });
 
 Home.propTypes = {

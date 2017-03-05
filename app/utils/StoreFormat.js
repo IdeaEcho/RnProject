@@ -1,5 +1,7 @@
 'use strict';
-
+export function formatInfo(storeData){
+   return storeData.store_info;
+}
 //进行格式化商家的商品数据-满足section进行使用
 export function formatStore(storeData){
         let goodTagMap = []

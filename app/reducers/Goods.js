@@ -6,6 +6,7 @@ import * as types from '../common/ActionTypes';
 
 const initialState = {
     loading : false,
+    store_info:{},
     left_items : [],
     right_items : [],
     data_length : 0,
@@ -22,6 +23,7 @@ export default function goods(state = initialState, action){
         case types.RECEIVE_GOODS_ACTION:
                   return Object.assign({}, state, {
                        loading: false,
+                       store_info: action.store_info,
                        left_items: action.left_items,
                        right_items: action.right_items,
                        selectedItem : action.selectedItem,

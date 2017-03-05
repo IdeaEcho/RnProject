@@ -83,7 +83,12 @@ class User extends Component {
         }else if(position === 3){
 
         }else if(position === 4){
-
+            InteractionManager.runAfterInteractions(() => {
+                  navigator.push({
+                     component: FeedBack,
+                     name: 'FeedBack'
+                  });
+            })
         }else if(position === 5){
           InteractionManager.runAfterInteractions(() => {
             navigator.push({
@@ -107,8 +112,6 @@ class User extends Component {
     render() {
         return (
             <View style={styles.container}>
-               <Header title='我的' />
-
                <View style={{backgroundColor:'white'}}>
                    <View style={{flexDirection:'row',height:100}}>
                       <TouchableOpacity onPress={() => {this.loginButtonActiom()}} >
@@ -139,6 +142,12 @@ class User extends Component {
                   title='收藏'
                   icon={require('../imgs/user_collect.png')}
                   onPress={()=>this.itemActionIndex(3)}/>
+               <View style={[styles.top_line,styles.center_line]}></View>
+
+               <CenterItem
+                  title='报告问题'
+                  icon={require('../imgs/user_collect.png')}
+                  onPress={()=>this.itemActionIndex(4)}/>
                <View style={[styles.top_line,styles.center_line]}></View>
 
                <CenterItem
@@ -194,7 +203,7 @@ const styles = StyleSheet.create({
         alignItems:'flex-end',
         flex:1,
         marginRight:10,
-        marginTop:15
+        marginTop:40
     }
 });
 

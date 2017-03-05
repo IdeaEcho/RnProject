@@ -62,22 +62,16 @@ class Menu extends Component {
     collectAction(){
         toastShort('点击收藏按钮...');
     }
+
     //加入购物车
     addFood(data) {
-        // toastShort('点击添加购物车图标...'+data.id+data.name+ data.price+data.picture);
         this.props.addFoodAction(data)
-        // this.props.addSum(data.price)
-        //添加到购物车列表
-        //addProduct(id, name, price, url);
-        //更新菜品数量
-        //更新总价
-        //show cart
     }
     /**
     * 渲染分割线
     */
     _renderSeparatorView(sectionID, rowID, adjacentRowHighlighted) {
-    return (
+        return (
       <Image key={`${sectionID}-${rowID}`} style={styles.separator}  source={require('../imgs/order/ic_order_heng.png')}/>
     );
     }
@@ -109,38 +103,38 @@ class Menu extends Component {
 
     //进行渲染左侧列表数据-商品分类
     renderContentLeft(dataSource) {
-    return (
-      <ListView
-        initialListSize={1}
-        dataSource={dataSource}
-        renderRow={this.renderItemLeft}
-        style={{flex:1}}
-        onEndReachedThreshold={10}
-        enableEmptySections={true}
-        showsVerticalScrollIndicator={false}
-        renderSeparator={this._renderSeparatorView}
-      />
-    );
+        return (
+          <ListView
+            initialListSize={1}
+            dataSource={dataSource}
+            renderRow={this.renderItemLeft}
+            style={{flex:1}}
+            onEndReachedThreshold={10}
+            enableEmptySections={true}
+            showsVerticalScrollIndicator={false}
+            renderSeparator={this._renderSeparatorView}
+          />
+        );
     }
     //渲染右侧商品列表(带有section)
     renderContentRight(dataSource) {
-    const {goods} = this.props;
-    return (
-      <ListView
-        ref={'goodLv'}
-        initialListSize={goods.data_length}
-        dataSource={dataSource}
-        renderRow={this.renderItemRight}
-        style={{flex:1}}
-        showsVerticalScrollIndicator={false}
-        renderSectionHeader={this._renderSectionHeader}
-      />
-    );
+        const {goods} = this.props;
+        return (
+          <ListView
+            ref={'goodLv'}
+            initialListSize={goods.data_length}
+            dataSource={dataSource}
+            renderRow={this.renderItemRight}
+            style={{flex:1}}
+            showsVerticalScrollIndicator={false}
+            renderSectionHeader={this._renderSectionHeader}
+          />
+        );
     }
 
   _renderSectionHeader(sectionData, sectionID){
      return(
-        <View key={sectionID} style={{backgroundColor:'#eee',height:25,justifyContent:'center'}}>
+        <View key={sectionID} style={{backgroundColor:'#fff',height:25,justifyContent:'center'}}>
              <Text style={{marginLeft:8,fontSize:11}}>{sectionID}</Text>
         </View>
      );
@@ -148,28 +142,28 @@ class Menu extends Component {
 
   //渲染每一项的数据
     renderItemLeft(data) {
-    const {goods} = this.props;
-    if(data === goods.selectedItem){
-      return (
-          <View style={{backgroundColor:selectedColor}}>
-                <TouchableOpacity onPress={()=>{this.onPressItemLeft(data)}}>
-                      <View style={{flexDirection:'row',alignItems:'center',height:55,flex:1}}>
-                            <Text style={{marginLeft:8,marginRight:8,flex:1}}>{data}</Text>
-                      </View>
-                </TouchableOpacity>
-         </View>
-      );
-    }else{
-      return (
-          <View style={{backgroundColor:defaultColor}}>
-                <TouchableOpacity onPress={()=>{this.onPressItemLeft(data)}}>
-                      <View style={{flexDirection:'row',alignItems:'center',height:55,flex:1}}>
-                            <Text style={{marginLeft:8,marginRight:8,flex:1}}>{data}</Text>
-                      </View>
-                </TouchableOpacity>
-         </View>
-      );
-    }
+        const {goods} = this.props;
+        if(data === goods.selectedItem){
+          return (
+              <View style={{backgroundColor:selectedColor}}>
+                    <TouchableOpacity onPress={()=>{this.onPressItemLeft(data)}}>
+                          <View style={{flexDirection:'row',alignItems:'center',height:55,flex:1}}>
+                                <Text style={{marginLeft:8,marginRight:8,flex:1}}>{data}</Text>
+                          </View>
+                    </TouchableOpacity>
+             </View>
+          );
+        }else{
+          return (
+              <View style={{backgroundColor:defaultColor}}>
+                    <TouchableOpacity onPress={()=>{this.onPressItemLeft(data)}}>
+                          <View style={{flexDirection:'row',alignItems:'center',height:55,flex:1}}>
+                                <Text style={{marginLeft:8,marginRight:8,flex:1}}>{data}</Text>
+                          </View>
+                    </TouchableOpacity>
+             </View>
+          );
+        }
     }
 
     renderItemImage(data){
@@ -179,60 +173,51 @@ class Menu extends Component {
          )
      } else {
        return (
-         <Image source={{uri:data.picture}} style={styles.item_image} />
+           <Image source={{uri:data.picture}} style={styles.item_image} />
          )
      }
     }
     //渲染每一项的数据
     renderItemRight(data) {
-    return (
-      <TouchableOpacity onPress={()=>{this.onPressItemRight(data)}}>
-           <View style={{backgroundColor:'white',flexDirection:'row'}}>
-                {this.renderItemImage(data)}
-                <View style={{flex:1,marginTop:10,marginBottom:10}}>
-                     <Text style={styles.item_title}>{data.name}</Text>
-                     <View style={{flexDirection:'row',marginTop:5}}>
-                            <Text style={styles.item_des}>月售{data.month_saled}</Text>
-                            <Text style={styles.item_des}>赞{data.praise}</Text>
-                     </View>
-                     <Text style={styles.item_price}>¥{data.price}</Text>
-                </View>
-                <View style={{justifyContent:'flex-end'}}>
-                     <TouchableOpacity style={styles.btn_add} onPress={()=>{this.addFood(data)}}>
-                          <Image source={require('../imgs/store/addfood.png')}
-                                 style={{width:20,height:20}}/>
-                     </TouchableOpacity>
-                </View>
-           </View>
-      </TouchableOpacity>
-    );
+        return (
+          <TouchableOpacity onPress={()=>{this.onPressItemRight(data)}}>
+               <View style={{backgroundColor:'white',flexDirection:'row'}}>
+                    {this.renderItemImage(data)}
+                    <View style={{flex:1,marginTop:10,marginBottom:10}}>
+                         <Text style={styles.item_title}>{data.name}</Text>
+                         <View style={{flexDirection:'row',marginTop:5}}>
+                                <Text style={styles.item_des}>月售{data.month_saled}</Text>
+                                <Text style={styles.item_des}>赞{data.praise}</Text>
+                         </View>
+                         <Text style={styles.item_price}>¥{data.price}</Text>
+                    </View>
+                    <View style={{justifyContent:'flex-end'}}>
+                         <TouchableOpacity style={styles.btn_add} onPress={()=>{this.addFood(data)}}>
+                              <Image source={require('../imgs/store/addfood.png')}
+                                     style={{width:20,height:20}}/>
+                         </TouchableOpacity>
+                    </View>
+               </View>
+          </TouchableOpacity>
+        );
     }
     //渲染商家基本信息布局
     renderStoreBaisc(){
-     const {navigator} = this.props;
+     const {navigator,goods} = this.props;
      return (
-       <TouchableOpacity >
-       <View style={styles.container}>
-            <Image source={require('../imgs/store/ic_store_top_bg.png')} style={{width:width,height:PARALLAX_HEADER_HEIGHT}}>
-                <View style={{flexDirection:'row',marginLeft:24,height:68,alignItems:'center',marginTop:12}}>
-                     <Image source={require('../imgs/store/ic_store_default.png')}
-                            style={{width:68,height:68,borderRadius:34}}/>
-                     <Text style={{color:'white',fontSize:16,marginLeft:26}}>route.data.name</Text>
+        <TouchableOpacity >
+            <View style={styles.container}>
+                <View style={{flexDirection:'row',marginLeft:15,height:35,alignItems:'center'}}>
+                     <Image source={goods.store_info.icon ? require(goods.store_info.icon) : require('../imgs/store/default.png')}
+                            style={{width:58,height:58,borderRadius:29,marginRight:20}}/>
+                     <Text style={{color:'#2c2c2c',fontSize:16}}>{goods.store_info.name}</Text>
                      <View style={{flex:1,alignItems:'flex-end',marginRight:15}}>
-                           <Image source={require('../imgs/ic_center_right_arrow.png')}
-                                         style={{width:12,height:18}}/>
+                         <Image source={require('../imgs/store/table.png')}
+                                style={{width:22,height:22,marginRight:6}}
+                         />
+                         <Text style={{color:'#2c2c2c',fontSize:13,marginLeft:4}}>第{goods.store_info.table}桌</Text>
                      </View>
                 </View>
-                <View style={{flexDirection:'row',justifyContent:'flex-end'}}>
-                     <TouchableOpacity style={{flexDirection:'row',marginRight:10,alignItems:'center'}}
-                         onPress={()=>{this.collectAction()}}>
-                         <Image source={require('../imgs/store/ic_store_collection_selected.png')}
-                                style={{width:20,height:20}}
-                         />
-                         <Text style={{color:'black',fontSize:13,marginLeft:4}}>收藏</Text>
-                     </TouchableOpacity>
-                </View>
-            </Image>
         </View>
         </TouchableOpacity>
      );
@@ -263,8 +248,6 @@ class Menu extends Component {
         return (
             <View style={{flex:1}}>
                 <View>
-                    {/*渲染顶部头布局*/}
-                     <Header title='商品列表' hasBack={true} backAction={() => {this.buttonBackAction()}} />
                     {this.renderStoreBaisc()}
                 </View>
                     {this.renderBottom()}
@@ -273,7 +256,7 @@ class Menu extends Component {
     }
 }
 
-const PARALLAX_HEADER_HEIGHT = 100;
+const PARALLAX_HEADER_HEIGHT = 80;
 const STICKY_HEADER_HEIGHT = 45;
 
 const styles = StyleSheet.create({
@@ -283,41 +266,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    topbar_bg:{
-        height:48,
-        backgroundColor:'#ff7e5e',
-        flexDirection:'row'
-    },
-    topbar_left_item:{
-        width:48,
-        height:48,
-        alignItems:'center',
-        justifyContent:'center'
-    },
-    topbar_back_btn:{
-        width:20,
-        height:20,
-    },
-    topbar_center_bg:{
-        flex:1,
-        alignItems:'center',
-        justifyContent:'center'
-    },
-    topbar_center_tv:{
-        fontSize:18,
-        color:'white',
-        alignSelf:'center'
-    },
     separator: {
         marginLeft:8
     },
     separatorGood: {
         height: 1,
         backgroundColor: '#eee'
-    },
-    font: {
-        fontSize: 12.5,
-        color: '#555555'
     },
     item_image:{
         width:60,

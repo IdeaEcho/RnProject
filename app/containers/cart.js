@@ -35,9 +35,9 @@ class Cart extends Component {
         const {actions} = this.props
         actions.clearCartAction()
     }
-    onDeleteFood(id) {
+    onDeleteFood(data) {
         const {actions} = this.props
-        actions.deleteFoodAction(id)
+        actions.deleteFoodAction(data)
     }
     onAddNum(id,price) {
         const {actions} = this.props
@@ -56,7 +56,8 @@ class Cart extends Component {
             InteractionManager.runAfterInteractions(() => {
             navigator.push({
               component: OrderResult,
-              name: 'OrderResult'
+              name: '订单结果',
+              total: this.props.cart.total
                });
             });
         }
@@ -69,7 +70,7 @@ class Cart extends Component {
             {cart.foods&&cart.foods.map(food =>
                 <CartItem key={food.id}
                                   food={food}
-                                  deleteFoodAction={()=>{this.onDeleteFood(food.id)}}
+                                  deleteFoodAction={()=>{this.onDeleteFood(food)}}
                                   addNumAction={()=>{this.onAddNum(food.id,food.price)}}
                                   cutNumAction={()=>{this.onCutNum(food.id,food.price)}} />
              )}
