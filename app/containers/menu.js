@@ -9,7 +9,6 @@ import {
   StyleSheet,
   InteractionManager
 } from 'react-native';
-
 import { STORE_DETAILS_DATA } from '../common/VirtualData';
 import {formatStore,calculateGood} from '../utils/StoreFormat';
 import Header from '../components/Header';
@@ -206,19 +205,17 @@ class Menu extends Component {
      const {navigator,goods} = this.props;
      return (
         <TouchableOpacity >
-            <View style={styles.container}>
-                <View style={{flexDirection:'row',marginLeft:15,height:35,alignItems:'center'}}>
-                    <Image source={goods.store_info.icon ? require(goods.store_info.icon) : require('../imgs/store/default.png')}
-                        style={{width:58,height:58,borderRadius:29,marginRight:20}}/>
-                    <Text style={{color:'#2c2c2c',fontSize:16}}>{goods.store_info.name}</Text>
-                    <View style={{flex:1,alignItems:'flex-end',marginRight:15}}>
-                         <Image source={require('../imgs/store/table.png')}
-                                style={{width:22,height:22,marginRight:6}}
-                     />
-                     <Text style={{color:'#2c2c2c',fontSize:13,marginLeft:4}}>第{goods.store_info.table}桌</Text>
-                    </View>
+            <View style={styles.topbar}>
+                <Image source={goods.store_info.icon ? require(goods.store_info.icon) : require('../imgs/store/default.png')}
+                    style={{width:58,height:58,borderRadius:29,marginRight:20}}/>
+                <Text style={{color:'#2c2c2c',width:width-150,fontSize:16}}>{goods.store_info.name}</Text>
+                <View style={{alignItems:'flex-end',marginRight:15}}>
+                     <Image source={require('../imgs/store/table.png')}
+                            style={{width:22,height:22,marginRight:6}}
+                 />
+                 <Text style={{color:'#2c2c2c',fontSize:13,marginLeft:4}}>第{goods.store_info.table}桌</Text>
                 </View>
-        </View>
+            </View>
         <Image source={require('../imgs/order/ic_order_heng.png')}/>
         </TouchableOpacity>
      );
@@ -261,11 +258,11 @@ const PARALLAX_HEADER_HEIGHT = 80;
 const STICKY_HEADER_HEIGHT = 45;
 
 const styles = StyleSheet.create({
-    container: {
-        height: PARALLAX_HEADER_HEIGHT,
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
+    topbar: {
+        flexDirection:'row',
+        marginLeft:15,
+        alignItems:'center',
+        height: PARALLAX_HEADER_HEIGHT
     },
     separator: {
         marginLeft:8

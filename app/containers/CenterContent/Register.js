@@ -98,7 +98,7 @@ class Login extends Component {
                 <View style={{backgroundColor:'white',marginTop:13}}>
                     <View style={{flexDirection:'row',height:45,alignItems:'center'}}>
                           <TextInput
-                            style={{height:40,fontSize: 15,textAlign: 'left',textAlignVertical:'center',flex:1}}
+                            style={styles.textInput}
                             placeholder="请输入手机号码"
                             placeholderTextColor="#aaaaaa"
                             underlineColorAndroid="transparent"
@@ -114,7 +114,7 @@ class Login extends Component {
                     <ShortLineTwo/>
                     <View style={{flexDirection:'row',height:45,alignItems:'center'}}>
                           <TextInput
-                            style={{height:40,fontSize: 15,textAlign: 'left',textAlignVertical:'center',flex:1}}
+                            style={styles.textInput}
                             placeholder="请输入密码(6位以上字符)"
                             placeholderTextColor="#aaaaaa"
                             underlineColorAndroid="transparent"
@@ -152,6 +152,15 @@ const styles=StyleSheet.create({
         backgroundColor:'white',
         height:48,
         justifyContent:'center'
+    },
+    textInput:{
+        marginTop:10,
+        marginLeft:10,
+        height:40,
+        fontSize: 15,
+        textAlign: 'left',
+        textAlignVertical:'center',
+        flex:1
     },
     btn:{
         width:300,

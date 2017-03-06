@@ -19,7 +19,6 @@ import CenterItem from '../components/CenterItem';
 import ImageButton from '../components/ImageButton';
 import ModifyInformation from './CenterContent/ModifyInformation';
 import Charge from './CenterContent/Charge';
-import Prepaid from './CenterContent/Prepaid';
 import FeedBack from './CenterContent/FeedBack';
 
 var {height,width} =  Dimensions.get('window');
@@ -64,14 +63,7 @@ class User extends Component {
     //判断当前点击了那个按钮
     itemActionIndex(position){
         const {navigator} = this.props;
-        if(position === 0){
-           InteractionManager.runAfterInteractions(() => {
-            navigator.push({
-              component: Prepaid,
-              name: 'Prepaid'
-            });
-          });
-        }else if(position === 1){
+        if(position === 1){
 
         }else if(position === 2){
            InteractionManager.runAfterInteractions(() => {

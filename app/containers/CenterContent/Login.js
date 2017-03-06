@@ -225,6 +225,8 @@ const styles=StyleSheet.create({
         alignSelf:'center'
     },
     textInput:{
+        marginTop:10,
+        marginLeft:10,
         height:40,
         fontSize: 15,
         textAlign: 'left',

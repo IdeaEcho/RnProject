@@ -17,7 +17,6 @@ import ShortLine from '../../components/ShortLine';
 import Language from './Language';
 import About from './About';
 import ResetPwd from  './ResetPwd';
-import Prepaid from './Prepaid';
 
 class Setting extends Component {
   constructor(props) {
