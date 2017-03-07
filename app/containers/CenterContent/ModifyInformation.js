@@ -16,18 +16,40 @@ import { NaviGoBack } from '../../utils/CommonUtils';
 import Header from '../../components/Header';
 import ShortLineTwo from '../../components/ShortLineTwo';
 
-var name = '';
-var email = '';
-var infor = '';
-var tel = '';
-var gender = '';
-
 class ModifyInformation extends Component {
   constructor(props) {
       super(props);
       this.buttonBackAction=this.buttonBackAction.bind(this);
       this.informationSave=this.informationSave.bind(this);
       this.modifyIcon=this.modifyIcon.bind(this);
+      this.state = {
+          phone:''
+      }
+  }
+  componentDidMount(){
+      // 读取
+      storage.load({
+        key: 'userinfo',
+        autoSync: true,// autoSync(默认为true)意味着在没有找到数据或数据过期时自动调用相应的sync方法
+        // syncInBackground(默认为true)意味着如果数据过期，
+        // 在调用sync方法的同时先返回已经过期的数据。
+        // 设置为false的话，则始终强制返回sync方法提供的最新数据(当然会需要更多等待时间)。
+        syncInBackground: true,
+      }).then(ret => {
+        this.setState({ phone: ret.phone });
+      }).catch(err => {
+        //如果没有找到数据且没有sync方法，
+        //或者有其他异常，则在catch中返回
+        console.warn(err.message);
+        switch (err.name) {
+            case 'NotFoundError':
+                // TODO;
+                break;
+            case 'ExpiredError':
+                // TODO
+                break;
+        }
+      })
   }
   //返回
   buttonBackAction(){
@@ -125,6 +147,7 @@ class ModifyInformation extends Component {
                                         numberOfLines={1}
                                         ref={'tel'}
                                         multiline={true}
+                                        defaultValue={this.state.phone}
                                         onChangeText={(text) => {
                                             tel = text;
                                             }}

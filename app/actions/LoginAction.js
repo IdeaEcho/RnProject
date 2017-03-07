@@ -4,36 +4,48 @@
 'use strict';
 
 import * as types from '../common/ActionTypes';
-import FetchHttpClient, { json,header } from 'fetch-http-client';
+import FetchHttpClient, { json,form,header } from 'fetch-http-client';
 import {HOST,LOGIN_ACTION} from  '../common/Request';
 import { toastShort } from '../utils/ToastUtil';
+import Storage from 'react-native-storage';
 import base64url from 'base64-url';
 const client = new FetchHttpClient(HOST);
 
 export function performLoginAction(data){
     return dispatch => {
         dispatch(performLogin());
-        client.addMiddleware(json());
+        client.addMiddleware(form());
         // Add Logging
         client.addMiddleware(request => response => {
           console.log(request, response);
         });
         client.post(LOGIN_ACTION,{
-            data: base64url.encode(data)
+            form: { data: base64url.encode(data)}
         }).then(response => {
-            console.log(base64url.decode(response));
-            return base64url.decode(response);
+            return base64url.decode(response._bodyText);
         }).then((result)=> {
-         dispatch(receiveLoginResult(result));
-         if(result.returnCode === '200'){
-             //登录成功..
+            result = JSON.parse(result)
+            dispatch(receiveLoginResult(result));
+            if(result.returnCode === '200'){
+                console.log(result);
              toastShort('登录成功');
-         }else{
+             storage.save({
+                key: 'userinfo',  // 注意:请不要在key中使用_下划线符号!
+                rawData: {
+                phone: result.phone,
+                nickname: result.nickname
+                },
+                // 如果不指定过期时间，则会使用defaultExpires参数
+                // 如果设为null，则永不过期
+                expires: 1000 * 3600
+            });
+            }else{
              toastShort(result.msg);
-         }
-        }).catch((error) => {
+            }
+            }).catch((error) => {
+            // console.log(error);
             toastShort(error+'网络发生错误,请重试!')
-        });
+            });
      }
 }
 
