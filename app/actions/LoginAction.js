@@ -4,22 +4,26 @@
 'use strict';
 
 import * as types from '../common/ActionTypes';
-import FetchHttpClient, { form,header } from 'fetch-http-client';
+import FetchHttpClient, { json,header } from 'fetch-http-client';
 import {HOST,LOGIN_ACTION} from  '../common/Request';
 import { toastShort } from '../utils/ToastUtil';
-import Base64 from 'base64-js';
+import base64url from 'base64-url';
 const client = new FetchHttpClient(HOST);
 
 export function performLoginAction(data){
     return dispatch => {
         dispatch(performLogin());
-        client.addMiddleware(form());
+        client.addMiddleware(json());
+        // Add Logging
+        client.addMiddleware(request => response => {
+          console.log(request, response);
+        });
         client.post(LOGIN_ACTION,{
-            form: {data:  Base64.fromByteArray(data)} }
-        ).then(response => {
-            toastShort(Base64.toByteArray(response).json());
-            return Base64.toByteArray(response).json();
-        }).then((result)=>{
+            data: base64url.encode(data)
+        }).then(response => {
+            console.log(base64url.decode(response));
+            return base64url.decode(response);
+        }).then((result)=> {
          dispatch(receiveLoginResult(result));
          if(result.returnCode === '200'){
              //登录成功..
@@ -28,7 +32,7 @@ export function performLoginAction(data){
              toastShort(result.msg);
          }
         }).catch((error) => {
-         toastShort('网络发生错误,请重试!')
+            toastShort(error+'网络发生错误,请重试!')
         });
      }
 }

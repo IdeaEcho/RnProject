@@ -22,7 +22,6 @@ import FetchHttpClient, { form,header } from 'fetch-http-client';
 import {HOST,LOGIN_ACTION} from  '../../common/Request';
 import { toastShort } from '../../utils/ToastUtil';
 import {NativeModules} from 'react-native';
-import Base64  from 'base64-js';
 var EncryptionModule = NativeModules.EncryptionModule;
 
 import Loading from '../../components/Loading_DD';
@@ -32,8 +31,8 @@ import { performLoginAction } from '../../actions/LoginAction'
 
 const client = new FetchHttpClient(HOST);
 
-var username = '18064563545';
-var password = 'haha123';
+var username = '15659675727';
+var password = '147159';
 
 class Login extends Component {
     constructor(props) {
@@ -50,7 +49,7 @@ class Login extends Component {
         return NaviGoBack(navigator);
     }
     isPhoneValid(phone){
-        var regExp =new RegExp( "^[1]([3][0-9]{1}|59|58|88|80|89)[0-9]{8}$");
+        var regExp =new RegExp( "^[1]([3][0-9]{1}|56|59|58|88|80|89)[0-9]{8}$");
         return regExp.test(phone);//boolean
     }
     //用户登录/注册
