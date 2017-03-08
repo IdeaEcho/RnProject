@@ -65,7 +65,7 @@ class User extends Component {
           }
         })
     }
-    shouldComponentUpdate(nextProps, nextState) {
+    componentDidMount() {
         this.getUserInfo()
     }
     //设置按钮

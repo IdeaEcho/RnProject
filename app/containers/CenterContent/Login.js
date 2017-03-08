@@ -74,7 +74,7 @@ class Login extends Component {
                password : password
            }
            var string = JSON.stringify(data)
-           dispatch(performLoginAction(string))
+           dispatch(performLoginAction(string,navigator))
         }else if(position === 1){
            //用户注册
            InteractionManager.runAfterInteractions(() => {

@@ -18,6 +18,7 @@ import Language from './Language';
 import About from './About';
 import ResetPwd from  './ResetPwd';
 import Storage from 'react-native-storage'
+import Home from '../home'
 
 class Setting extends Component {
   constructor(props) {
@@ -39,6 +40,12 @@ class Setting extends Component {
         //注销登陆
         storage.remove({
             key: 'userinfo'
+        });
+        InteractionManager.runAfterInteractions(() => {
+           navigator.push({
+              component: Home,
+              name: 'Home'
+           });
         });
       }else if(position === 2){
         InteractionManager.runAfterInteractions(() => {
