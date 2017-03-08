@@ -1,5 +1,5 @@
-'use strict';
-import React, {Component} from 'react';
+'use strict'
+import React, {Component} from 'react'
 import{
     View,
     Text,
@@ -9,28 +9,29 @@ import{
     Dimensions,
     StyleSheet,
     ToastAndroid,
-} from 'react-native';
+} from 'react-native'
+import {connect} from 'react-redux'
+import Setting from './CenterContent/Setting'
+import More from './CenterContent/More'
+import Login from './CenterContent/Login'
+import Header from '../components/Header'
+import CenterItem from '../components/CenterItem'
+import ImageButton from '../components/ImageButton'
+import ModifyInformation from './CenterContent/ModifyInformation'
+import Charge from './CenterContent/Charge'
+import FeedBack from './CenterContent/FeedBack'
+import Storage from 'react-native-storage'
+import { toastShort } from '../utils/ToastUtil'
 
-import Setting from './CenterContent/Setting';
-import More from './CenterContent/More';
-import Login from './CenterContent/Login';
-import Header from '../components/Header';
-import CenterItem from '../components/CenterItem';
-import ImageButton from '../components/ImageButton';
-import ModifyInformation from './CenterContent/ModifyInformation';
-import Charge from './CenterContent/Charge';
-import FeedBack from './CenterContent/FeedBack';
-import Storage from 'react-native-storage';
-
-var {height,width} =  Dimensions.get('window');
+var {height,width} =  Dimensions.get('window')
 
 class User extends Component {
     constructor(props) {
-        super(props);
-        this.settingButtonAction=this.settingButtonAction.bind(this);
-        this.itemActionIndex=this.itemActionIndex.bind(this);
-        this.itemModifyAction=this.itemModifyAction.bind(this);
-        this.loginButtonActiom=this.loginButtonActiom.bind(this);
+        super(props)
+        this.settingButtonAction=this.settingButtonAction.bind(this)
+        this.itemActionIndex=this.itemActionIndex.bind(this)
+        this.itemModifyAction=this.itemModifyAction.bind(this)
+        this.loginButtonActiom=this.loginButtonActiom.bind(this)
         this.state = {
             nickname:'未登陆',
             level: '',
@@ -39,9 +40,9 @@ class User extends Component {
             hot: 0,
             salty: 0,
             bitter: 0,
-        };
+        }
     }
-    componentDidMount(){
+    getUserInfo() {
         // 读取
         storage.load({
           key: 'userinfo',
@@ -51,50 +52,45 @@ class User extends Component {
           // 设置为false的话，则始终强制返回sync方法提供的最新数据(当然会需要更多等待时间)。
           syncInBackground: true,
         }).then(ret => {
-          // 如果找到数据，则在then方法中返回
-          // 注意：这是异步返回的结果（不了解异步请自行搜索学习）
-          // 你只能在then这个方法内继续处理ret数据
-          // 而不能在then以外处理
-          // 也没有办法“变成”同步返回
-          // 你也可以使用“看似”同步的async/await语法
-          this.setState({ nickname: ret.nickname });
+            this.setState({ nickname: ret.nickname })
         }).catch(err => {
-          //如果没有找到数据且没有sync方法，
-          //或者有其他异常，则在catch中返回
-          console.warn(err.message);
+          console.warn(err.message)
           switch (err.name) {
               case 'NotFoundError':
-                  // TODO;
-                  break;
+                  // TODO
+                  break
               case 'ExpiredError':
                   // TODO
-                  break;
+                  break
           }
         })
     }
+    shouldComponentUpdate(nextProps, nextState) {
+        this.getUserInfo()
+    }
     //设置按钮
     settingButtonAction(){
-        const {navigator} = this.props;
+        const {navigator} = this.props
         InteractionManager.runAfterInteractions(() => {
         navigator.push({
           component: Setting,
           name: 'Setting'
-        });
-      });
+        })
+      })
     }
     //登录
     loginButtonActiom(){
-        const {navigator} = this.props;
+        const {navigator} = this.props
         InteractionManager.runAfterInteractions(() => {
             navigator.push({
               component: Login,
               name: 'Login'
-            });
-          });
+            })
+          })
     }
     //判断当前点击了那个按钮
     itemActionIndex(position){
-        const {navigator} = this.props;
+        const {navigator} = this.props
         if(position === 1){
 
         }else if(position === 2){
@@ -102,8 +98,8 @@ class User extends Component {
             navigator.push({
               component: Charge,
               name: 'Charge'
-            });
-          });
+            })
+          })
 
         }else if(position === 3){
 
@@ -112,26 +108,26 @@ class User extends Component {
                   navigator.push({
                      component: FeedBack,
                      name: 'FeedBack'
-                  });
+                  })
             })
         }else if(position === 5){
           InteractionManager.runAfterInteractions(() => {
             navigator.push({
               component: More,
               name: 'More'
-              });
-            });
+              })
+            })
       }
     }
     //编辑按钮
     itemModifyAction(){
-       const {navigator} = this.props;
+       const {navigator} = this.props
        InteractionManager.runAfterInteractions(() => {
             navigator.push({
               component: ModifyInformation,
               name: 'ModifyInformation'
-              });
-            });
+              })
+            })
     }
 
     render() {
@@ -191,7 +187,7 @@ class User extends Component {
                    <Text style={{alignSelf:'center'}}>客服电话:18959386000</Text>
                </TouchableOpacity>
             </View>
-        );
+        )
     }
 }
 
@@ -230,6 +226,11 @@ const styles = StyleSheet.create({
         marginRight:10,
         marginTop:40
     }
-});
-
-export default User;
+})
+function mapStateToProps(state) {
+    const {nickname} = state
+        return {
+            nickname: nickname
+        }
+}
+export default connect(mapStateToProps)(User)

@@ -1,34 +1,34 @@
 /**
  * 用户登录Action操作
  */
-'use strict';
+'use strict'
 
-import * as types from '../common/ActionTypes';
-import FetchHttpClient, { json,form,header } from 'fetch-http-client';
-import {HOST,LOGIN_ACTION} from  '../common/Request';
-import { toastShort } from '../utils/ToastUtil';
-import Storage from 'react-native-storage';
-import base64url from 'base64-url';
-const client = new FetchHttpClient(HOST);
+import * as types from '../common/ActionTypes'
+import FetchHttpClient, { json,form,header } from 'fetch-http-client'
+import {HOST,LOGIN_ACTION} from  '../common/Request'
+import { toastShort } from '../utils/ToastUtil'
+import Storage from 'react-native-storage'
+import base64url from 'base64-url'
+const client = new FetchHttpClient(HOST)
 
 export function performLoginAction(data){
     return dispatch => {
-        dispatch(performLogin());
-        client.addMiddleware(form());
+        dispatch(performLogin())
+        client.addMiddleware(form())
         // Add Logging
         client.addMiddleware(request => response => {
-          console.log(request, response);
-        });
+          console.log(request, response)
+        })
         client.post(LOGIN_ACTION,{
             form: { data: base64url.encode(data)}
         }).then(response => {
-            return base64url.decode(response._bodyText);
+            return base64url.decode(response._bodyText)
         }).then((result)=> {
             result = JSON.parse(result)
-            dispatch(receiveLoginResult(result));
+            dispatch(receiveLoginResult(result))
             if(result.returnCode === '200'){
-                console.log(result);
-             toastShort('登录成功');
+                console.log(result)
+             toastShort('登录成功')
              storage.save({
                 key: 'userinfo',  // 注意:请不要在key中使用_下划线符号!
                 rawData: {
@@ -38,14 +38,14 @@ export function performLoginAction(data){
                 // 如果不指定过期时间，则会使用defaultExpires参数
                 // 如果设为null，则永不过期
                 expires: 1000 * 3600
-            });
+            })
             }else{
-             toastShort(result.msg);
+             toastShort(result.msg)
             }
             }).catch((error) => {
-            // console.log(error);
+            // console.log(error)
             toastShort(error+'网络发生错误,请重试!')
-            });
+            })
      }
 }
 

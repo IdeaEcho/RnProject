@@ -1,11 +1,11 @@
 /**
  * 商品列表Action操作
  */
-'use strict';
+'use strict'
 
-import * as types from '../common/ActionTypes';
-import { STORE_DETAILS_DATA } from '../common/VirtualData';
-import {formatStore,calculateGood,calculateLength,formatInfo} from '../utils/StoreFormat';
+import * as types from '../common/ActionTypes'
+import { STORE_DETAILS_DATA } from '../common/VirtualData'
+import {formatStore,calculateGood,calculateLength,formatInfo} from '../utils/StoreFormat'
 
 //添加到购物车
 export const addFoodAction=(data) => ({ type: types.ADD_FOOD, data })
@@ -22,19 +22,19 @@ export const cutNumAction=(id,price) => ({ type: types.CUT_NUM, id,price })
 //获取商品列表
 export function fetchGoodsAction(){
      return dispatch => {
-        dispatch(dispatchGoodsAction());
-        var store_info = formatInfo(eval(STORE_DETAILS_DATA).data);
-        var right_items = formatStore(eval(STORE_DETAILS_DATA).data);
-        var left_items = Object.keys(right_items);
-        var data_length = calculateLength(eval(STORE_DETAILS_DATA).data);
-        dispatch(receiveGoodsAction(store_info,left_items,right_items,data_length));
+        dispatch(dispatchGoodsAction())
+        var store_info = formatInfo(eval(STORE_DETAILS_DATA).data)
+        var right_items = formatStore(eval(STORE_DETAILS_DATA).data)
+        var left_items = Object.keys(right_items)
+        var data_length = calculateLength(eval(STORE_DETAILS_DATA).data)
+        dispatch(receiveGoodsAction(store_info,left_items,right_items,data_length))
      }
 }
 
 //点击切换商品类别
 export function changeCategoryAction(data){
      return dispatch => {
-        dispatch(changeDistanceAction(data));
+        dispatch(changeDistanceAction(data))
      }
 }
 

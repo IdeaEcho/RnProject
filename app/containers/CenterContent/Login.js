@@ -1,5 +1,5 @@
-'use strict';
-import React, {Component,PropTypes} from 'react';
+'use strict'
+import React, {Component,PropTypes} from 'react'
 import{
     View,
     Text,
@@ -11,66 +11,66 @@ import{
     TextInput,
     Platform,
     ToastAndroid,
-} from 'react-native';
-//(Platform.OS === 'ios') ? '' : '';
-import { NaviGoBack } from '../../utils/CommonUtils';
-import Register from './Register';
-import Header from '../../components/Header';
-import ShortLineTwo from '../../components/ShortLineTwo';
-import ResetPwd from  './ResetPwd';
-import FetchHttpClient, { form,header } from 'fetch-http-client';
-import {HOST,LOGIN_ACTION} from  '../../common/Request';
-import { toastShort } from '../../utils/ToastUtil';
-import {NativeModules} from 'react-native';
-var EncryptionModule = NativeModules.EncryptionModule;
+} from 'react-native'
+//(Platform.OS === 'ios') ? '' : ''
+import { NaviGoBack } from '../../utils/CommonUtils'
+import Register from './Register'
+import Header from '../../components/Header'
+import ShortLineTwo from '../../components/ShortLineTwo'
+import ResetPwd from  './ResetPwd'
+import FetchHttpClient, { form,header } from 'fetch-http-client'
+import {HOST,LOGIN_ACTION} from  '../../common/Request'
+import { toastShort } from '../../utils/ToastUtil'
+import {NativeModules} from 'react-native'
+var EncryptionModule = NativeModules.EncryptionModule
 
-import Loading from '../../components/Loading_DD';
+import Loading from '../../components/Loading_DD'
 
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 import { performLoginAction } from '../../actions/LoginAction'
 
-const client = new FetchHttpClient(HOST);
+const client = new FetchHttpClient(HOST)
 
-var username = '15659675727';
-var password = '147159';
+var phone = '15659675727'
+var password = '147159'
 
 class Login extends Component {
     constructor(props) {
-        super(props);
-        this.buttonBackAction=this.buttonBackAction.bind(this);
-        this.buttonRegisterOrLoginAction=this.buttonRegisterOrLoginAction.bind(this);
-        this.buttonChangeState=this.buttonChangeState.bind(this);
-        this.findPwdAction=this.findPwdAction.bind(this);
-        this.thirdPartLoginAction=this.thirdPartLoginAction.bind(this);
+        super(props)
+        this.buttonBackAction=this.buttonBackAction.bind(this)
+        this.buttonRegisterOrLoginAction=this.buttonRegisterOrLoginAction.bind(this)
+        this.buttonChangeState=this.buttonChangeState.bind(this)
+        this.findPwdAction=this.findPwdAction.bind(this)
+        this.thirdPartLoginAction=this.thirdPartLoginAction.bind(this)
     }
   //返回
     buttonBackAction(){
-        const {navigator} = this.props;
-        return NaviGoBack(navigator);
+        const {navigator} = this.props
+        return NaviGoBack(navigator)
     }
     isPhoneValid(phone){
-        var regExp =new RegExp( "^[1]([3][0-9]{1}|56|59|58|88|80|89)[0-9]{8}$");
-        return regExp.test(phone);//boolean
+        var regExp =new RegExp( "^[1]([3][0-9]{1}|56|59|58|88|80|89)[0-9]{8}$")
+        return regExp.test(phone)//boolean
     }
     //用户登录/注册
     buttonRegisterOrLoginAction(position){
-        const {navigator,dispatch} = this.props;
+        const {navigator,dispatch} = this.props
         if(position === 0){
             //用户登录
-           if(username === ''){
-               toastShort('手机号不能为空');
-               return;
+           if(phone === ''){
+               toastShort('手机号不能为空')
+               return
            }
            if(password === ''){
-               toastShort('密码不能为空');
-               return;
+               toastShort('密码不能为空')
+               return
            }
-           if(!this.isPhoneValid(username)){
-               toastShort('手机号错误');
-               return;
+           if(!this.isPhoneValid(phone)){
+               toastShort('手机号错误')
+               return
            }
            var data = {
-               phone : username,
+               phone : phone,
                password : password
            }
            var string = JSON.stringify(data)
@@ -81,28 +81,28 @@ class Login extends Component {
                navigator.push({
                    component: Register,
                    name: 'Register'
-                });
-            });
+                })
+            })
         }
     }
     buttonChangeState(){
 
     }
     findPwdAction(){
-     const {navigator} = this.props;
-     InteractionManager.runAfterInteractions(() => {
-               navigator.push({
-                   component: ResetPwd,
-                   name: 'ResetPwd'
-                });
-            });
+        const {navigator} = this.props
+        InteractionManager.runAfterInteractions(() => {
+            navigator.push({
+               component: ResetPwd,
+               name: 'ResetPwd'
+            })
+        })
     }
     thirdPartLoginAction(position){
 
     }
 
     render() {
-      const {login} = this.props;
+      const {login} = this.props
       return (
              <View style={styles.container}>
                 <Header title='登陆' right='注册' hasBack={true} hasRight={true}
@@ -118,11 +118,11 @@ class Login extends Component {
                             placeholderTextColor="#aaaaaa"
                             underlineColorAndroid="transparent"
                             numberOfLines={1}
-                            ref={'username'}
+                            ref={'phone'}
                             multiline={true}
                             autoFocus={true}
                             onChangeText={(text) => {
-                               username = text;
+                               phone = text
                             }}
                       />
                     </View>
@@ -140,7 +140,7 @@ class Login extends Component {
                             multiline={true}
                             secureTextEntry={true}
                             onChangeText={(text) => {
-                               password = text;
+                               password = text
                             }}
                            />
                           <TouchableOpacity onPress={() => {this.buttonChangeState()}} style={{width:45,height:45,alignItems:'center',justifyContent:'center'}}>
@@ -173,7 +173,7 @@ class Login extends Component {
                 </View>
                 <Loading visible={login.loading} />
              </View>
-        );
+        )
     }
 }
 const styles=StyleSheet.create({
@@ -247,13 +247,13 @@ const styles=StyleSheet.create({
         borderWidth: 2,
         borderColor: '#ff7e5e'
     }
-});
+})
 
 function mapStateToProps(state) {
-  const { login } = state;
+  const { login } = state
   return {
     login
   }
 }
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps)(Login)

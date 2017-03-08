@@ -2,10 +2,12 @@
 /**
  * 进行定义请求Action类型
  */
+ // 登陆
 export const PERFORM_LOGIN_ACTION = 'PERFORM_LOGIN_ACTION'
 export const RECEIVE_LOGIN_ACTION = 'RECEIVE_LOGIN_ACTION'
-
-export const PERFORM_REGISTER_ACTION = 'PERFORM_REGISTER_ACTION' //用户注册
+// 注册
+export const PERFORM_REGISTER_ACTION = 'PERFORM_REGISTER_ACTION'
+export const RECEIVE_REGISTER_ACTION = 'RECEIVE_REGISTER_ACTION'
 
 //商家详情-商品列表相关的逻辑处理
 export const FETCH_GOOS_ACTION = "FETCH_GOOS_ACTION"  //获取商品列表中

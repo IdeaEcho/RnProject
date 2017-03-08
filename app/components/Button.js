@@ -1,24 +1,24 @@
-'use strict';
+'use strict'
 
-import React, {Component} from 'react';
-import {bindActionCreators} from 'redux';
+import React, {Component} from 'react'
+import {bindActionCreators} from 'redux'
 import {
     StyleSheet,
     Text,
     View,
     TouchableOpacity
-} from 'react-native';
+} from 'react-native'
 
 export default class Button extends Component {
     constructor(props) {
-        super(props);
+        super(props)
     }
     loginPressHandler = () => {
-        alert('你按下了按钮');
-    };
+        alert('你按下了按钮')
+    }
     render() {
         //解构
-        const { text } = this.props;
+        const { text } = this.props
         return (
             <View style={styles.container}>
                 <TouchableOpacity
@@ -31,7 +31,7 @@ export default class Button extends Component {
                 </Text>
                 </TouchableOpacity>
             </View>
-        );
+        )
     }
 }
 
@@ -53,4 +53,4 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
   }
-});
+})

@@ -17,6 +17,7 @@ import ShortLine from '../../components/ShortLine';
 import Language from './Language';
 import About from './About';
 import ResetPwd from  './ResetPwd';
+import Storage from 'react-native-storage'
 
 class Setting extends Component {
   constructor(props) {
@@ -35,7 +36,10 @@ class Setting extends Component {
       if(position === 0){
 
       }else if(position === 1){
-
+        //注销登陆
+        storage.remove({
+            key: 'userinfo'
+        });
       }else if(position === 2){
         InteractionManager.runAfterInteractions(() => {
            navigator.push({

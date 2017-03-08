@@ -14,13 +14,13 @@ export default class extends Component {
     onSelectedIndexChange: PropTypes.func,
     renderCard: PropTypes.func,
     style: PropTypes.any
-  };
+  }
 
   render () {
     let cards = []
     const {count, selectedIndex, renderCard} = this.props
 
-    for (let i = 0; i < count; i++) {
+    for (let i = 0 i < count i++) {
       let content = null
       if (Math.abs(i - selectedIndex) < 2) { // 只渲染当前页面以及左右共计3个View
         content = renderCard(i)
