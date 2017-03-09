@@ -15,7 +15,7 @@ export default class CartItem extends Component {
     renderItemImage(data) {
         if(!data.picture){
          return (
-             <Image source={require('../imgs/ic_center_icon.png')} style={styles.item_image} />
+             <Image source={require('../imgs/logo_with_bg.png')} style={styles.item_image} />
            )
        } else {
          return (

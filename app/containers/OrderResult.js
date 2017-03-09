@@ -49,7 +49,7 @@ class OrderResult extends React.Component {
         <Header title={route.name} hasBack={true} backAction={()=>{this.buttonBackAction()}}/>
           <View style={styles.content}>
                 <View style={{justifyContent:'center',alignItems:'center',height:100}}>
-                     <Image source={require('../imgs/ic_center_icon.png')} style={{width:40,height:40}}/>
+                     <Image source={require('../imgs/logo@round.png')} style={{width:40,height:40}}/>
                      <Text style={{color:'black',fontSize:15,marginTop:15}}>恭喜您,订单提交成功!</Text>
                 </View>
                 <Image source={require('../imgs/ic_center_line.png')} style={{height:1}}/>
@@ -70,7 +70,7 @@ class OrderResult extends React.Component {
                 <Image source={require('../imgs/ic_center_line.png')} style={{height:1,marginTop:22}}/>
                 <View style={{marginTop:22,marginLeft:13,marginRight:13}}>
                      <Text style={{fontSize:13,color:'#999'}}>温馨提示:请您在提交订单后20分钟内完成支付,否则订单会自动取消</Text>
-                     <View style={{flexDirection:'row',justifyContent:'space-between',marginLeft:15,marginRight:15,marginTop:37,flex:1,paddingBottom:22}}>
+                     <View style={styles.btn_box}>
                           <TouchableOpacity style={styles.btn_order} onPress={()=>{this.itemButtonActiom(0)}}>
                                 <Text style={styles.btn_tv}>查看订单</Text>
                           </TouchableOpacity>
@@ -109,6 +109,16 @@ let styles = StyleSheet.create({
         marginLeft:30,
         fontSize:16,
         color:'#ff3939'
+    },
+    btn_box:{
+        flexDirection:'row',
+        justifyContent:'space-between',
+        height:70,
+        marginLeft:15,
+        marginRight:15,
+        marginTop:30,
+        flex:1,
+        paddingBottom:22
     },
     btn_pay:{
         width:130,

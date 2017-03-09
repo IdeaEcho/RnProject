@@ -1,8 +1,8 @@
 /**
  * 购物车页面
  */
-'use strict';
-import React, {Component, PropTypes} from 'react';
+'use strict'
+import React, {Component, PropTypes} from 'react'
 import{
     View,
     Text,
@@ -11,22 +11,22 @@ import{
     Dimensions,
     InteractionManager,
     StyleSheet
-} from 'react-native';
-var {height, width} = Dimensions.get('window');
+} from 'react-native'
+var {height, width} = Dimensions.get('window')
 import Header from '../components/Header'
 import CartItem from '../components/CartItem'
 import OrderResult from './OrderResult'
-import { toastShort } from '../utils/ToastUtil';
+import { toastShort } from '../utils/ToastUtil'
 class Cart extends Component {
     static propTypes = {
         cart: PropTypes.object.isRequired
     }
     constructor(props) {
-        super(props);
-        this.onClearCart=this.onClearCart.bind(this);
-        this.payItemAction=this.payItemAction.bind(this);
-        this.onAddNum=this.onAddNum.bind(this);
-        this.onCutNum=this.onCutNum.bind(this);
+        super(props)
+        this.onClearCart=this.onClearCart.bind(this)
+        this.payItemAction=this.payItemAction.bind(this)
+        this.onAddNum=this.onAddNum.bind(this)
+        this.onCutNum=this.onCutNum.bind(this)
         this.state={
             sum:0
         }
@@ -49,17 +49,17 @@ class Cart extends Component {
     }
     //结算按钮
     payItemAction(total){
-        const {navigator} = this.props;
+        const {navigator} = this.props
         if(total<=0) {
-            toastShort('忘记点餐啦');
+            toastShort('忘记点餐啦')
         }else {
             InteractionManager.runAfterInteractions(() => {
             navigator.push({
               component: OrderResult,
               name: '订单结果',
               total: this.props.cart.total
-               });
-            });
+               })
+            })
         }
     }
     render() {
@@ -88,7 +88,7 @@ class Cart extends Component {
                 </TouchableOpacity>
             </View>
         </View>
-        );
+        )
     }
 }
 
@@ -127,6 +127,6 @@ const styles=StyleSheet.create({
         justifyContent:'center',
         alignItems:'center'
     }
-});
+})
 
-export default Cart;
+export default Cart

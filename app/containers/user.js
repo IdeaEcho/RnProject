@@ -38,8 +38,7 @@ class User extends Component {
             sweet: 0,
             acid: 0,
             hot: 0,
-            salty: 0,
-            bitter: 0,
+            salty: 0
         }
     }
     getUserInfo() {
@@ -92,7 +91,11 @@ class User extends Component {
     itemActionIndex(position){
         const {navigator} = this.props
         if(position === 1){
+            InteractionManager.runAfterInteractions(() => {
+             navigator.push({
 
+             })
+           })
         }else if(position === 2){
            InteractionManager.runAfterInteractions(() => {
             navigator.push({
@@ -134,9 +137,9 @@ class User extends Component {
         return (
             <View style={styles.container}>
                <View style={{backgroundColor:'white'}}>
-                   <View style={{flexDirection:'row',height:100}}>
+                   <View style={styles.topbar}>
                       <TouchableOpacity onPress={() => {this.loginButtonActiom()}} >
-                          <Image  style={{width:70,height:70,marginLeft:10,marginTop:15}} source={require('../imgs/ic_center_icon.png')}/>
+                          <Image  style={styles.avatar} source={require('../imgs/logo@round.png')}/>
                       </TouchableOpacity>
                       <View style={{flexDirection:'column',justifyContent:'center',marginLeft:10}}>
                          <Text>{this.state.nickname}</Text>
@@ -145,7 +148,6 @@ class User extends Component {
                             <Text style={{color:'#ddd'}}>¥2000</Text>
                          </View>
                       </View>
-
                       <View style={styles.modify_item}>
                          <ImageButton icon={require('../imgs/btn_border.png')} title='编辑'
                             onPress={()=>{this.itemModifyAction()}}
@@ -154,6 +156,11 @@ class User extends Component {
                    </View>
                </View>
 
+               <CenterItem
+                  title='我的订单'
+                  icon={require('../imgs/tab_menu_press.png')}
+                  onPress={()=>this.itemActionIndex(1)}/>
+               <View style={[styles.top_line,styles.center_line]}></View>
                <CenterItem
                   title='信用卡管理'
                   icon={require('../imgs/user_card.png')}
@@ -192,14 +199,19 @@ class User extends Component {
 }
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         backgroundColor:'#f5f5f5',
         flex:1
     },
-    topbar_bg:{
-        height:48,
-        backgroundColor:'#ff7e5e',
-        flexDirection:'row'
+    topbar: {
+        flexDirection:'row',
+        height:100
+    },
+    avatar: {
+        width:70,
+        height:70,
+        marginLeft:10,
+        marginTop:15
     },
     button: {
         height: 40,

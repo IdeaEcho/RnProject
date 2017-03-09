@@ -30,7 +30,7 @@ class About extends React.Component {
        <View style={{backgroundColor:'#fff',flex:1}}>
         <Header title='问题报告' hasBack={true} backAction={()=>{this.buttonBackAction()}} />
           <View style={{alignItems:'center',marginTop:10}}>
-             <Image source={require('../../imgs/user_more.png')} style={{width:110,height:110}}/>
+             <Image source={require('../../imgs/logo@round.png')} style={{width:110,height:110}}/>
              <Text style={styles.text_version}>版本:V1.0</Text>
           </View>
           <View style={{alignItems:'center',marginTop:10}}>
