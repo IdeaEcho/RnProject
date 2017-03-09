@@ -23,7 +23,8 @@ class ModifyInformation extends Component {
       this.informationSave=this.informationSave.bind(this);
       this.modifyIcon=this.modifyIcon.bind(this);
       this.state = {
-          phone:''
+          phone:'',
+          nickname:''
       }
   }
   componentDidMount(){
@@ -36,7 +37,7 @@ class ModifyInformation extends Component {
         // 设置为false的话，则始终强制返回sync方法提供的最新数据(当然会需要更多等待时间)。
         syncInBackground: true,
       }).then(ret => {
-        this.setState({ phone: ret.phone });
+        this.setState({ phone: ret.phone,nickname: ret.nickname });
       }).catch(err => {
         //如果没有找到数据且没有sync方法，
         //或者有其他异常，则在catch中返回
@@ -88,14 +89,15 @@ class ModifyInformation extends Component {
                                         style={{width:18,height:18,marginLeft:13}}/>
                                  <Text style={{fontSize:12,color:'#777',marginLeft:8}}>姓名</Text>
                                  <TextInput
-                                        style={{height:40,fontSize: 15,textAlign: 'left',textAlignVertical:'center',flex:1}}
+                                        style={styles.textInput}
                                         placeholderTextColor="#aaaaaa"
                                         underlineColorAndroid="transparent"
                                         numberOfLines={1}
-                                        ref={'name'}
+                                        ref={'nickname'}
+                                        defaultValue={this.state.nickname}
                                         multiline={true}
                                         onChangeText={(text) => {
-                                            name = text;
+                                            nickname = text;
                                             }}
                                 />
                             </View>
@@ -105,7 +107,7 @@ class ModifyInformation extends Component {
                                         style={{width:18,height:18,marginLeft:13}}/>
                                  <Text style={{fontSize:12,color:'#777',marginLeft:8}}>邮箱</Text>
                                  <TextInput
-                                        style={{height:40,fontSize: 15,textAlign: 'left',textAlignVertical:'center',flex:1}}
+                                        style={styles.textInput}
                                         placeholderTextColor="#aaaaaa"
                                         underlineColorAndroid="transparent"
                                         numberOfLines={1}
@@ -122,7 +124,7 @@ class ModifyInformation extends Component {
                                         style={{width:18,height:18,marginLeft:13}}/>
                                  <Text style={{fontSize:12,color:'#777',marginLeft:8}}>简介</Text>
                                  <TextInput
-                                        style={{height:40,fontSize: 15,textAlign: 'left',textAlignVertical:'center',flex:1}}
+                                        style={styles.textInput}
                                         placeholderTextColor="#aaaaaa"
                                         underlineColorAndroid="transparent"
                                         numberOfLines={1}
@@ -141,7 +143,7 @@ class ModifyInformation extends Component {
                                         style={{width:18,height:18,marginLeft:13}}/>
                                  <Text style={{fontSize:12,color:'#777',marginLeft:8}}>电话</Text>
                                  <TextInput
-                                        style={{height:40,fontSize: 15,textAlign: 'left',textAlignVertical:'center',flex:1}}
+                                        style={styles.textInput}
                                         placeholderTextColor="#aaaaaa"
                                         underlineColorAndroid="transparent"
                                         numberOfLines={1}
@@ -159,7 +161,7 @@ class ModifyInformation extends Component {
                                         style={{width:18,height:18,marginLeft:13}}/>
                                  <Text style={{fontSize:12,color:'#777',marginLeft:8}}>性别</Text>
                                  <TextInput
-                                        style={{height:40,fontSize: 15,textAlign: 'left',textAlignVertical:'center',flex:1}}
+                                        style={styles.textInput}
                                         placeholderTextColor="#aaaaaa"
                                         underlineColorAndroid="transparent"
                                         numberOfLines={1}
@@ -201,6 +203,15 @@ const styles=StyleSheet.create({
         backgroundColor:'white',
         height:45,
         justifyContent:'center'
+    },
+    textInput:{
+        marginTop:8,
+        marginLeft:10,
+        height:38,
+        fontSize: 15,
+        textAlign: 'left',
+        textAlignVertical:'center',
+        flex:1
     }
 });
 export default ModifyInformation;
