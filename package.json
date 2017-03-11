@@ -20,6 +20,7 @@
     "react-native-tab-navigator": "0.3.2",
     "react-native-vector-icons": "2.0.3",
     "react-native-wechat": "1.5.3",
+    "react-native-yunpeng-alipay": "1.1.4",
     "react-redux": "4.4.5",
     "redux": "3.5.2",
     "redux-actions": "0.11.0",

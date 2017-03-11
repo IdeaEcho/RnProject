@@ -14,7 +14,7 @@ import {formatStore,calculateGood} from '../utils/StoreFormat'
 import Header from '../components/Header'
 import PureListView from '../components/PureListView'
 import { toastShort } from '../utils/ToastUtil'
-import GoodDetails from './GoodDetails'
+import FoodDetails from './FoodDetails'
 // import Merchants from './Merchants'
 import Loading from '../components/Loading_DD'
 import LoadingView from '../components/LoadingView'
@@ -94,8 +94,8 @@ class Menu extends Component {
        const {navigator} = this.props
        InteractionManager.runAfterInteractions(() => {
             navigator.push({
-              component: GoodDetails,
-              name: 'GoodDetails',
+              component: FoodDetails,
+              name: 'FoodDetails',
               })
         })
     }
@@ -202,7 +202,7 @@ class Menu extends Component {
     }
     //渲染商家基本信息布局
     renderStoreBaisc(){
-     const {navigator,goods} = this.props
+     const { goods} = this.props
      return (
         <TouchableOpacity >
             <View style={styles.topbar}>

@@ -1,5 +1,5 @@
 /**
- * 商城主页
+ * 推荐页
  */
 'use strict';
 import React, {Component} from 'react';
@@ -251,7 +251,7 @@ class Index extends Component {
                                <TouchableOpacity onPress={()=>{this.recomdStoreAction(0)}}>
                                   <Image source={require('../imgs/home/img.png')} style={{width:105,height:105}}/>
                                   <View style={{marginTop:8,justifyContent:'center',alignItems:'center'}}>
-                                        <Text>叶书 master</Text>
+                                        <Text>鯔·只有寿司</Text>
                                   </View>
                                </TouchableOpacity>
                            </View>
@@ -259,7 +259,7 @@ class Index extends Component {
                                <TouchableOpacity onPress={()=>{this.recomdStoreAction(1)}}>
                                   <Image source={require('../imgs/home/img.png')} style={{width:105,height:105}}/>
                                   <View style={{marginTop:8,justifyContent:'center',alignItems:'center'}}>
-                                        <Text>微餐咖啡</Text>
+                                        <Text>轰咖咖喱饭</Text>
                                   </View>
                                </TouchableOpacity>
                            </View>
@@ -267,7 +267,7 @@ class Index extends Component {
                                <TouchableOpacity onPress={()=>{this.recomdStoreAction(2)}}>
                                   <Image source={require('../imgs/home/img.png')} style={{width:105,height:105}}/>
                                   <View style={{marginTop:8,justifyContent:'center',alignItems:'center'}}>
-                                        <Text>多伦多海鲜自助</Text>
+                                        <Text>坛烧八味</Text>
                                   </View>
                                </TouchableOpacity>
                            </View>
@@ -277,7 +277,7 @@ class Index extends Component {
                                <TouchableOpacity onPress={()=>{this.recomdStoreAction(3)}}>
                                   <Image source={require('../imgs/home/img.png')} style={{width:105,height:105}}/>
                                   <View style={{marginTop:8,justifyContent:'center',alignItems:'center'}}>
-                                        <Text>叶书 master</Text>
+                                        <Text>大丰收李家</Text>
                                   </View>
                                </TouchableOpacity>
                            </View>
@@ -285,7 +285,7 @@ class Index extends Component {
                                <TouchableOpacity onPress={()=>{this.recomdStoreAction(4)}}>
                                   <Image source={require('../imgs/home/img.png')} style={{width:105,height:105}}/>
                                   <View style={{marginTop:8,justifyContent:'center',alignItems:'center'}}>
-                                        <Text>微餐咖啡</Text>
+                                        <Text>咏蛙田鸡</Text>
                                   </View>
                                </TouchableOpacity>
                            </View>
@@ -293,7 +293,7 @@ class Index extends Component {
                                <TouchableOpacity onPress={()=>{this.recomdStoreAction(5)}}>
                                   <Image source={require('../imgs/home/img.png')} style={{width:105,height:105}}/>
                                   <View style={{marginTop:8,justifyContent:'center',alignItems:'center'}}>
-                                        <Text>多伦多海鲜自助</Text>
+                                        <Text>郑小姐茶餐厅</Text>
                                   </View>
                                </TouchableOpacity>
                            </View>

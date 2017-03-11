@@ -47,7 +47,7 @@ class Home extends Component {
                 renderIcon={() => <Image source={require("../imgs/tab_menu.png")} style={styles.iconStyle}/>}
                 renderSelectedIcon={() => <Image source={require("../imgs/tab_menu_press.png")} style={styles.iconStyle}/>}
                 onPress={() => this.setState({ selectedTab: 'order' })}>
-                <Menu addFoodAction={actions.addFoodAction} />
+                <Menu addFoodAction={actions.addFoodAction} {...this.props} />
                 </TabNavigator.Item>
 
             <TabNavigator.Item
