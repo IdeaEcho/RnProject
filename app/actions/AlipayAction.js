@@ -6,7 +6,7 @@
 import {InteractionManager}  from 'react-native'
 import * as types from '../common/ActionTypes'
 import FetchHttpClient, { json,form,header } from 'fetch-http-client'
-import {HOST,LOGIN_ACTION, ALIPAY_URL} from  '../common/Request'
+import {HOST,LOGIN_ACTION} from  '../common/Request'
 import { toastShort } from '../utils/ToastUtil'
 import Storage from 'react-native-storage'
 import Alipay from 'react-native-yunpeng-alipay'
@@ -16,15 +16,16 @@ const FORMAT = 'json'
 const CHARSET ='UTF-8'
 const ALIPAY_PUBLIC_KEY='MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAk7NcTOvfrvy5Nv1/IHMVPTgDSuG6xt5QgtxGAAA2sPIr7M2Z+lspmzEgGzvfJVKc0ZNM4BBIZHfi45eEQoiJceyoaGj74Vqm4gFN3DYrU06x6UErq9gAhgrayeXab4hKoqFRpHoDIBVcIpxppjOFxOoUMqsCV3gYxtUKAG6IOtZrZ0cDdWKowu+kvJkFyONfaJRZEmX7vZ2Hk+B6z/HXUYHwNwqef0t/oBm+AwPuywAjzQ7UcdA+kUciLWIqXk5p2aDjhCWymOkjodYCBVeB/PxmdctRwrDEy+dvMRRL72QdYB5JJcTwkAgrrVszPYONv/xtd+6qZXrfPqRihogrdQIDAQAB'
 const SIGN_TYPE = 'RSA2'
-const alipayClient = new DefaultAlipayClient(
-    ALIPAY_URL,
-    APP_ID,
-    APP_PRIVATE_KEY,
-    FORMAT,
-    CHARSET,
-    ALIPAY_PUBLIC_KEY,
-    SIGN_TYPE
-  );
+const client = new FetchHttpClient(HOST)
+// const alipayClient = new DefaultAlipayClient(
+//     ALIPAY_URL,
+//     APP_ID,
+//     APP_PRIVATE_KEY,
+//     FORMAT,
+//     CHARSET,
+//     ALIPAY_PUBLIC_KEY,
+//     SIGN_TYPE
+//   );
 
 export function AlipayAction(data){
     return dispatch => {
@@ -33,7 +34,7 @@ export function AlipayAction(data){
         client.addMiddleware(request => response => {
           console.log(request, response)
         })
-        client.post(ALIPAY_ACTION,{
+        client.post(HOST,{
             form: { data: base64url.encode(data)}
         }).then(response => {
             return base64url.decode(response._bodyText)

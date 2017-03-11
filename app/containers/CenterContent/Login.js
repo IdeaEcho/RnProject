@@ -1,5 +1,5 @@
 'use strict'
-import React, {Component,PropTypes} from 'react'
+import React, {Component} from 'react'
 import{
     View,
     Text,
@@ -18,18 +18,11 @@ import Register from './Register'
 import Header from '../../components/Header'
 import ShortLineTwo from '../../components/ShortLineTwo'
 import ResetPwd from  './ResetPwd'
-import FetchHttpClient, { form,header } from 'fetch-http-client'
-import {HOST,LOGIN_ACTION} from  '../../common/Request'
 import { toastShort } from '../../utils/ToastUtil'
-import {NativeModules} from 'react-native'
-var EncryptionModule = NativeModules.EncryptionModule
-
 import Loading from '../../components/Loading_DD'
 
 import { connect } from 'react-redux'
 import { performLoginAction } from '../../actions/LoginAction'
-
-const client = new FetchHttpClient(HOST)
 
 var phone = '15659675727'
 var password = '147159'

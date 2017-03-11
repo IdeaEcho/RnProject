@@ -42,11 +42,11 @@ export function performLoginAction(data, navigator){
                 expires: 1000 * 3600
                 })
                 InteractionManager.runAfterInteractions(() => {
-                navigator.push({
-                    component: Home,
-                    name: '首页',
-                    nickname: result.nickname
-                })
+                    navigator.push({
+                        component: Home,
+                        name: '首页',
+                        nickname: result.nickname
+                    })
                 })
             }else{
              toastShort(result.msg)
