@@ -4,8 +4,8 @@
 'use strict'
 
 import * as types from '../common/ActionTypes'
-import { STORE_DETAILS_DATA } from '../common/VirtualData'
-import {formatStore,calculateGood,calculateLength,formatInfo} from '../utils/StoreFormat'
+import { STORE_DETAILS_DATA,TAGS_DETAILS_DATA,FOODS_DETAILS_DATA } from '../common/VirtualData'
+import {formatMenu, calculateLength, formatInfo} from '../utils/StoreFormat'
 
 //添加到购物车
 export const addFoodAction=(data) => ({ type: types.ADD_FOOD, data })
@@ -20,33 +20,33 @@ export const cutNumAction=(id,price) => ({ type: types.CUT_NUM, id,price })
 
 
 //获取商品列表
-export function fetchGoodsAction(){
+export function fetchFoodsAction(){
      return dispatch => {
-        dispatch(dispatchGoodsAction())
-        var store_info = formatInfo(eval(STORE_DETAILS_DATA).data)
-        var right_items = formatStore(eval(STORE_DETAILS_DATA).data)
+        dispatch(dispatchFoodsAction())
+        var store_info = formatInfo(eval(STORE_DETAILS_DATA))
+        var right_items = formatMenu(eval(TAGS_DETAILS_DATA).tags, eval(FOODS_DETAILS_DATA).dishes)
         var left_items = Object.keys(right_items)
-        var data_length = calculateLength(eval(STORE_DETAILS_DATA).data)
-        dispatch(receiveGoodsAction(store_info,left_items,right_items,data_length))
+        var data_length = calculateLength(eval(TAGS_DETAILS_DATA).tags)
+        dispatch(receiveFoodsAction(store_info,left_items,right_items,data_length))
      }
 }
 
 //点击切换商品类别
-export function changeCategoryAction(data){
+export function changeCategoryAction(data) {
      return dispatch => {
         dispatch(changeDistanceAction(data))
      }
 }
 
-function dispatchGoodsAction() {
+function dispatchFoodsAction() {
         return {
-            type: types.FETCH_GOOS_ACTION,
+            type: types.FETCH_FOODS_ACTION,
         }
 }
 //获取到数据
-function receiveGoodsAction(store_info,left_items,right_items,data_length){
+function receiveFoodsAction(store_info,left_items,right_items,data_length) {
         return {
-            type: types.RECEIVE_GOODS_ACTION,
+            type: types.RECEIVE_FOODS_ACTION,
             store_info:store_info,
             left_items : left_items,
             right_items : right_items,
@@ -55,7 +55,7 @@ function receiveGoodsAction(store_info,left_items,right_items,data_length){
         }
 }
 
-function changeDistanceAction(selectedItem){
+function changeDistanceAction(selectedItem) {
         return {
             type : types.CHANGE_CATEGORY_ACTION,
             selectedItem : selectedItem

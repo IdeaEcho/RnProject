@@ -10,7 +10,7 @@ import {
   InteractionManager
 } from 'react-native'
 import { STORE_DETAILS_DATA } from '../common/VirtualData'
-import {formatStore,calculateGood} from '../utils/StoreFormat'
+import {formatMenu,calculateGood} from '../utils/StoreFormat'
 import Header from '../components/Header'
 import PureListView from '../components/PureListView'
 import { toastShort } from '../utils/ToastUtil'
@@ -21,10 +21,10 @@ import LoadingView from '../components/LoadingView'
 
 import { connect } from 'react-redux'
 import {
-    fetchGoodsAction,
+    fetchFoodsAction,
     changeCategoryAction,
     addToCartAction
-} from '../actions/GoodsAction'
+} from '../actions/FoodsAction'
 
 const {height,width} = Dimensions.get('window')
 
@@ -55,7 +55,7 @@ class Menu extends Component {
     componentWillMount() {
         const {dispatch} = this.props
         //开始加载商品列表数据
-        dispatch(fetchGoodsAction())
+        dispatch(fetchFoodsAction())
     }
 
     collectAction(){
@@ -76,15 +76,15 @@ class Menu extends Component {
     }
     //点击列表每一项响应按钮
     onPressItemLeft(data){
-      const {goods,dispatch} = this.props
+      const {foods,dispatch} = this.props
       dispatch(changeCategoryAction(data))
       var distance = 0
       //开始计算滑动的距离
       //1.首先计算出当前点击了左侧列表的第几项
-      var index = goods.left_items.indexOf(data)
+      var index = foods.left_items.indexOf(data)
       //2.根据index索引计算高度
       for ( var i = 0;i <index;i++){
-         distance += 25 + 84 * goods.right_items[goods.left_items[i]].length
+         distance += 25 + 84 * foods.right_items[foods.left_items[i]].length
       }
 
       this.refs['goodLv'].scrollTo({x:0,y:distance,animated:true})
@@ -117,11 +117,11 @@ class Menu extends Component {
     }
     //渲染右侧商品列表(带有section)
     renderContentRight(dataSource) {
-        const {goods} = this.props
+        const {foods} = this.props
         return (
           <ListView
             ref={'goodLv'}
-            initialListSize={goods.data_length}
+            initialListSize={foods.data_length}
             dataSource={dataSource}
             renderRow={this.renderItemRight}
             style={{flex:1}}
@@ -141,8 +141,8 @@ class Menu extends Component {
 
   //渲染每一项的数据
     renderItemLeft(data) {
-        const {goods} = this.props
-        if(data === goods.selectedItem){
+        const {foods} = this.props
+        if(data === foods.selectedItem){
           return (
               <View style={{backgroundColor:selectedColor}}>
                     <TouchableOpacity onPress={()=>{this.onPressItemLeft(data)}}>
@@ -166,13 +166,13 @@ class Menu extends Component {
     }
 
     renderItemImage(data){
-     if(data.picture === ''){
+     if(!data.dishes_photos){
        return (
             <Image source={require('../imgs/logo_with_bg.png')} style={styles.item_image} />
          )
      } else {
        return (
-           <Image source={{uri:data.picture}} style={styles.item_image} />
+           <Image source={{uri:data.dishes_photos}} style={styles.item_image} />
          )
      }
     }
@@ -183,12 +183,12 @@ class Menu extends Component {
                <View style={{backgroundColor:'white',flexDirection:'row'}}>
                     {this.renderItemImage(data)}
                     <View style={styles.item_content}>
-                         <Text style={styles.item_title}>{data.name}</Text>
+                         <Text style={styles.item_title}>{data.dishes_name}</Text>
                          <View style={{flexDirection:'row',marginTop:5}}>
-                                <Text style={styles.item_des}>月售{data.month_saled}</Text>
-                                <Text style={styles.item_des}>赞{data.praise}</Text>
+                                <Text style={styles.item_des}>月售{data.dishes_sales}</Text>
+                                <Text style={styles.item_des}>评分{data.dishes_grades}</Text>
                          </View>
-                         <Text style={styles.item_price}>¥{data.price}</Text>
+                         <Text style={styles.item_price}>¥{data.dishes_price}</Text>
                     </View>
                     <View style={styles.item_btn}>
                          <TouchableOpacity style={styles.btn_add} onPress={()=>{this.addFood(data)}}>
@@ -202,18 +202,18 @@ class Menu extends Component {
     }
     //渲染商家基本信息布局
     renderStoreBaisc(){
-     const { goods} = this.props
+     const { foods} = this.props
      return (
         <TouchableOpacity >
             <View style={styles.topbar}>
-                <Image source={goods.store_info.icon ? require(goods.store_info.icon) : require('../imgs/store/default.png')}
+                <Image source={foods.store_info.avatar ? require(foods.store_info.avatar) : require('../imgs/default.png')}
                     style={{width:58,height:58,borderRadius:29,marginRight:20}}/>
-                <Text style={{color:'#2c2c2c',width:width-150,fontSize:16}}>{goods.store_info.name}</Text>
+                <Text style={{color:'#2c2c2c',width:width-150,fontSize:16}}>{foods.store_info.storeName}</Text>
                 <View style={{alignItems:'flex-end',marginRight:15}}>
                      <Image source={require('../imgs/store/table.png')}
                             style={{width:22,height:22,marginRight:6}}
                  />
-                 <Text style={{color:'#2c2c2c',fontSize:13,marginLeft:4}}>第{goods.store_info.table}桌</Text>
+                 <Text style={{color:'#2c2c2c',fontSize:13,marginLeft:4}}>第{foods.store_info.table}桌</Text>
                 </View>
             </View>
         <Image source={require('../imgs/order/ic_order_heng.png')}/>
@@ -222,8 +222,8 @@ class Menu extends Component {
     }
 
     renderBottom(){
-        const {goods} = this.props
-        if (goods.loading) {
+        const {foods} = this.props
+        if (foods.loading) {
               return <LoadingView />
           }
         return (
@@ -231,12 +231,12 @@ class Menu extends Component {
                     <View style={{flex:1}}>
                         {
                           this.renderContentLeft(this.state.dataSource.cloneWithRows(
-                             goods.left_items === undefined ? [] : goods.left_items))
+                             foods.left_items === undefined ? [] : foods.left_items))
                         }
                     </View>
                    <View style={{flex:3}}>
                         {this.renderContentRight(this.state.dataSource.cloneWithRowsAndSections(
-                             goods.right_items === undefined ? [] : goods.right_items,goods.left_items))}
+                             foods.right_items === undefined ? [] : foods.right_items,foods.left_items))}
                    </View>
             </View>
         )
@@ -308,9 +308,9 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state) {
-  const { goods, cart } = state
+  const { foods, cart } = state
   return {
-    goods,
+    foods,
     cart
   }
 }

@@ -19,27 +19,27 @@ export default function cart(state = initialState, action){
     switch (action.type) {
         //加入购物车
         case types.ADD_FOOD:
-            if(state.foods.some(food => food.id==action.data.id)){ //如果购物车已有相同id菜品
+            if(state.foods.some(food => food.id==action.data.dishes_id)){ //如果购物车已有相同id菜品
                 return {
                     foods: state.foods.map(food =>
-                    food.id === action.data.id ?
+                    food.id === action.data.dishes_id ?
                     { ...food, num: food.num+1 } : food ), //更新数量
                     count: state.count+1,//更新数量
-                    total: state.total + action.data.price//更新价格
+                    total: state.total + action.data.dishes_price//更新价格
                 }
             } else {
                 return {
                     foods:[{//新增菜品
-                        id: action.data.id,
-                        name: action.data.name,
+                        id: action.data.dishes_id,
+                        name: action.data.dishes_name,
                         num:1,
-                        price: action.data.price,
-                        picture: action.data.picture
+                        price: action.data.dishes_price,
+                        picture: action.data.dishes_photos
                     },
                     ...state.foods
                 ],
                 count: state.count+1,//更新数量
-                total: state.total + action.data.price,//更新价格
+                total: state.total + action.data.dishes_price,//更新价格
                 }
             }
         //从购物车删除菜品

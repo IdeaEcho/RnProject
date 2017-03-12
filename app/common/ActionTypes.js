@@ -14,8 +14,8 @@ export const PERFORM_MENU_ACTION = 'PERFORM_MENU_ACTION'
 export const RECEIVE_MENU_ACTION = 'RECEIVE_MENU_ACTION'
 
 //商家详情-商品列表相关的逻辑处理
-export const FETCH_GOOS_ACTION = "FETCH_GOOS_ACTION"  //获取商品列表中
-export const RECEIVE_GOODS_ACTION = "RECEIVE_GOODS_ACTION"  //获取到商品列表
+export const FETCH_FOODS_ACTION = "FETCH_FOODS_ACTION"  //获取商品列表中
+export const RECEIVE_FOODS_ACTION = "RECEIVE_FOODS_ACTION"  //获取到商品列表
 export const CHANGE_CATEGORY_ACTION = "CHANGE_CATEGORY_ACTION" //切换列表，显示对应商品列表
 
 //商品列表与购物车相关逻辑

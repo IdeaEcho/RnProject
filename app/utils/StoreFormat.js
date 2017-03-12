@@ -1,35 +1,24 @@
 'use strict';
 export function formatInfo(storeData){
-   return storeData.store_info;
+   return storeData.data;
 }
 //进行格式化商家的商品数据-满足section进行使用
-export function formatStore(storeData){
-        let goodTagMap = []
-        storeData.food_tags.forEach(food_tags => {
-          food_tags.food.forEach(food => {
-              if (!goodTagMap[food_tags.name]) {
-                  goodTagMap[food_tags.name] = []
+export function formatMenu(tagsData, foodsData) {
+        let foodTagMap = []
+        tagsData.forEach(food_tags => {
+          foodsData.forEach(food => {
+              if(food.types_id  == food_tags.typeid ) {
+                  if (!foodTagMap[food_tags.typename]) {
+                      foodTagMap[food_tags.typename] = []
+                  }
+                  foodTagMap[food_tags.typename].push(food)
               }
-              goodTagMap[food_tags.name].push(food)
           })
        })
-       return goodTagMap;
+       return foodTagMap;
 }
 
-export function calculateLength(storeData){
-        let length = 0;
-        storeData.food_tags.forEach(food_tags => {
-            length += food_tags.length;
-       })
-       return length;
-}
-
-export function calculateGood(storeData){
-        let value = 0;
-        storeData.food_tags.forEach(food_tags => {
-          food_tags.food.forEach(food => {
-              value ++ ;
-          })
-       })
-       return value;
+export function calculateLength(tagsData){
+    let length = tagsData.length ? tagsData.length: 0
+    return length
 }

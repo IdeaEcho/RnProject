@@ -24,18 +24,8 @@ export function performMenuAction(token, navigator){
         }).then(response => {
             return response._bodyInit
         }).then((result)=> {
-            console.log(JSON.stringify(result));
-            toastShort(JSON.stringify(result))
-            dispatch(receiveMenuResult(result))
             if(result){
-                // toastShort('获取菜单成功')
-                storage.save({
-                    key: 'menuinfo',
-                    rawData: {
-                        menu: result
-                    },
-                    expires: 1000 * 3600 //null永不过期
-                })
+                dispatch(receiveMenuResult(result))
             }else{
                  toastShort(result.msg)
                 }

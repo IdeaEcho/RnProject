@@ -12,15 +12,15 @@ const initialState = {
     data_length : 0,
     selectedItem : '',
 }
-export default function goods(state = initialState, action){
+export default function foods(state = initialState, action){
     switch (action.type) {
         //正在获取商品列表数据
-        case types.FETCH_GOOS_ACTION:
+        case types.FETCH_FOODS_ACTION:
                   return Object.assign({}, state, {
                       loading: true
                   });
         //获取到商品列表数据
-        case types.RECEIVE_GOODS_ACTION:
+        case types.RECEIVE_FOODS_ACTION:
                   return Object.assign({}, state, {
                        loading: false,
                        store_info: action.store_info,

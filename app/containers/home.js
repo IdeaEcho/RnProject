@@ -15,7 +15,7 @@ import Cart from './cart';
 import Index from './index';
 import Scan from './scan';
 import User from './user';
-import * as GoodsAction from '../actions/GoodsAction'
+import * as FoodsAction from '../actions/FoodsAction'
 
 class Home extends Component {
     constructor(props) {
@@ -113,7 +113,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators(GoodsAction, dispatch)
+    actions: bindActionCreators(FoodsAction, dispatch)
 })
 export default connect(
     mapStateToProps,
