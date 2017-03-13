@@ -8,6 +8,7 @@ import * as types from '../common/ActionTypes'
 import FetchHttpClient, {form,header } from 'fetch-http-client'
 import {HOST,MENU_ACTION} from  '../common/Request'
 import { toastShort } from '../utils/ToastUtil'
+import Home from '../containers/home'
 import Storage from 'react-native-storage'
 const client = new FetchHttpClient(HOST)
 
@@ -25,7 +26,24 @@ export function performMenuAction(token, navigator){
             return response._bodyInit
         }).then((result)=> {
             if(result){
+                // toastShort('获取菜单成功')
+                console.log(JSON.stringify(result));
                 dispatch(receiveMenuResult(result))
+                storage.save({
+                    key: 'foodsinfo',
+                    rawData: {
+                        foods: result
+                    },
+                    expires: 1000 * 3600 //null永不过期
+                })
+                InteractionManager.runAfterInteractions(() => {
+                     navigator.push({
+                       component: Home,
+                       name: 'Home',
+                       foods: result,
+                       selected: 'menu'
+                     });
+                   });
             }else{
                  toastShort(result.msg)
                 }

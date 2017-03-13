@@ -24,9 +24,10 @@ class Scan extends Component {
     let tokenjson = {
         access_token : 'a44f8138457ecb9e87daa34bd8501cb5'
     }
-    const {navigator,dispatch} = this.props
+    const {navigator, dispatch} = this.props
     let tokenstr = JSON.stringify(tokenjson)
     dispatch(performMenuAction(tokenstr, navigator))
+
     this.state = {
       barcode: '',
       cameraType: 'back',
@@ -51,16 +52,8 @@ class Scan extends Component {
                 access_token : token
             }
             let tokenstr = JSON.stringify(tokenjson)
-
-            dispatch(performMenuAction(tokenstr, navigator))
+            dispatch(performMenuAction(tokenstr))
         }
-        //  InteractionManager.runAfterInteractions(() => {
-        //       navigator.push({
-        //         component: Menu,
-        //         name: 'Menu',
-        //         data: data
-        //       });
-        //     });
     }
 
 
@@ -99,6 +92,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   const { menu } = state
+  //返回一个新的menu作为Component的Props
   return {
     menu
   }

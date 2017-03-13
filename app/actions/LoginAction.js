@@ -6,7 +6,7 @@
 import {InteractionManager}  from 'react-native'
 import * as types from '../common/ActionTypes'
 import FetchHttpClient, { json,form,header } from 'fetch-http-client'
-import {HOST,LOGIN_ACTION} from  '../common/Request'
+import {HOST, LOGIN_ACTION} from  '../common/Request'
 import { toastShort } from '../utils/ToastUtil'
 import Storage from 'react-native-storage'
 import base64url from 'base64-url'

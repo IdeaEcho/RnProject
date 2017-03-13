@@ -9,8 +9,6 @@ import {
   StyleSheet,
   InteractionManager
 } from 'react-native'
-import { STORE_DETAILS_DATA } from '../common/VirtualData'
-import {formatMenu,calculateGood} from '../utils/StoreFormat'
 import Header from '../components/Header'
 import PureListView from '../components/PureListView'
 import { toastShort } from '../utils/ToastUtil'
@@ -54,8 +52,15 @@ class Menu extends Component {
 
     componentWillMount() {
         const {dispatch} = this.props
-        //开始加载商品列表数据
-        dispatch(fetchFoodsAction())
+        storage.load({
+          key: 'foodsinfo',
+          autoSync: true,
+          syncInBackground: true,
+        }).then(ret => {
+            // toastShort(JSON.parse(ret.foods))
+            //开始加载商品列表数据
+            dispatch(fetchFoodsAction(JSON.parse(ret.foods)))
+        })
     }
 
     collectAction(){

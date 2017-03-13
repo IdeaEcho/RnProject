@@ -24,6 +24,12 @@ class Home extends Component {
             selectedTab:'home'
         };
     }
+    componentWillMount() {
+        const {route, dispatch} = this.props
+        if(route.selected) {
+            this.setState({ selectedTab: route.selected })
+        }
+    }
     render() {
         const { cart,actions} = this.props
         return (
@@ -41,12 +47,12 @@ class Home extends Component {
 
             <TabNavigator.Item
                 title="菜单"
-                selected={this.state.selectedTab === 'order'}
+                selected={this.state.selectedTab === 'menu'}
                 selectedTitleStyle={styles.selectedTextStyle}
                 titleStyle={styles.textStyle}
                 renderIcon={() => <Image source={require("../imgs/tab_menu.png")} style={styles.iconStyle}/>}
                 renderSelectedIcon={() => <Image source={require("../imgs/tab_menu_press.png")} style={styles.iconStyle}/>}
-                onPress={() => this.setState({ selectedTab: 'order' })}>
+                onPress={() => this.setState({ selectedTab: 'menu' })}>
                 <Menu addFoodAction={actions.addFoodAction} {...this.props} />
                 </TabNavigator.Item>
 

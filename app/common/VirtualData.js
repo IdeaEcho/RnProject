@@ -105,6 +105,11 @@ export const TAGS_DETAILS_DATA = {
             "typename": "首尔炸鸡",
             "privilege":1
         },
+        {
+            "typeid": 0,
+            "typename": "新品",
+            "privilege":1
+        },
     ]
 }
 export const FOODS_DETAILS_DATA={
