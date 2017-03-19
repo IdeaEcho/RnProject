@@ -24,8 +24,8 @@ import Loading from '../../components/Loading_DD'
 import { connect } from 'react-redux'
 import { performLoginAction } from '../../actions/LoginAction'
 
-var phone = '15659675727'
-var password = '147159'
+var phone = '18959386000'
+var password = '123123'
 
 class Login extends Component {
     constructor(props) {

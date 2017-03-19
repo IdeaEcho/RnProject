@@ -1,4 +1,4 @@
-export const HOST='http://eat.ichancer.cn/index.php/'  //API地址
+export const HOST='http://eat.same.ac.cn/'  //API地址
 
 export const LOGIN_ACTION = HOST+"cuinterface/login.html"  //用户登录
 

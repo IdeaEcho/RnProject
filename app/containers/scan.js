@@ -22,7 +22,7 @@ class Scan extends Component {
   constructor(props) {
     super(props);
     let tokenjson = {
-        access_token : 'a44f8138457ecb9e87daa34bd8501cb5'
+        access_token : 'dec9373769b94787'
     }
     const {navigator, dispatch} = this.props
     let tokenstr = JSON.stringify(tokenjson)

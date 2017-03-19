@@ -171,13 +171,13 @@ class Menu extends Component {
     }
 
     renderItemImage(data){
-     if(!data.dishes_photos){
+     if(!data.dish_photo){
        return (
             <Image source={require('../imgs/logo_with_bg.png')} style={styles.item_image} />
          )
      } else {
        return (
-           <Image source={{uri:data.dishes_photos}} style={styles.item_image} />
+           <Image source={{uri:data.dish_photo}} style={styles.item_image} />
          )
      }
     }
@@ -188,12 +188,12 @@ class Menu extends Component {
                <View style={{backgroundColor:'white',flexDirection:'row'}}>
                     {this.renderItemImage(data)}
                     <View style={styles.item_content}>
-                         <Text style={styles.item_title}>{data.dishes_name}</Text>
+                         <Text style={styles.item_title}>{data.dish_name}</Text>
                          <View style={{flexDirection:'row',marginTop:5}}>
-                                <Text style={styles.item_des}>月售{data.dishes_sales}</Text>
-                                <Text style={styles.item_des}>评分{data.dishes_grades}</Text>
+                                <Text style={styles.item_des}>月售{data.dish_sales}</Text>
+                                <Text style={styles.item_des}>评分{data.dish_grade}</Text>
                          </View>
-                         <Text style={styles.item_price}>¥{data.dishes_price}</Text>
+                         <Text style={styles.item_price}>¥{data.dish_price}</Text>
                     </View>
                     <View style={styles.item_btn}>
                          <TouchableOpacity style={styles.btn_add} onPress={()=>{this.addFood(data)}}>
@@ -211,9 +211,9 @@ class Menu extends Component {
      return (
         <TouchableOpacity >
             <View style={styles.topbar}>
-                <Image source={foods.store_info.avatar ? require(foods.store_info.avatar) : require('../imgs/default.png')}
+                <Image source={foods.store_info.avatar ? {uri:foods.store_info.avatar} : require('../imgs/default.png')}
                     style={{width:58,height:58,borderRadius:29,marginRight:20}}/>
-                <Text style={{color:'#2c2c2c',width:width-150,fontSize:16}}>{foods.store_info.storeName}</Text>
+                <Text style={{color:'#2c2c2c',width:width-150,fontSize:16}}>{foods.store_info.store_name}</Text>
                 <View style={{alignItems:'flex-end',marginRight:15}}>
                      <Image source={require('../imgs/store/table.png')}
                             style={{width:22,height:22,marginRight:6}}

@@ -23,10 +23,10 @@ export function performMenuAction(token, navigator){
         client.post(MENU_ACTION,{
             form: { data: token }
         }).then(response => {
+            toastShort(JSON.stringify(response._bodyInit))
             return response._bodyInit
         }).then((result)=> {
             if(result){
-                // toastShort('获取菜单成功')
                 console.log(JSON.stringify(result));
                 dispatch(receiveMenuResult(result))
                 storage.save({

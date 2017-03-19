@@ -1,7 +1,7 @@
 'use strict';
 import { toastShort } from '../utils/ToastUtil'
 export function formatInfo(storeData){
-   return storeData.data;
+   return storeData;
 }
 //进行格式化商家的商品数据-满足section进行使用
 export function formatFood(tagsData, foodsData) {
@@ -9,7 +9,7 @@ export function formatFood(tagsData, foodsData) {
         tagsData.forEach(food_tags => {
           foodsData.forEach(food => {
             //    toastShort(food_tags.typeid)
-              if(food.types_id  === food_tags.typeid ) {
+              if(food.type_id  === food_tags.typeid ) {
                   if (!foodTagMap[food_tags.typename]) {
                       foodTagMap[food_tags.typename] = []
                   }

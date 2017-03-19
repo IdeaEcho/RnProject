@@ -12,13 +12,13 @@ import{
 } from 'react-native';
 
 renderItemImage(data){
-   if(data.picture === ''){
+   if(data.dish_photo === ''){
      return (
           <Image source={require('../imgs/ic_center_icon.png')} style={styles.item_image} />
        )
    } else {
      return (
-       <Image source={{uri:data.picture}} style={styles.item_image} />
+       <Image source={{uri:data.dish_photo}} style={styles.item_image} />
        )
    }
 }
@@ -28,12 +28,12 @@ const MenuItem = ({ food, onAddToCartClicked}) => (
          <View style={{backgroundColor:'white',flexDirection:'row'}}>
               {this.renderItemImage(food)}
               <View style={{flex:1,marginTop:10,marginBottom:10}}>
-                   <Text style={styles.item_title}>{food.name}</Text>
+                   <Text style={styles.item_title}>{food.dish_name}</Text>
                    <View style={{flexDirection:'row',marginTop:5}}>
-                          <Text style={styles.item_des}>月售{food.month_saled}</Text>
-                          <Text style={styles.item_des}>赞{food.praise}</Text>
+                          <Text style={styles.item_des}>月售{food.dish_sales}</Text>
+                          <Text style={styles.item_des}>赞{food.dish_grade}</Text>
                    </View>
-                   <Text style={styles.item_price}>¥{food.price}</Text>
+                   <Text style={styles.item_price}>¥{food.dish_price}</Text>
               </View>
               <View style={{justifyContent:'flex-end'}}>
                    <TouchableOpacity style={styles.btn_add}

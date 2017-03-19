@@ -21,7 +21,7 @@ import Loading from '../../components/Loading';
 import {NativeModules} from 'react-native';
 import { toastShort } from '../../utils/ToastUtil'
 import { performRegisterAction } from '../../actions/RegisterAction'
-let phone = '18959386006';
+let phone = '18959386000';
 let password = '123123';
 class Register extends Component {
   constructor(props) {
