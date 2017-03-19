@@ -59,7 +59,7 @@ class Menu extends Component {
         }).then(ret => {
             // toastShort(JSON.parse(ret.foods))
             //开始加载商品列表数据
-            dispatch(fetchFoodsAction(JSON.parse(ret.foods)))
+            dispatch(fetchFoodsAction(JSON.parse(ret.foods),ret.table))
         })
     }
 
@@ -207,7 +207,7 @@ class Menu extends Component {
     }
     //渲染商家基本信息布局
     renderStoreBaisc(){
-     const { foods} = this.props
+     const { foods } = this.props
      return (
         <TouchableOpacity >
             <View style={styles.topbar}>

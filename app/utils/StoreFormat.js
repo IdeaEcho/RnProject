@@ -1,19 +1,19 @@
 'use strict';
 import { toastShort } from '../utils/ToastUtil'
-export function formatInfo(storeData){
-   return storeData;
+export function formatInfo(storeData,table){
+    let tableData = {table:table}
+    return Object.assign(storeData,tableData);
 }
 //进行格式化商家的商品数据-满足section进行使用
 export function formatFood(tagsData, foodsData) {
         let foodTagMap = []
         tagsData.forEach(food_tags => {
           foodsData.forEach(food => {
-            //    toastShort(food_tags.typeid)
-              if(food.type_id  === food_tags.typeid ) {
-                  if (!foodTagMap[food_tags.typename]) {
-                      foodTagMap[food_tags.typename] = []
+              if(food.type_id  === food_tags.type_id ) {
+                  if (!foodTagMap[food_tags.type_name]) {
+                      foodTagMap[food_tags.type_name] = []
                   }
-                  foodTagMap[food_tags.typename].push(food)
+                  foodTagMap[food_tags.type_name].push(food)
               }
           })
        })

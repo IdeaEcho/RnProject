@@ -24,9 +24,10 @@ class Scan extends Component {
     let tokenjson = {
         access_token : 'dec9373769b94787'
     }
+    let table =1
     const {navigator, dispatch} = this.props
     let tokenstr = JSON.stringify(tokenjson)
-    dispatch(performMenuAction(tokenstr, navigator))
+    dispatch(performMenuAction(tokenstr, table, navigator))
 
     this.state = {
       barcode: '',

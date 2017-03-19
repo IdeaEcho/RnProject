@@ -20,14 +20,14 @@ export const cutNumAction=(id,price) => ({ type: types.CUT_NUM, id,price })
 
 
 //获取商品列表
-export function fetchFoodsAction(foods){
+export function fetchFoodsAction(foods,table){
      return dispatch => {
         dispatch(dispatchFoodsAction())
-        var store_info = formatInfo(foods.store)
-        var right_items = formatFood(eval(TAGS_DETAILS_DATA).tags, foods.dishes)
-            toastShort(JSON.stringify(store_info))
+        var store_info = formatInfo(foods.store,table)
+        // toastShort("table"+table+JSON.stringify(store_info))
+        var right_items = formatFood(foods.tags, foods.dishes)
         var left_items = Object.keys(right_items)
-        var data_length = calculateLength(eval(TAGS_DETAILS_DATA).tags)
+        var data_length = calculateLength(foods.tags)
         dispatch(receiveFoodsAction(store_info,left_items,right_items,data_length))
      }
 }

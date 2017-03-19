@@ -12,7 +12,7 @@ import Home from '../containers/home'
 import Storage from 'react-native-storage'
 const client = new FetchHttpClient(HOST)
 
-export function performMenuAction(token, navigator){
+export function performMenuAction(token,table, navigator){
     return dispatch => {
         dispatch(performMenu())
         client.addMiddleware(form())
@@ -32,7 +32,8 @@ export function performMenuAction(token, navigator){
                 storage.save({
                     key: 'foodsinfo',
                     rawData: {
-                        foods: result
+                        foods: result,
+                        table: table
                     },
                     expires: 1000 * 3600 //null永不过期
                 })
@@ -41,6 +42,7 @@ export function performMenuAction(token, navigator){
                        component: Home,
                        name: 'Home',
                        foods: result,
+                       table: table,
                        selected: 'menu'
                      });
                    });
