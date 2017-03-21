@@ -13,13 +13,13 @@ export default class CartItem extends Component {
         deleteFoodAction: PropTypes.func.isRequired
     }
     renderItemImage(data) {
-        if(!data.picture){
+        if(!data.dish_photo){
          return (
              <Image source={require('../imgs/logo_with_bg.png')} style={styles.item_image} />
            )
        } else {
          return (
-             <Image source={{uri:data.picture}} style={styles.item_image} />
+             <Image source={{uri:data.dish_photo}} style={styles.item_image} />
            )
        }
     }
@@ -29,7 +29,7 @@ export default class CartItem extends Component {
             <View style={styles.item}>
                 {this.renderItemImage(food)}
                 <View style={styles.item_content}>
-                    <Text style={styles.item_title}>{food.name}</Text>
+                    <Text style={styles.item_title}>{food.dish_name}</Text>
                     <View style={{flexDirection:'row',marginTop:10}}>
                         <TouchableOpacity onPress={this.props.deleteFoodAction}>
                             <Text style={styles.item_btn}>删除</Text>
@@ -46,7 +46,7 @@ export default class CartItem extends Component {
                     </View>
                 </View>
                 <View style={{justifyContent:'flex-end'}}>
-                <Text style={{fontSize:15,marginRight:10,marginBottom:25}}>¥{food.price*food.num}</Text>
+                <Text style={{fontSize:15,marginRight:10,marginBottom:25}}>¥{food.dish_price*food.num}</Text>
                 </View>
             </View>
         )

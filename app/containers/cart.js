@@ -17,6 +17,9 @@ import Header from '../components/Header'
 import CartItem from '../components/CartItem'
 import OrderResult from './OrderResult'
 import { toastShort } from '../utils/ToastUtil'
+import { performOrderAction } from '../actions/OrderAction'
+import { connect } from 'react-redux'
+
 class Cart extends Component {
     static propTypes = {
         cart: PropTypes.object.isRequired
@@ -27,8 +30,10 @@ class Cart extends Component {
         this.payItemAction=this.payItemAction.bind(this)
         this.onAddNum=this.onAddNum.bind(this)
         this.onCutNum=this.onCutNum.bind(this)
-        this.state={
-            sum:0
+        this.state = {
+            customer_id:'',
+            store_token:'',
+            table:1
         }
     }
     onClearCart() {
@@ -48,18 +53,39 @@ class Cart extends Component {
         actions.cutNumAction(id,price)
     }
     //结算按钮
-    payItemAction(total){
-        const {navigator} = this.props
-        if(total<=0) {
+    payItemAction(){
+        const {navigator, cart, dispatch} = this.props
+        if(cart.total<=0) {
             toastShort('忘记点餐啦')
         }else {
-            InteractionManager.runAfterInteractions(() => {
-            navigator.push({
-              component: OrderResult,
-              name: '订单结果',
-              total: this.props.cart.total
-               })
+            storage.load({
+              key: 'userinfo',
+              autoSync: true,
+              syncInBackground: true,
+            }).then(ret => {
+              this.state.customer_id = ret.phone
+              storage.load({
+                key: 'foodsinfo',
+                autoSync: true,
+                syncInBackground: true,
+              }).then(ret => {
+                this.state.store_token = ret.storetoken
+                this.state.table = ret.table
+                toastShort(JSON.stringify(this.state))
+                dispatch(performOrderAction(this.state, cart, navigator))
+              }).catch(err => {
+                console.warn(err.message);
+              })
+            }).catch(err => {
+              console.warn(err.message);
             })
+            // InteractionManager.runAfterInteractions(() => {
+            // navigator.push({
+            //   component: OrderResult,
+            //   name: '订单结果',
+            //   order: cart
+            //    })
+            // })
         }
     }
     render() {
@@ -68,11 +94,11 @@ class Cart extends Component {
         <View style={styles.container}>
             <Header title='购物车' right='清空' hasRight={true} rightAction={()=>{this.onClearCart()}} />
             {cart.foods&&cart.foods.map(food =>
-                <CartItem key={food.id}
+                <CartItem key={food.dish_id}
                                   food={food}
                                   deleteFoodAction={()=>{this.onDeleteFood(food)}}
-                                  addNumAction={()=>{this.onAddNum(food.id,food.price)}}
-                                  cutNumAction={()=>{this.onCutNum(food.id,food.price)}} />
+                                  addNumAction={()=>{this.onAddNum(food.dish_id,food.dish_price)}}
+                                  cutNumAction={()=>{this.onCutNum(food.dish_id,food.dish_price)}} />
              )}
             <View style={{flex:1,justifyContent:'flex-end'}}>
                 <View style={{backgroundColor:'white',width:width,height:40}}>
@@ -83,7 +109,7 @@ class Cart extends Component {
                         </View>
                     </View>
                 </View>
-                <TouchableOpacity style={styles.btn} onPress={()=>{this.payItemAction(cart.total)}}>
+                <TouchableOpacity style={styles.btn} onPress={()=>{this.payItemAction()}}>
                     <Text style={{color:'white',fontSize:15}}>提交订单-￥{cart.total}</Text>
                 </TouchableOpacity>
             </View>
@@ -129,4 +155,11 @@ const styles=StyleSheet.create({
     }
 })
 
-export default Cart
+function mapStateToProps(state) {
+  const { order } = state
+  return {
+    order
+  }
+}
+
+export default connect(mapStateToProps)(Cart)

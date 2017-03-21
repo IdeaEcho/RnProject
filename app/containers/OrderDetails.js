@@ -29,10 +29,11 @@ class OrderDetails extends React.Component {
 
   render() {
     const {navigator,route} = this.props;
+    const order = route.order
     return (
        <View style={{backgroundColor:'#f5f5f5',flex:1}}>
            <View style={{flex:1}}>
-                <Header title='订单详情' hasBack={true} backAction={()=>{this.buttonBackAction()}}/>
+                <Header title={route.name} hasBack={true} backAction={()=>{this.buttonBackAction()}}/>
                 <ScrollView style={{flex:1}} showsVerticalScrollIndicator={false}>
                      <View style={{flexDirection:'row',height:70,backgroundColor:'white',alignItems:'center'}}>
                            <Image source={require('../imgs/order/ic_order_shop_icon.png')} style={{width:40,height:40,marginLeft:10}}/>
@@ -42,20 +43,15 @@ class OrderDetails extends React.Component {
                            </View>
                      </View>
                      <ShortLineTwo/>
-                     <View style={{flexDirection:'row',backgroundColor:'white',height:35,alignItems:'center'}}>
-                           <Text style={{marginLeft:10,flex:5}}>干锅千叶豆腐</Text>
-                           <Text style={styles.font_red}>x1</Text>
-                           <View style={{flex:2,alignItems:'flex-end',marginRight:10}}>
-                                <Text style={styles.font_red}>¥18</Text>
-                           </View>
-                     </View>
-                     <View style={{flexDirection:'row',backgroundColor:'white',height:35,alignItems:'center'}}>
-                           <Text style={{marginLeft:10,flex:5}}>米饭</Text>
-                           <Text style={styles.font_red}>x2</Text>
-                           <View style={{flex:2,alignItems:'flex-end',marginRight:10}}>
-                                <Text style={styles.font_red}>¥20</Text>
-                           </View>
-                     </View>
+                     {order.foods&&order.foods.map(food =>
+                         <View key={food.dish_id} style={{flexDirection:'row',backgroundColor:'white',height:35,alignItems:'center'}}>
+                               <Text style={{marginLeft:10,flex:5}}>{food.dish_name}</Text>
+                               <Text style={styles.font_red}>x{food.num}</Text>
+                               <View style={{flex:2,alignItems:'flex-end',marginRight:10}}>
+                                    <Text style={styles.font_red}>¥{food.dish_price}</Text>
+                               </View>
+                         </View>
+                     )}
                      <ShortLineTwo/>
                      <View style={{flexDirection:'row',backgroundColor:'white',height:35,alignItems:'center'}}>
                            <Text style={{marginLeft:10}}>餐具</Text>
@@ -65,9 +61,9 @@ class OrderDetails extends React.Component {
                      </View>
                      <ShortLineTwo/>
                      <View style={{flexDirection:'row',backgroundColor:'white',height:35,alignItems:'center'}}>
-                           <Text style={{marginLeft:10}}>总计¥80 - 优惠¥20</Text>
+                           <Text style={{marginLeft:10}}>总计¥{order.total}</Text>
                            <View style={{flex:1,alignItems:'flex-end',marginRight:10}}>
-                                <Text style={styles.font_red}>总计¥60</Text>
+                                <Text style={styles.font_red}>总计¥{order.total}</Text>
                            </View>
                      </View>
                      <View style={{height:35,justifyContent:'center'}}>
@@ -88,7 +84,7 @@ class OrderDetails extends React.Component {
                      <View style={{flexDirection:'row',backgroundColor:'white',height:35,alignItems:'center',marginBottom:8}}>
                            <Text style={{marginLeft:10}}>支付方式</Text>
                            <View style={{flex:1,alignItems:'flex-end',marginRight:10}}>
-                                <Text style={{fontSize:14}}>在线支付</Text>
+                                <Text style={{fontSize:14}}>线下支付</Text>
                            </View>
                      </View>
                 </ScrollView>

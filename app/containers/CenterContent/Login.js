@@ -47,7 +47,7 @@ class Login extends Component {
     }
     //用户登录/注册
     buttonRegisterOrLoginAction(position){
-        const {navigator,dispatch} = this.props
+        const {navigator, dispatch} = this.props
         if(position === 0){
             //用户登录
            if(phone === ''){

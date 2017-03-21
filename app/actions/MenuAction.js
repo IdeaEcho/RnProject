@@ -23,7 +23,6 @@ export function performMenuAction(token,table, navigator){
         client.post(MENU_ACTION,{
             form: { data: token }
         }).then(response => {
-            toastShort(JSON.stringify(response._bodyInit))
             return response._bodyInit
         }).then((result)=> {
             if(result){
@@ -33,6 +32,7 @@ export function performMenuAction(token,table, navigator){
                     key: 'foodsinfo',
                     rawData: {
                         foods: result,
+                        storetoken:JSON.parse(token).access_token,
                         table: table
                     },
                     expires: 1000 * 3600 //null永不过期
