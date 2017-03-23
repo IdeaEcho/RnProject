@@ -12,7 +12,7 @@ import Storage from 'react-native-storage'
 import Home from '../containers/home'
 const client = new FetchHttpClient(HOST)
 
-export function performOrderAction(info, cart, navigator) {
+export function performOrderAction(data, navigator) {
     return dispatch => {
         dispatch(performOrder())
         client.addMiddleware(form())
@@ -21,9 +21,10 @@ export function performOrderAction(info, cart, navigator) {
           console.log(request, response)
         })
         client.post(ORDER_ACTION,{
-            form: { data: info}
+            form: { data: data }
         }).then(response => {
-            toastShort(JSON.stringify(response._bodyText))
+            // toastShort(JSON.stringify(response))
+            toastShort(JSON.stringify(response._bodyInit))
             return response._bodyInit
         }).then((result)=> {
             dispatch(receiveOrderResult(result))
@@ -46,11 +47,11 @@ export function performOrderAction(info, cart, navigator) {
                    })
                 })
             }else{
-             toastShort(result.msg)
+                toastShort(result.msg)
             }
             }).catch((error) => {
-            // console.log(error)
-            toastShort(error+'网络发生错误,请重试!')
+                // console.log(error)
+                toastShort(error+'网络发生错误,请重试!')
             })
      }
 }

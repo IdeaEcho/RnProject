@@ -32,8 +32,8 @@ class Cart extends Component {
         this.onCutNum=this.onCutNum.bind(this)
         this.state = {
             customer_id:'',
-            store_token:'',
-            table:1
+            access_token:'',
+            table_id:1
         }
     }
     onClearCart() {
@@ -69,10 +69,19 @@ class Cart extends Component {
                 autoSync: true,
                 syncInBackground: true,
               }).then(ret => {
-                this.state.store_token = ret.storetoken
-                this.state.table = ret.table
-                toastShort(JSON.stringify(this.state))
-                dispatch(performOrderAction(this.state, cart, navigator))
+                this.state.access_token = ret.storetoken
+                this.state.table_id = ret.table
+                let dash_json = []
+                cart.foods.forEach(function(value, key) {
+                    var dish = {
+                        "id" : value.dish_id,
+                        "no": value.num
+                    }
+                    dash_json.push(dish)
+                })
+                var data = Object.assign(this.state, {dash_json:dash_json});
+                toastShort(JSON.stringify(data))
+                dispatch(performOrderAction(data, navigator))
               }).catch(err => {
                 console.warn(err.message);
               })
