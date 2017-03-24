@@ -19,10 +19,12 @@ import OrderResult from './OrderResult'
 import { toastShort } from '../utils/ToastUtil'
 import { performOrderAction } from '../actions/OrderAction'
 import { connect } from 'react-redux'
+import Loading from '../components/Loading_DD'
 
 class Cart extends Component {
     static propTypes = {
-        cart: PropTypes.object.isRequired
+        cart: PropTypes.object.isRequired,
+        order: PropTypes.object.isRequired
     }
     constructor(props) {
         super(props)
@@ -71,17 +73,16 @@ class Cart extends Component {
               }).then(ret => {
                 this.state.access_token = ret.storetoken
                 this.state.table_id = ret.table
-                let dash_json = []
+                let dish_json = []
                 cart.foods.forEach(function(value, key) {
                     var dish = {
-                        "id" : value.dish_id,
-                        "no": value.num
+                        id : value.dish_id,
+                        no: value.num
                     }
-                    dash_json.push(dish)
+                    dish_json.push(dish)
                 })
-                var data = Object.assign(this.state, {dash_json:dash_json});
-                toastShort(JSON.stringify(data))
-                dispatch(performOrderAction(data, navigator))
+                var data = Object.assign(this.state, {dish_json:dish_json});
+                dispatch(performOrderAction(JSON.stringify(data), navigator))
               }).catch(err => {
                 console.warn(err.message);
               })
@@ -98,7 +99,7 @@ class Cart extends Component {
         }
     }
     render() {
-        const { cart } = this.props
+        const { cart,order } = this.props
         return (
         <View style={styles.container}>
             <Header title='购物车' right='清空' hasRight={true} rightAction={()=>{this.onClearCart()}} />
@@ -122,6 +123,7 @@ class Cart extends Component {
                     <Text style={{color:'white',fontSize:15}}>提交订单-￥{cart.total}</Text>
                 </TouchableOpacity>
             </View>
+            <Loading visible={order.loading} />
         </View>
         )
     }

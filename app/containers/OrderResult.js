@@ -25,18 +25,18 @@ class OrderResult extends React.Component {
     this.itemButtonActiom=this.itemButtonActiom.bind(this);
   }
     //返回
-  buttonBackAction(){
-      const {navigator} = this.props;
-      return NaviGoBack(navigator);
-  }
+    buttonBackAction(){
+        const {navigator} = this.props;
+        return NaviGoBack(navigator);
+    }
     itemButtonActiom(position){
-        const {navigator,route} = this.props;
+        const {navigator, route} = this.props;
         if(position === 0){
             InteractionManager.runAfterInteractions(() => {
             navigator.push({
-              component: OrderDetails,
-              name: '订单详情',
-              order: route.order
+                  component: OrderDetails,
+                  name: '订单详情',
+                  order: route.order
                });
             });
         }else if(position === 1){
@@ -45,12 +45,13 @@ class OrderResult extends React.Component {
   }
   render() {
     const {navigator,route} = this.props;
+    const order = route.order
     return (
         <View style={styles.container}>
         <Header title={route.name} hasBack={true} backAction={()=>{this.buttonBackAction()}}/>
           <View style={styles.content}>
                 <View style={{justifyContent:'center',alignItems:'center',height:100}}>
-                     <Image source={require('../imgs/logo@round.png')} style={{width:40,height:40}}/>
+                     <Image source={order.store_avatar ?  {uri:order.store_avatar} : require('../imgs/logo@round.png')} style={{width:40,height:40}}/>
                      <Text style={{color:'black',fontSize:15,marginTop:15}}>恭喜您,订单提交成功!</Text>
                 </View>
                 <Image source={require('../imgs/ic_center_line.png')} style={{height:1}}/>
@@ -61,11 +62,11 @@ class OrderResult extends React.Component {
                     </View>
                     <View style={{flexDirection:'row',marginTop:8}}>
                           <Text style={styles.title}>订单号</Text>
-                          <Text style={styles.des}>89550546696142992</Text>
+                          <Text style={styles.des}>{order.order_id}</Text>
                     </View>
                     <View style={{flexDirection:'row',marginTop:8}}>
                           <Text style={styles.title}>应付金额</Text>
-                          <Text style={styles.price}>¥{route.order.total}</Text>
+                          <Text style={styles.price}>¥{order.order_price}</Text>
                     </View>
                 </View>
                 <Image source={require('../imgs/ic_center_line.png')} style={{height:1,marginTop:22}}/>

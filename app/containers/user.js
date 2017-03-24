@@ -20,6 +20,7 @@ import ImageButton from '../components/ImageButton'
 import ModifyInformation from './CenterContent/ModifyInformation'
 import Charge from './CenterContent/Charge'
 import FeedBack from './CenterContent/FeedBack'
+import Order from '../containers/order'
 import Storage from 'react-native-storage'
 import { toastShort } from '../utils/ToastUtil'
 
@@ -90,13 +91,14 @@ class User extends Component {
     //判断当前点击了那个按钮
     itemActionIndex(position){
         const {navigator} = this.props
-        if(position === 1){
+        if(position === 1) {
             InteractionManager.runAfterInteractions(() => {
              navigator.push({
-
+                 component: Order,
+                 name: 'Order'
              })
            })
-        }else if(position === 2){
+        }else if(position === 2) {
            InteractionManager.runAfterInteractions(() => {
             navigator.push({
               component: Charge,
@@ -104,16 +106,16 @@ class User extends Component {
             })
           })
 
-        }else if(position === 3){
+        }else if(position === 3) {
 
-        }else if(position === 4){
+        }else if(position === 4) {
             InteractionManager.runAfterInteractions(() => {
                   navigator.push({
                      component: FeedBack,
                      name: 'FeedBack'
                   })
             })
-        }else if(position === 5){
+        }else if(position === 5) {
           InteractionManager.runAfterInteractions(() => {
             navigator.push({
               component: More,

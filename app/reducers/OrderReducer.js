@@ -9,7 +9,7 @@ const initialState = {
     data:''
 }
 
-export default function login(state = initialState, action){
+export default function order(state = initialState, action){
     switch (action.type) {
         case types.PERFORM_ORDER_ACTION:
                   return Object.assign({}, state, {

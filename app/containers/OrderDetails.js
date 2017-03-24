@@ -18,8 +18,6 @@ var {height, width} = Dimensions.get('window')
 class OrderDetails extends React.Component {
     constructor(props) {
         super(props);
-        this.state={
-        }
     }
     //返回
     buttonBackAction(){
@@ -28,27 +26,28 @@ class OrderDetails extends React.Component {
     }
 
   render() {
-    const {navigator,route} = this.props;
+    const {navigator, route} = this.props;
     const order = route.order
+    const dishes = JSON.parse(order.dish)
     return (
        <View style={{backgroundColor:'#f5f5f5',flex:1}}>
            <View style={{flex:1}}>
                 <Header title={route.name} hasBack={true} backAction={()=>{this.buttonBackAction()}}/>
                 <ScrollView style={{flex:1}} showsVerticalScrollIndicator={false}>
                      <View style={{flexDirection:'row',height:70,backgroundColor:'white',alignItems:'center'}}>
-                           <Image source={require('../imgs/order/ic_order_shop_icon.png')} style={{width:40,height:40,marginLeft:10}}/>
-                           <Text style={{fontSize:15,marginLeft:10,color:'black'}}>四川菜馆</Text>
+                           <Image source={order.store_avatar ?  {uri:order.store_avatar} : require('../imgs/order/ic_order_shop_icon.png')} style={{width:40,height:40,marginLeft:10}}/>
+                           <Text style={{fontSize:15,marginLeft:10,color:'black'}}>{order.store_name}</Text>
                            <View style={{alignItems:'flex-end',flex:1,marginRight:8}}>
                                 <Image source={require('../imgs/order/ic_order_arrow_right.png')} style={styles.item_view_icon}/>
                            </View>
                      </View>
                      <ShortLineTwo/>
-                     {order.foods&&order.foods.map(food =>
-                         <View key={food.dish_id} style={{flexDirection:'row',backgroundColor:'white',height:35,alignItems:'center'}}>
-                               <Text style={{marginLeft:10,flex:5}}>{food.dish_name}</Text>
-                               <Text style={styles.font_red}>x{food.num}</Text>
+                     {dishes&&dishes.map(dish =>
+                         <View key={dish.id} style={{flexDirection:'row',backgroundColor:'white',height:35,alignItems:'center'}}>
+                               <Text style={{marginLeft:10,flex:5}}>{dish.name}</Text>
+                               <Text style={styles.font_red}>x{dish.num}</Text>
                                <View style={{flex:2,alignItems:'flex-end',marginRight:10}}>
-                                    <Text style={styles.font_red}>¥{food.dish_price}</Text>
+                                    <Text style={styles.font_red}>¥{dish.price}</Text>
                                </View>
                          </View>
                      )}
@@ -61,9 +60,9 @@ class OrderDetails extends React.Component {
                      </View>
                      <ShortLineTwo/>
                      <View style={{flexDirection:'row',backgroundColor:'white',height:35,alignItems:'center'}}>
-                           <Text style={{marginLeft:10}}>总计¥{order.total}</Text>
+                           <Text style={{marginLeft:10}}>总计¥{order.order_price}</Text>
                            <View style={{flex:1,alignItems:'flex-end',marginRight:10}}>
-                                <Text style={styles.font_red}>总计¥{order.total}</Text>
+                                <Text style={styles.font_red}>总计¥{order.order_price}</Text>
                            </View>
                      </View>
                      <View style={{height:35,justifyContent:'center'}}>
@@ -72,13 +71,13 @@ class OrderDetails extends React.Component {
                      <View style={{flexDirection:'row',backgroundColor:'white',height:35,alignItems:'center'}}>
                            <Text style={{marginLeft:10}}>订单编号</Text>
                            <View style={{flex:1,alignItems:'flex-end',marginRight:10}}>
-                                <Text style={{fontSize:14}}>201608051230121001</Text>
+                                <Text style={{fontSize:14}}>{order.order_id}</Text>
                            </View>
                      </View>
                      <View style={{flexDirection:'row',backgroundColor:'white',height:35,alignItems:'center'}}>
                            <Text style={{marginLeft:10}}>订单时间</Text>
                            <View style={{flex:1,alignItems:'flex-end',marginRight:10}}>
-                                <Text style={{fontSize:14}}>2016-8-5 12:30:12</Text>
+                                <Text style={{fontSize:14}}>{order.order_time}</Text>
                            </View>
                      </View>
                      <View style={{flexDirection:'row',backgroundColor:'white',height:35,alignItems:'center',marginBottom:8}}>

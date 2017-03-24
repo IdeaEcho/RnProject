@@ -10,6 +10,7 @@ import {HOST, ORDER_ACTION} from  '../common/Request'
 import { toastShort } from '../utils/ToastUtil'
 import Storage from 'react-native-storage'
 import Home from '../containers/home'
+import OrderResult from '../containers/OrderResult'
 const client = new FetchHttpClient(HOST)
 
 export function performOrderAction(data, navigator) {
@@ -23,35 +24,34 @@ export function performOrderAction(data, navigator) {
         client.post(ORDER_ACTION,{
             form: { data: data }
         }).then(response => {
-            // toastShort(JSON.stringify(response))
-            toastShort(JSON.stringify(response._bodyInit))
-            return response._bodyInit
+            // toastShort(JSON.stringify(response._bodyText))
+            return JSON.parse(response._bodyText)
         }).then((result)=> {
-            dispatch(receiveOrderResult(result))
-            if(result.returnCode === '200'){
-                console.log(result)
-                storage.save({
-                    key: 'orderinfo',  // 注意:请不要在key中使用_下划线符号!
-                    rawData: {
-                    data: result.phone
-                },
-                // 如果不指定过期时间，则会使用defaultExpires参数
-                // 如果设为null，则永不过期
-                expires: 1000 * 3600
-                })
-                InteractionManager.runAfterInteractions(() => {
-                navigator.push({
-                  component: OrderResult,
-                  name: '订单结果',
-                  order: cart
-                   })
-                })
-            }else{
-                toastShort(result.msg)
-            }
+                dispatch(receiveOrderResult(result))
+                if(result.returnCode === '200'){
+                    console.log(result)
+                    storage.save({
+                        key: 'orderinfo',  // 注意:请不要在key中使用_下划线符号!
+                        rawData: {
+                        data: result
+                    },
+                    // 如果不指定过期时间，则会使用defaultExpires参数
+                    // 如果设为null，则永不过期
+                    expires: 1000 * 3600
+                    })
+                    InteractionManager.runAfterInteractions(() => {
+                    navigator.push({
+                      component: OrderResult,
+                      name: '订单结果',
+                      order: result
+                       })
+                    })
+                }else{
+                    toastShort(result)
+                }
             }).catch((error) => {
                 // console.log(error)
-                toastShort(error+'网络发生错误,请重试!')
+                toastShort('网络发生错误,请重试!')
             })
      }
 }

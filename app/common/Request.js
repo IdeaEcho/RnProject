@@ -8,4 +8,6 @@ export const MENU_ACTION =HOST+"orderinterface/getmenu.html"  //获取菜单
 
 export const ORDER_ACTION =HOST+"orderinterface/setorder.html"  //提交订单
 
+export const ORDERALL_ACTION =HOST+"orderinterface/getorders.html"  //获取所有订单
+
 export const ALIPAY_ACTION = ""//支付宝
