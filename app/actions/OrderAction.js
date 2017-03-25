@@ -6,13 +6,14 @@
 import {InteractionManager}  from 'react-native'
 import * as types from '../common/ActionTypes'
 import FetchHttpClient, { json,form,header } from 'fetch-http-client'
-import {HOST, ORDER_ACTION} from  '../common/Request'
+import {HOST, ORDER_ACTION,ORDER_HISTORY_ACTION} from  '../common/Request'
 import { toastShort } from '../utils/ToastUtil'
 import Storage from 'react-native-storage'
 import Home from '../containers/home'
 import OrderResult from '../containers/OrderResult'
 const client = new FetchHttpClient(HOST)
 
+//获取当前订单
 export function performOrderAction(data, navigator) {
     return dispatch => {
         dispatch(performOrder())
@@ -56,15 +57,54 @@ export function performOrderAction(data, navigator) {
      }
 }
 
+export function performOrderHistoryAction(data) {
+    return dispatch => {
+        dispatch(performOrderHistory())
+        client.addMiddleware(form())
+        // Add Logging
+        client.addMiddleware(request => response => {
+          console.log(request, response)
+        })
+        client.post(ORDER_HISTORY_ACTION,{
+            form: { data: data }
+        }).then(response => {
+            // toastShort(JSON.stringify(JSON.parse(response._bodyText).order_list))
+            return  JSON.parse(response._bodyText)
+        }).then((result)=> {
+                if(result.returnCode === '200'){
+                    // toastShort(JSON.parse(result.order_list))
+                    dispatch(receiveOrderHistoryResult(result.order_list))
+                }else if(result.returnCode === '300'){
+                    dispatch(receiveOrderHistoryResult())
+                }
+                else{
+                    toastShort(result)
+                }
+            }).catch((error) => {
+                // console.log(error)
+                toastShort('网络发生错误,请重试!')
+            })
+     }
+}
 function performOrder() {
         return {
             type: types.PERFORM_ORDER_ACTION,
         }
 }
-
 function receiveOrderResult(result){
         return {
             type: types.RECEIVE_ORDER_ACTION,
             data: result
+        }
+}
+function performOrderHistory() {
+        return {
+            type: types.PERFORM_ORDER_HISTORY_ACTION,
+        }
+}
+function receiveOrderHistoryResult(result=[]){
+        return {
+            type: types.RECEIVE_ORDER_HISTORY_ACTION,
+            order_list: result
         }
 }

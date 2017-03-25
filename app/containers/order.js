@@ -1,5 +1,6 @@
 'use strict';
-import React, {Component} from 'react';
+import React, {Component} from 'react'
+import { connect } from 'react-redux'
 import{
     View,
     Text,
@@ -9,47 +10,10 @@ import{
     Image,
     Dimensions,
     InteractionManager
-} from 'react-native';
+} from 'react-native'
+import { toastShort } from '../utils/ToastUtil'
+import {performOrderHistoryAction} from '../actions/OrderAction'
 // import OrderSingle from './OrderSingle';
-const ORDER_DATA={
-    "api":"GetOrderHistory",
-    "v":"1.0",
-    "code":"0",
-    "msg":"success",
-    "data":[{
-        "id":1,
-        "shopName":"四川菜馆",
-        "orderStauts":1,
-        "icon":"",
-        "title":'干锅千叶豆腐等2件商品',
-        "time":"2016-5-12 12:23",
-        "price":29
-    },{
-        "id":1,
-        "shopName":"聚星楼",
-        "orderStauts":1,
-        "icon":"",
-        "title":'超级大鸡排等2件商品',
-        "time":"2016-5-10 11:23",
-        "price":34
-    },{
-        "id":1,
-        "shopName":"湘菜馆",
-        "orderStauts":0,
-        "icon":"",
-        "title":'土豆烧鸡块等3件商品',
-        "time":"2016-5-9 9:00",
-        "price":19
-    },{
-        "id":1,
-        "shopName":"重庆烧鸡公",
-        "orderStauts":1,
-        "icon":"",
-        "title":'烧鸡公等4件商品',
-        "time":"2016-5-2 5:23",
-        "price":78
-    }]
-};
 
 var {height,width} = Dimensions.get('window');
 
@@ -62,14 +26,27 @@ class Order extends Component {
         this.state={
          dataSource: new ListView.DataSource({
            rowHasChanged: (row1, row2) => row1 !== row2,
-         }),
-         orders :ORDER_DATA.data,
+       })
       }
     }
+    componentWillMount() {
+        const {dispatch} = this.props
+        storage.load({
+          key: 'userinfo',
+          autoSync: true,
+          syncInBackground: true,
+        }).then(ret => {
+            let data = {
+                customer_id : ret.phone
+            }
+            let str = JSON.stringify(data)
+            //查看订单
+            dispatch(performOrderHistoryAction(str))
+        })
+    }
+    onEndReached(typeId) {
 
-  onEndReached(typeId) {
-
-  }
+    }
   //点击列表每一项响应按钮
   onPressItem(order) {
      const {navigator} = this.props;
@@ -102,7 +79,7 @@ class Order extends Component {
             <TouchableOpacity onPress={()=>{this.onPressItem(order)}}>
             <View style={{backgroundColor:'white'}}>
                  <View style={styles.item_view_center}>
-                      <Text style={{color:'black'}}>{order.shopName}</Text>
+                      <Text style={{color:'black'}}>{order.store_name}</Text>
                       <Image source={require('../imgs/order/ic_order_arrow_right.png')} style={styles.item_view_icon}/>
                       <View style={styles.item_view_center_status}>
                            <Image source={require('../imgs/order/ic_order_status.png')}
@@ -115,14 +92,14 @@ class Order extends Component {
                  <View style={styles.item_view_center_msg}>
                        <Image source={require('../imgs/order/ic_order_shop_icon.png')} style={styles.item_view_center_icon}/>
                        <View style={styles.item_view_center_title_img}>
-                             <Text style={styles.item_view_center_title}>{order.title}</Text>
-                             <Text style={styles.item_view_center_time}>{order.time}</Text>
+                             <Text style={styles.item_view_center_title}>{JSON.parse(order.order_dishes).length}道菜</Text>
+                             <Text style={styles.item_view_center_time}>{order.order_time}</Text>
                        </View>
                  </View>
                  <Image source={require('../imgs/order/ic_order_heng_shi.png')} style={{width:(width-20),marginLeft:10,marginRight:10}}/>
                  <View style={styles.item_view_bottom}>
                        <View style={styles.item_view_bottom_price_v}>
-                             <Text style={styles.item_view_bottom_price}>¥{order.price}</Text>
+                             <Text style={styles.item_view_bottom_price}>¥{order.present_price}</Text>
                         </View>
                        <Image source={require('../imgs/order/ic_order_shu.png')} style={{height:40}}/>
                        <View style={styles.item_view_bottom_again_v}>
@@ -135,6 +112,7 @@ class Order extends Component {
         );
     }
     render() {
+        const {orderhistory} = this.props
         return (
              <View style={{backgroundColor:'#f5f5f5',flex:1}}>
                 <View style={{height:48,backgroundColor:'black',flexDirection:'column'}}>
@@ -144,7 +122,7 @@ class Order extends Component {
                 </View>
                 <View style={{flex:1}}>
                    {this.renderContent(this.state.dataSource.cloneWithRows(
-                         this.state.orders === undefined ? [] : this.state.orders))}
+                         orderhistory.order_list === undefined ? [] :orderhistory.order_list))}
                 </View>
              </View>
         );
@@ -227,4 +205,10 @@ const styles=StyleSheet.create({
         color:'black'
     }
 });
-export default Order;
+function mapStateToProps(state) {
+  const { orderhistory } = state
+  return {
+    orderhistory
+  }
+}
+export default connect(mapStateToProps)(Order)

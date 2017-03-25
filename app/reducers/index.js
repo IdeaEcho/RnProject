@@ -5,14 +5,14 @@ import login from './LoginReducer';
 import register from './RegisterReducer';
 import foods from './FoodsReducer';
 import menu from './MenuReducer';
-import order from './OrderReducer';
-
+import {order,orderhistory} from './OrderReducer';
 const rootReducer = combineReducers({
     login,
     register,
     foods,
     cart,
     menu,
-    order
+    order,
+    orderhistory
 })
 export default rootReducer;

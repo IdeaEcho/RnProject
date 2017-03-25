@@ -20,9 +20,9 @@ import ImageButton from '../components/ImageButton'
 import ModifyInformation from './CenterContent/ModifyInformation'
 import Charge from './CenterContent/Charge'
 import FeedBack from './CenterContent/FeedBack'
-import Order from '../containers/order'
 import Storage from 'react-native-storage'
-import { toastShort } from '../utils/ToastUtil'
+import Order from './order'
+import { performOrderHistoryAction } from '../actions/OrderAction'
 
 var {height,width} =  Dimensions.get('window')
 
@@ -52,7 +52,10 @@ class User extends Component {
           // 设置为false的话，则始终强制返回sync方法提供的最新数据(当然会需要更多等待时间)。
           syncInBackground: true,
         }).then(ret => {
-            this.setState({ nickname: ret.nickname })
+            this.setState({
+                customer_id: ret.phone,
+                nickname: ret.nickname
+            })
         }).catch(err => {
           console.warn(err.message)
           switch (err.name) {
@@ -93,11 +96,11 @@ class User extends Component {
         const {navigator} = this.props
         if(position === 1) {
             InteractionManager.runAfterInteractions(() => {
-             navigator.push({
-                 component: Order,
-                 name: 'Order'
-             })
-           })
+            navigator.push({
+              component: Order,
+              name: '历史订单'
+               })
+            })
         }else if(position === 2) {
            InteractionManager.runAfterInteractions(() => {
             navigator.push({
@@ -244,7 +247,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
     const {nickname} = state
         return {
-            nickname: nickname
+            nickname: nickname,
         }
 }
 export default connect(mapStateToProps)(User)
