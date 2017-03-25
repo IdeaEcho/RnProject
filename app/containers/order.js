@@ -13,6 +13,8 @@ import{
 } from 'react-native'
 import { toastShort } from '../utils/ToastUtil'
 import {performOrderHistoryAction} from '../actions/OrderAction'
+import Header from '../components/Header';
+import { NaviGoBack } from '../utils/CommonUtils';
 // import OrderSingle from './OrderSingle';
 
 var {height,width} = Dimensions.get('window');
@@ -23,6 +25,7 @@ class Order extends Component {
         super(props);
         this.onPressItem=this.onPressItem.bind(this);
         this.renderItem = this.renderItem.bind(this);
+        this.renderNoneItem = this.renderNoneItem.bind(this);
         this.state={
          dataSource: new ListView.DataSource({
            rowHasChanged: (row1, row2) => row1 !== row2,
@@ -46,6 +49,11 @@ class Order extends Component {
     }
     onEndReached(typeId) {
 
+    }
+    //返回
+    buttonBackAction(){
+        const {navigator} = this.props;
+        return NaviGoBack(navigator);
     }
   //点击列表每一项响应按钮
   onPressItem(order) {
@@ -73,6 +81,16 @@ class Order extends Component {
    }
    //渲染每一项的数据
     renderItem(order) {
+        var order_status = ''
+        if(order.order_status===1) {
+            order_status = '订单未接'
+        }else if(order.order_status===2){
+            order_status = '订单已接'
+        }else if(order.order_status===3){
+                order_status = '订单取消'
+        }else if(order.order_status===4){
+                order_status = '订单完成'
+        }
         return (
             <View>
             <View style={styles.item_view_zhanwei}></View>
@@ -84,13 +102,13 @@ class Order extends Component {
                       <View style={styles.item_view_center_status}>
                            <Image source={require('../imgs/order/ic_order_status.png')}
                                   style={styles.item_view_center_status_tv_img}>
-                               <Text style={styles.item_view_center_status_tv}>{order.orderStauts === 1 ? '订单完成' : '订单取消'}</Text>
+                               <Text style={styles.item_view_center_status_tv}>{order_status}</Text>
                            </Image>
                       </View>
                  </View>
                  <Image source={require('../imgs/order/ic_order_heng.png')} style={{width:(width-20),marginLeft:10,marginRight:10}}/>
                  <View style={styles.item_view_center_msg}>
-                       <Image source={require('../imgs/order/ic_order_shop_icon.png')} style={styles.item_view_center_icon}/>
+                       <Image source={ order.store_avatar ? {uri : order.store_avatar} : require('../imgs/order/ic_order_shop_icon.png')} style={styles.item_view_center_icon}/>
                        <View style={styles.item_view_center_title_img}>
                              <Text style={styles.item_view_center_title}>{JSON.parse(order.order_dishes).length}道菜</Text>
                              <Text style={styles.item_view_center_time}>{order.order_time}</Text>
@@ -111,24 +129,39 @@ class Order extends Component {
             </View>
         );
     }
+    renderNoneItem() {
+        return (
+            <View style={{justifyContent:'center',alignItems:'center',height:400}}>
+                     <Image source={require('../imgs/order/none.png')} style={styles.none_icon}/>
+                     <Text style={styles.none_text}>您还没有下过订单哦!</Text>
+            </View>
+        );
+    }
     render() {
         const {orderhistory} = this.props
         return (
-             <View style={{backgroundColor:'#f5f5f5',flex:1}}>
-                <View style={{height:48,backgroundColor:'black',flexDirection:'column'}}>
-                    <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
-                       <Text style={{fontSize:18,color:'white',alignSelf:'center'}}>订单</Text>
-                    </View>
+            <View style={{backgroundColor:'#f5f5f5',flex:1}}>
+                <Header title='历史订单' hasBack={true} backAction={()=>{this.buttonBackAction()}} />
+                 <View style={{flex:1}}>
+                 {orderhistory.order_list === [] ?  this.renderNoneItem() : this.renderContent(this.state.dataSource.cloneWithRows(
+                       orderhistory.order_list === undefined ? [] :orderhistory.order_list))}
                 </View>
-                <View style={{flex:1}}>
-                   {this.renderContent(this.state.dataSource.cloneWithRows(
-                         orderhistory.order_list === undefined ? [] :orderhistory.order_list))}
-                </View>
-             </View>
+            </View>
         );
     }
 }
 const styles=StyleSheet.create({
+    none_icon:{
+        height:75,
+        width:80,
+        justifyContent:'center',
+        alignItems:'center'
+    },
+    none_text: {
+        color:'#ccc',
+        fontSize:15,
+        marginTop:15
+    },
     item_view_zhanwei:{
         backgroundColor:'#f5f5f5',
         height:8

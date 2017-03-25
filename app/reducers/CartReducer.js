@@ -19,7 +19,7 @@ export default function cart(state = initialState, action){
                     food.dish_id === action.data.dish_id ?
                     { ...food, num: food.num+1 } : food ), //更新数量
                     count: state.count+1,//更新数量
-                    total: state.total + action.data.dish_price//更新价格
+                    total:  (state.total*100 + action.data.dish_price*100)/100//更新价格
                 }
             } else {
                 return {
@@ -33,7 +33,7 @@ export default function cart(state = initialState, action){
                     ...state.foods
                 ],
                 count: state.count+1,//更新数量
-                total: state.total + action.data.dish_price,//更新价格
+                total: (state.total*100 + action.data.dish_price*100)/100,//更新价格
                 }
             }
         //从购物车删除菜品
@@ -43,7 +43,7 @@ export default function cart(state = initialState, action){
                 food.dish_id!==action.data.dish_id
             ),
             count: state.count-action.data.num,
-            total:state.total-action.data.dish_price*action.data.num
+            total: (state.total*100-action.data.dish_price*action.data.num*100)/100
         }
         //清空购物车
         case types.CLEAR_CART:
@@ -58,7 +58,7 @@ export default function cart(state = initialState, action){
                 food.dish_id === action.dish_id ?
                 { ...food, num: food.num+1 } : food ),
                 count: state.count+1,
-                total: state.total+parseFloat(action.dish_price)
+                total: (state.total*100+action.dish_price*100)/100
             }
         //数量减少
         case types.CUT_NUM:
@@ -68,7 +68,7 @@ export default function cart(state = initialState, action){
                     food.dish_id === action.dish_id ?
                     { ...food, num: food.num-1 } : food ),
                     count: state.count-1,
-                    total: state.total-parseFloat(action.dish_price)
+                    total:  (state.total*100+action.dish_price*100)/100
                 }
             }else {
                 return state
@@ -81,4 +81,10 @@ export default function cart(state = initialState, action){
         default:
             return state
     }
+}
+function toFixed(num, s) {
+    var times = Math.pow(10, s)
+    var des = num * times + 0.5
+    des = parseInt(des, 10) / times
+    return des + ''
 }
