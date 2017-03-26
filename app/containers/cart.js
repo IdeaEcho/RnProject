@@ -89,7 +89,7 @@ class Cart extends Component {
                 console.warn(err.message);
               })
             }).catch(err => {
-              console.warn(err.message);
+              toastShort('未登录')
             })
             // InteractionManager.runAfterInteractions(() => {
             // navigator.push({

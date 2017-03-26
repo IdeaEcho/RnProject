@@ -102,6 +102,7 @@ class Menu extends Component {
             navigator.push({
               component: FoodDetails,
               name: 'FoodDetails',
+              food: data
               })
         })
     }
