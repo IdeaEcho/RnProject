@@ -49,6 +49,7 @@ export default function cart(state = initialState, action){
         case types.CLEAR_CART:
             return {
                 foods:[],
+                count:0,
                 total:0
             }
         //数量增加
@@ -76,7 +77,7 @@ export default function cart(state = initialState, action){
         case types.UPDATE_SUM:
             return {
                 foods: [...state.foods],
-                total: state.total
+                total: (state.total*100)/100
             }
         default:
             return state

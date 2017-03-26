@@ -14,7 +14,6 @@ import { NaviGoBack } from '../../utils/CommonUtils';
 import Header from '../../components/Header';
 import SettingItem from '../../components/SettingItem';
 import ShortLine from '../../components/ShortLine';
-import Language from './Language';
 import About from './About';
 import ResetPwd from  './ResetPwd';
 import Storage from 'react-native-storage'
@@ -54,13 +53,6 @@ class Setting extends Component {
               name: 'ResetPwd'
            });
         });
-      }else if(position === 3){
-        InteractionManager.runAfterInteractions(() => {
-           navigator.push({
-              component: Language,
-              name: 'Language'
-           });
-        });
       }else if(position === 5){
 
       }else if(position === 6){
@@ -82,8 +74,6 @@ class Setting extends Component {
                 <Header title='设置' hasBack={true} backAction={()=>{this.buttonBackAction()}} />
                 <View style={{flexDirection:'column',flex:1,marginTop:10}}>
                     <SettingItem title="更改密码" onPress={()=>{this.itemButtonAction(2)}}/>
-                    <ShortLine/>
-                    <SettingItem title="语言" onPress={()=>{this.itemButtonAction(3)}}/>
                     <ShortLine/>
                     <SettingItem title="评分" onPress={()=>{this.itemButtonAction(5)}}/>
                     <ShortLine/>

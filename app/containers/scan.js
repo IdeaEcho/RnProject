@@ -50,10 +50,10 @@ class Scan extends Component {
               table: table,
             });
             let tokenjson = {
-                access_token : token
+                access_token :  'dec9373769b94787'
             }
             let tokenstr = JSON.stringify(tokenjson)
-            dispatch(performMenuAction(tokenstr))
+            dispatch(performMenuAction(tokenstr, table, navigator))
         }
     }
 

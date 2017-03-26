@@ -16,6 +16,7 @@ import FoodDetails from './FoodDetails'
 // import Merchants from './Merchants'
 import Loading from '../components/Loading_DD'
 import LoadingView from '../components/LoadingView'
+import NoneItem from '../components/NoneItem'
 
 import { connect } from 'react-redux'
 import {
@@ -213,12 +214,12 @@ class Menu extends Component {
             <View style={styles.topbar}>
                 <Image source={foods.store_info.avatar ? {uri:foods.store_info.avatar} : require('../imgs/default.png')}
                     style={{width:58,height:58,borderRadius:29,marginRight:20}}/>
-                <Text style={{color:'#2c2c2c',width:width-150,fontSize:16}}>{foods.store_info.store_name}</Text>
+                <Text style={{color:'#2c2c2c',width:width-150,fontSize:16}}>{foods.store_info.store_name ? foods.store_info.store_name :'请扫码获取菜单'}</Text>
                 <View style={{alignItems:'flex-end',marginRight:15}}>
                      <Image source={require('../imgs/store/table.png')}
                             style={{width:22,height:22,marginRight:6}}
                  />
-                 <Text style={{color:'#2c2c2c',fontSize:13,marginLeft:4}}>第{foods.store_info.table}桌</Text>
+                 <Text style={{color:'#2c2c2c',fontSize:13,marginLeft:4}}>第{foods.store_info.table ? foods.store_info.table : 0}桌</Text>
                 </View>
             </View>
         <Image source={require('../imgs/order/ic_order_heng.png')}/>
@@ -230,21 +231,25 @@ class Menu extends Component {
         const {foods} = this.props
         if (foods.loading) {
               return <LoadingView />
-          }
-        return (
-            <View style={{flexDirection:'row',flex:1}}>
-                    <View style={{flex:1}}>
-                        {
-                          this.renderContentLeft(this.state.dataSource.cloneWithRows(
-                             foods.left_items === undefined ? [] : foods.left_items))
-                        }
-                    </View>
-                   <View style={{flex:3}}>
-                        {this.renderContentRight(this.state.dataSource.cloneWithRowsAndSections(
-                             foods.right_items === undefined ? [] : foods.right_items,foods.left_items))}
-                   </View>
-            </View>
-        )
+        }
+        if(foods.left_items==undefined||foods.right_items==undefined) {
+            return <NoneItem />
+        }else {
+            return (
+                <View style={{flexDirection:'row',flex:1}}>
+                        <View style={{flex:1}}>
+                            {
+                              this.renderContentLeft(this.state.dataSource.cloneWithRows(
+                                 foods.left_items === undefined ? [] : foods.left_items))
+                            }
+                        </View>
+                       <View style={{flex:3}}>
+                            {this.renderContentRight(this.state.dataSource.cloneWithRowsAndSections(
+                                 foods.right_items === undefined ? [] : foods.right_items,foods.left_items))}
+                       </View>
+                </View>
+            )
+        }
     }
 
     render() {

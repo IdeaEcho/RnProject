@@ -46,7 +46,7 @@ export default class CartItem extends Component {
                     </View>
                 </View>
                 <View style={{justifyContent:'flex-end'}}>
-                <Text style={{fontSize:15,marginRight:10,marginBottom:25}}>¥{food.dish_price*food.num}</Text>
+                <Text style={{fontSize:15,marginRight:10,marginBottom:25}}>¥{food.dish_price*100*food.num/100}</Text>
                 </View>
             </View>
         )

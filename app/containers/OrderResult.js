@@ -19,11 +19,43 @@ import OrderDetails from './OrderDetails'
 var {height, width} = Dimensions.get('window')
 
 class OrderResult extends React.Component {
-  constructor(props) {
-    super(props);
-    this.buttonBackAction=this.buttonBackAction.bind(this);
-    this.itemButtonActiom=this.itemButtonActiom.bind(this);
-  }
+    constructor(props) {
+        super(props);
+        this.buttonBackAction=this.buttonBackAction.bind(this);
+        this.itemButtonActiom=this.itemButtonActiom.bind(this);
+    }
+    componentWillMount() {
+        const {dispatch} = this.props
+        storage.load({
+          key: 'userinfo',
+          autoSync: true,
+          syncInBackground: true,
+        }).then(ret => {
+          this.state.customer_id = ret.phone
+          storage.load({
+            key: 'foodsinfo',
+            autoSync: true,
+            syncInBackground: true,
+          }).then(ret => {
+            this.state.access_token = ret.storetoken
+            this.state.table_id = ret.table
+            let dish_json = []
+            cart.foods.forEach(function(value, key) {
+                let dish = {
+                    id : value.dish_id,
+                    no: value.num
+                }
+                dish_json.push(dish)
+            })
+            var data = Object.assign(this.state, {dish_json:dish_json});
+            dispatch(performOrderAction(JSON.stringify(data)))
+          }).catch(err => {
+            console.warn(err.message);
+          })
+        }).catch(err => {
+           toastShort('未登录')
+        })
+    }
     //返回
     buttonBackAction(){
         const {navigator} = this.props;
@@ -36,6 +68,7 @@ class OrderResult extends React.Component {
             navigator.push({
                   component: OrderDetails,
                   name: '订单详情',
+                  from: 'order_result',
                   order: route.order
                });
             });

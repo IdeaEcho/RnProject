@@ -19,7 +19,7 @@ var username = '';
 var password = '';
 var repassword = '';
 var verifyCode = '';
-class Login extends Component {
+class ResetPwd extends Component {
   constructor(props) {
       super(props);
       this.buttonBackAction=this.buttonBackAction.bind(this);
@@ -96,10 +96,6 @@ class Login extends Component {
                                password = text;
                             }}
                            />
-                          <TouchableOpacity onPress={() => {this.buttonChangeState(0)}} style={{width:45,height:45,alignItems:'center',justifyContent:'center'}}>
-                                <Image source={require('../../imgs/logre/ic_pwd_off.png')}
-                                        style={{width:17,height:14,marginLeft:13}}/>
-                          </TouchableOpacity>
                     </View>
                     <ShortLineTwo/>
                     <View style={{flexDirection:'row',height:45,alignItems:'center'}}>
@@ -116,10 +112,6 @@ class Login extends Component {
                                repassword = text;
                             }}
                            />
-                          <TouchableOpacity onPress={() => {this.buttonChangeState(1)}} style={{width:45,height:45,alignItems:'center',justifyContent:'center'}}>
-                                <Image source={require('../../imgs/logre/ic_pwd_off.png')}
-                                        style={{width:17,height:14,marginLeft:13}}/>
-                          </TouchableOpacity>
                     </View>
                 </View>
                 <TouchableOpacity onPress={() => {this.resetSuccesAction()}} style={styles.btn}>
@@ -151,4 +143,4 @@ const styles=StyleSheet.create({
         borderColor: '#ff7e5e'
     }
 });
-export default Login;
+export default ResetPwd;

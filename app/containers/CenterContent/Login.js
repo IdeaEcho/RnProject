@@ -32,7 +32,6 @@ class Login extends Component {
         super(props)
         this.buttonBackAction=this.buttonBackAction.bind(this)
         this.buttonRegisterOrLoginAction=this.buttonRegisterOrLoginAction.bind(this)
-        this.buttonChangeState=this.buttonChangeState.bind(this)
         this.findPwdAction=this.findPwdAction.bind(this)
         this.thirdPartLoginAction=this.thirdPartLoginAction.bind(this)
     }
@@ -78,9 +77,6 @@ class Login extends Component {
             })
         }
     }
-    buttonChangeState(){
-
-    }
     findPwdAction(){
         const {navigator} = this.props
         InteractionManager.runAfterInteractions(() => {
@@ -101,8 +97,10 @@ class Login extends Component {
                 <Header title='登陆' right='注册' hasBack={true} hasRight={true}
                 backAction={()=>{this.buttonBackAction()}}
                 rightAction={() => {this.buttonRegisterOrLoginAction(1)}} />
-                <View style={{backgroundColor:'white',marginTop:13}}>
-                    <View style={{flexDirection:'row',height:45,alignItems:'center'}}>
+                <View style={{alignItems:'center',marginTop:10}}>
+                   <Image source={require('../../imgs/logo@round.png')} style={{width:90,height:90}}/>
+                </View>
+                    <View style={styles.input_box}>
                           <Image source={require('../../imgs/logre/tele.png')}
                                  style={styles.textInput_icon}/>
                           <TextInput
@@ -119,8 +117,7 @@ class Login extends Component {
                             }}
                       />
                     </View>
-                    <ShortLineTwo/>
-                    <View style={{flexDirection:'row',height:45,alignItems:'center'}}>
+                    <View style={styles.input_box}>
                           <Image source={require('../../imgs/logre/pwd.png')}
                                  style={styles.textInput_icon}/>
                           <TextInput
@@ -136,12 +133,7 @@ class Login extends Component {
                                password = text
                             }}
                            />
-                          <TouchableOpacity onPress={() => {this.buttonChangeState()}} style={{width:45,height:45,alignItems:'center',justifyContent:'center'}}>
-                                <Image source={require('../../imgs/logre/ic_pwd_off.png')}
-                                        style={{width:17,height:14,marginLeft:13}}/>
-                          </TouchableOpacity>
                     </View>
-                </View>
                 <TouchableOpacity onPress={() => {this.buttonRegisterOrLoginAction(0)}}  style={styles.btn}>
                           <Text style={{color:'#ff7e5e'}}>登录</Text>
                 </TouchableOpacity>
@@ -171,7 +163,7 @@ class Login extends Component {
 }
 const styles=StyleSheet.create({
     container: {
-        backgroundColor:'#f5f5f5',
+        backgroundColor:'#fff',
         flex:1,
         alignItems:'center'
     },
@@ -216,10 +208,19 @@ const styles=StyleSheet.create({
         color:'white',
         alignSelf:'center'
     },
+    input_box:{
+        borderColor:'#1c2c3b',
+        borderRadius:15,
+        flexDirection:'row',
+        height:45,
+        width:260,
+        alignItems:'center',
+        marginTop:20,
+        borderWidth: 1
+    },
     textInput:{
-        marginTop:8,
-        marginLeft:10,
         height:38,
+        alignItems:'center',
         fontSize: 15,
         textAlign: 'left',
         textAlignVertical:'center',
@@ -231,13 +232,13 @@ const styles=StyleSheet.create({
         marginLeft:13
     },
     btn:{
-        width:300,
+        width:260,
         height:40,
         marginTop:20,
-        borderRadius:5,
+        borderRadius:15,
         justifyContent:'center',
         alignItems:'center',
-        borderWidth: 2,
+        borderWidth: 1,
         borderColor: '#ff7e5e'
     }
 })

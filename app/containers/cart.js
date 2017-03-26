@@ -15,11 +15,13 @@ import{
 var {height, width} = Dimensions.get('window')
 import Header from '../components/Header'
 import CartItem from '../components/CartItem'
+import NoneItem from '../components/NoneItem'
+import Loading from '../components/Loading_DD'
 import OrderResult from './OrderResult'
 import { toastShort } from '../utils/ToastUtil'
 import { performOrderAction } from '../actions/OrderAction'
 import { connect } from 'react-redux'
-import Loading from '../components/Loading_DD'
+
 
 class Cart extends Component {
     static propTypes = {
@@ -110,15 +112,8 @@ class Cart extends Component {
                                   addNumAction={()=>{this.onAddNum(food.dish_id,food.dish_price)}}
                                   cutNumAction={()=>{this.onCutNum(food.dish_id,food.dish_price)}} />
              )}
+            {cart.foods=='' && <NoneItem />}
             <View style={{flex:1,justifyContent:'flex-end'}}>
-                <View style={{backgroundColor:'white',width:width,height:40}}>
-                    <View style={{flexDirection:'row',marginLeft:15,marginTop:5}}>
-                    <Text style={{fontSize:11,color:'black',flex:1}}>折扣</Text>
-                        <View style={{flex:1,alignItems:'flex-end',marginRight:15}}>
-                        <Text style={{color:'red',fontSize:11}}>8.8折</Text>
-                        </View>
-                    </View>
-                </View>
                 <TouchableOpacity style={styles.btn} onPress={()=>{this.payItemAction()}}>
                     <Text style={{color:'white',fontSize:15}}>提交订单-￥{cart.total}</Text>
                 </TouchableOpacity>

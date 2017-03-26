@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import{
@@ -13,19 +13,18 @@ import{
 } from 'react-native'
 import { toastShort } from '../utils/ToastUtil'
 import {performOrderHistoryAction} from '../actions/OrderAction'
-import Header from '../components/Header';
-import { NaviGoBack } from '../utils/CommonUtils';
-// import OrderSingle from './OrderSingle';
+import Header from '../components/Header'
+import NoneItem from '../components/NoneItem'
+import { NaviGoBack } from '../utils/CommonUtils'
+import OrderDetails from './OrderDetails'
 
-var {height,width} = Dimensions.get('window');
+var {height,width} = Dimensions.get('window')
 
 class Order extends Component {
-
     constructor(props) {
-        super(props);
-        this.onPressItem=this.onPressItem.bind(this);
-        this.renderItem = this.renderItem.bind(this);
-        this.renderNoneItem = this.renderNoneItem.bind(this);
+        super(props)
+        this.onPressItem=this.onPressItem.bind(this)
+        this.renderItem = this.renderItem.bind(this)
         this.state={
          dataSource: new ListView.DataSource({
            rowHasChanged: (row1, row2) => row1 !== row2,
@@ -45,6 +44,8 @@ class Order extends Component {
             let str = JSON.stringify(data)
             //查看订单
             dispatch(performOrderHistoryAction(str))
+        }).catch(err => {
+            toastShort('未登录')
         })
     }
     onEndReached(typeId) {
@@ -52,19 +53,20 @@ class Order extends Component {
     }
     //返回
     buttonBackAction(){
-        const {navigator} = this.props;
-        return NaviGoBack(navigator);
+        const {navigator} = this.props
+        return NaviGoBack(navigator)
     }
   //点击列表每一项响应按钮
   onPressItem(order) {
-     const {navigator} = this.props;
+     const {navigator} = this.props
      InteractionManager.runAfterInteractions(() => {
-            // navigator.push({
-            //   component: OrderSingle,
-            //   name: 'OrderSingle',
-            //   order
-            // });
-          });
+            navigator.push({
+              component: OrderDetails,
+              name: '订单详情',
+              from: 'order',
+              order: order
+            })
+          })
   }
   //进行渲染数据
   renderContent(dataSource) {
@@ -77,18 +79,18 @@ class Order extends Component {
         onEndReachedThreshold={10}
         enableEmptySections={true}
       />
-    );
+    )
    }
    //渲染每一项的数据
     renderItem(order) {
         var order_status = ''
         if(order.order_status===1) {
             order_status = '订单未接'
-        }else if(order.order_status===2){
+        }else if(order.order_status===2) {
             order_status = '订单已接'
-        }else if(order.order_status===3){
+        }else if(order.order_status===3) {
                 order_status = '订单取消'
-        }else if(order.order_status===4){
+        }else if(order.order_status===4) {
                 order_status = '订单完成'
         }
         return (
@@ -127,15 +129,7 @@ class Order extends Component {
             </View>
             </TouchableOpacity>
             </View>
-        );
-    }
-    renderNoneItem() {
-        return (
-            <View style={{justifyContent:'center',alignItems:'center',height:400}}>
-                     <Image source={require('../imgs/order/none.png')} style={styles.none_icon}/>
-                     <Text style={styles.none_text}>您还没有下过订单哦!</Text>
-            </View>
-        );
+        )
     }
     render() {
         const {orderhistory} = this.props
@@ -143,25 +137,14 @@ class Order extends Component {
             <View style={{backgroundColor:'#f5f5f5',flex:1}}>
                 <Header title='历史订单' hasBack={true} backAction={()=>{this.buttonBackAction()}} />
                  <View style={{flex:1}}>
-                 {orderhistory.order_list === [] ?  this.renderNoneItem() : this.renderContent(this.state.dataSource.cloneWithRows(
+                 {orderhistory.order_list == '' || orderhistory.order_list ==[] ? <NoneItem /> : this.renderContent(this.state.dataSource.cloneWithRows(
                        orderhistory.order_list === undefined ? [] :orderhistory.order_list))}
                 </View>
             </View>
-        );
+        )
     }
 }
 const styles=StyleSheet.create({
-    none_icon:{
-        height:75,
-        width:80,
-        justifyContent:'center',
-        alignItems:'center'
-    },
-    none_text: {
-        color:'#ccc',
-        fontSize:15,
-        marginTop:15
-    },
     item_view_zhanwei:{
         backgroundColor:'#f5f5f5',
         height:8
@@ -237,7 +220,7 @@ const styles=StyleSheet.create({
         fontSize:14,
         color:'black'
     }
-});
+})
 function mapStateToProps(state) {
   const { orderhistory } = state
   return {
