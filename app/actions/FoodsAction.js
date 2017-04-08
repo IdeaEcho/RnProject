@@ -18,7 +18,6 @@ export const addNumAction=(dish_id,dish_price) => ({ type: types.ADD_NUM, dish_i
 //数量-1
 export const cutNumAction=(dish_id,dish_price) => ({ type: types.CUT_NUM, dish_id, dish_price })
 
-
 //获取商品列表
 export function fetchFoodsAction(foods,table){
      return dispatch => {

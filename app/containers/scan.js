@@ -21,14 +21,13 @@ import Loading from '../components/Loading_DD'
 class Scan extends Component {
   constructor(props) {
     super(props);
-    let tokenjson = {
-        access_token : 'dec9373769b94787'
-    }
-    let table =1
-    const {navigator, dispatch} = this.props
-    let tokenstr = JSON.stringify(tokenjson)
-    dispatch(performMenuAction(tokenstr, table, navigator))
-
+    // let tokenjson = {
+    //     access_token : 'dec9373769b94787'
+    // }
+    // let table =1
+    // const {navigator, dispatch} = this.props
+    // let tokenstr = JSON.stringify(tokenjson)
+    // dispatch(performMenuAction(tokenstr, table, navigator))
     this.state = {
       barcode: '',
       cameraType: 'back',

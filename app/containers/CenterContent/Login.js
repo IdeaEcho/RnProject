@@ -6,7 +6,6 @@ import{
     BackAndroid,
     TouchableOpacity,
     Image,
-    StyleSheet,
     InteractionManager,
     TextInput,
     Platform,
@@ -23,6 +22,8 @@ import Loading from '../../components/Loading_DD'
 
 import { connect } from 'react-redux'
 import { performLoginAction } from '../../actions/LoginAction'
+import formStyle from '../../styles/form'
+import commonStyle from '../../styles/common'
 
 var phone = '18959386000'
 var password = '123123'
@@ -93,18 +94,18 @@ class Login extends Component {
     render() {
       const {login} = this.props
       return (
-             <View style={styles.container}>
+             <View style={commonStyle.container}>
                 <Header title='登陆' right='注册' hasBack={true} hasRight={true}
                 backAction={()=>{this.buttonBackAction()}}
                 rightAction={() => {this.buttonRegisterOrLoginAction(1)}} />
                 <View style={{alignItems:'center',marginTop:10}}>
                    <Image source={require('../../imgs/logo@round.png')} style={{width:90,height:90}}/>
                 </View>
-                    <View style={styles.input_box}>
+                    <View style={formStyle.input_box}>
                           <Image source={require('../../imgs/logre/tele.png')}
-                                 style={styles.textInput_icon}/>
+                                 style={formStyle.textInput_icon}/>
                           <TextInput
-                            style={styles.textInput}
+                            style={formStyle.textInput}
                             placeholder="手机"
                             placeholderTextColor="#aaaaaa"
                             underlineColorAndroid="transparent"
@@ -117,11 +118,11 @@ class Login extends Component {
                             }}
                       />
                     </View>
-                    <View style={styles.input_box}>
+                    <View style={formStyle.input_box}>
                           <Image source={require('../../imgs/logre/pwd.png')}
-                                 style={styles.textInput_icon}/>
+                                 style={formStyle.textInput_icon}/>
                           <TextInput
-                            style={styles.textInput}
+                            style={formStyle.textInput}
                             placeholder="密码"
                             placeholderTextColor="#aaaaaa"
                             underlineColorAndroid="transparent"
@@ -134,7 +135,7 @@ class Login extends Component {
                             }}
                            />
                     </View>
-                <TouchableOpacity onPress={() => {this.buttonRegisterOrLoginAction(0)}}  style={styles.btn}>
+                <TouchableOpacity onPress={() => {this.buttonRegisterOrLoginAction(0)}}  style={formStyle.btn}>
                           <Text style={{color:'#ff7e5e'}}>登录</Text>
                 </TouchableOpacity>
                 <View style={{alignItems:'flex-end',marginTop:13}}>
@@ -161,87 +162,6 @@ class Login extends Component {
         )
     }
 }
-const styles=StyleSheet.create({
-    container: {
-        backgroundColor:'#fff',
-        flex:1,
-        alignItems:'center'
-    },
-    item_layout:{
-        backgroundColor:'white',
-        height:48,
-        justifyContent:'center'
-    },
-    topbar_bg:{
-        height:48,
-        backgroundColor:'#ff7e5e',
-        flexDirection:'row'
-    },
-    topbar_left_item:{
-        width:48,
-        height:48,
-        alignItems:'center',
-        justifyContent:'center'
-    },
-    topbar_back_btn:{
-        width:20,
-        height:20,
-    },
-    topbar_center_bg:{
-        flex:1,
-        alignItems:'center',
-        justifyContent:'center'
-    },
-    topbar_center_tv:{
-        fontSize:18,
-        color:'white',
-        alignSelf:'center'
-    },
-    topbar_right_item:{
-        width:48,
-        height:48,
-        alignItems:'center',
-        justifyContent:'center'
-    },
-    topbar_right_tv:{
-        fontSize:15,
-        color:'white',
-        alignSelf:'center'
-    },
-    input_box:{
-        borderColor:'#1c2c3b',
-        borderRadius:15,
-        flexDirection:'row',
-        height:45,
-        width:260,
-        alignItems:'center',
-        marginTop:20,
-        borderWidth: 1
-    },
-    textInput:{
-        height:38,
-        alignItems:'center',
-        fontSize: 15,
-        textAlign: 'left',
-        textAlignVertical:'center',
-        flex:1
-    },
-    textInput_icon:{
-        width:19,
-        height:18,
-        marginLeft:13
-    },
-    btn:{
-        width:260,
-        height:40,
-        marginTop:20,
-        borderRadius:15,
-        justifyContent:'center',
-        alignItems:'center',
-        borderWidth: 1,
-        borderColor: '#ff7e5e'
-    }
-})
 
 function mapStateToProps(state) {
   const { login } = state

@@ -13,7 +13,6 @@ import Header from '../components/Header'
 import PureListView from '../components/PureListView'
 import { toastShort } from '../utils/ToastUtil'
 import FoodDetails from './FoodDetails'
-// import Merchants from './Merchants'
 import Loading from '../components/Loading_DD'
 import LoadingView from '../components/LoadingView'
 import NoneItem from '../components/NoneItem'
@@ -24,8 +23,7 @@ import {
     changeCategoryAction,
     addToCartAction
 } from '../actions/FoodsAction'
-
-const {height,width} = Dimensions.get('window')
+import menuStyle from '../styles/menu'
 
 let defaultColor = '#f5f5f5'  //默认颜色
 let selectedColor = '#fff'  //选中颜色
@@ -41,7 +39,7 @@ class Menu extends Component {
         this.collectAction=this.collectAction.bind(this)
         this.renderBottom=this.renderBottom.bind(this)
         //ListView.DataSource:从原始输入数据中抽取数据来创建ListViewDataSource对象
-        this.state={
+        this.state = {
          dataSource: new ListView.DataSource({
            getRowData: (dataBlob, sid, rid) => dataBlob[sid][rid],
            getSectionHeaderData: (dataBlob, sid) => dataBlob[sid],
@@ -72,16 +70,14 @@ class Menu extends Component {
     addFood(data) {
         this.props.addFoodAction(data)
     }
-    /**
-    * 渲染分割线
-    */
+    // 渲染分割线
     _renderSeparatorView(sectionID, rowID, adjacentRowHighlighted) {
         return (
-      <Image key={`${sectionID}-${rowID}`} style={styles.separator}  source={require('../imgs/order/ic_order_heng.png')}/>
-    )
+          <Image key={`${sectionID}-${rowID}`} style={menuStyle.separator}  source={require('../imgs/order/ic_order_heng.png')}/>
+        )
     }
     //点击列表每一项响应按钮
-    onPressItemLeft(data){
+    onPressItemLeft(data) {
       const {foods,dispatch} = this.props
       dispatch(changeCategoryAction(data))
       var distance = 0
@@ -175,11 +171,11 @@ class Menu extends Component {
     renderItemImage(data){
      if(!data.dish_photo){
        return (
-            <Image source={require('../imgs/logo_with_bg.png')} style={styles.item_image} />
+            <Image source={require('../imgs/logo_with_bg.png')} style={menuStyle.item_image} />
          )
      } else {
        return (
-           <Image source={{uri:data.dish_photo}} style={styles.item_image} />
+           <Image source={{uri:data.dish_photo}} style={menuStyle.item_image} />
          )
      }
     }
@@ -189,16 +185,16 @@ class Menu extends Component {
           <TouchableOpacity onPress={()=>{this.onPressItemRight(data)}}>
                <View style={{backgroundColor:'white',flexDirection:'row'}}>
                     {this.renderItemImage(data)}
-                    <View style={styles.item_content}>
-                         <Text style={styles.item_title}>{data.dish_name}</Text>
+                    <View style={menuStyle.item_content}>
+                         <Text style={menuStyle.item_title}>{data.dish_name}</Text>
                          <View style={{flexDirection:'row',marginTop:5}}>
-                                <Text style={styles.item_des}>月售{data.dish_sales}</Text>
-                                <Text style={styles.item_des}>评分{data.dish_grade}</Text>
+                                <Text style={menuStyle.item_des}>月售{data.dish_sales}</Text>
+                                <Text style={menuStyle.item_des}>评分{data.dish_grade}</Text>
                          </View>
-                         <Text style={styles.item_price}>¥{data.dish_price}</Text>
+                         <Text style={menuStyle.item_price}>¥{data.dish_price}</Text>
                     </View>
-                    <View style={styles.item_btn}>
-                         <TouchableOpacity style={styles.btn_add} onPress={()=>{this.addFood(data)}}>
+                    <View style={menuStyle.item_btn}>
+                         <TouchableOpacity style={menuStyle.btn_add} onPress={()=>{this.addFood(data)}}>
                               <Image source={require('../imgs/store/addfood.png')}
                                      style={{width:20,height:20}}/>
                          </TouchableOpacity>
@@ -212,18 +208,16 @@ class Menu extends Component {
      const { foods } = this.props
      return (
         <TouchableOpacity >
-            <View style={styles.topbar}>
-                <Image source={foods.store_info.avatar ? {uri:foods.store_info.avatar} : require('../imgs/default.png')}
-                    style={{width:58,height:58,borderRadius:29,marginRight:20}}/>
-                <Text style={{color:'#2c2c2c',width:width-150,fontSize:16}}>{foods.store_info.store_name ? foods.store_info.store_name :'请扫码获取菜单'}</Text>
-                <View style={{alignItems:'flex-end',marginRight:15}}>
-                     <Image source={require('../imgs/store/table.png')}
-                            style={{width:22,height:22,marginRight:6}}
-                 />
-                 <Text style={{color:'#2c2c2c',fontSize:13,marginLeft:4}}>第{foods.store_info.table ? foods.store_info.table : 0}桌</Text>
+            <View style={menuStyle.topbar}>
+                <Image source={ foods.store_info.avatar ? { uri: foods.store_info.avatar } : require('../imgs/default.png') }
+                    style={{width:58, height:58, borderRadius:29, marginRight:20}}/>
+                    <Text style={menuStyle.store_name}>{foods.store_info.store_name ? foods.store_info.store_name : '请扫码获取菜单' }</Text>
+                    <View style={{alignItems:'flex-end',marginRight:15}}>
+                    <Image source={require('../imgs/store/table.png')} style={menuStyle.store_icon} />
+                    <Text style={menuStyle.store_table}>第{foods.store_info.table ? foods.store_info.table : 0}桌</Text>
                 </View>
             </View>
-        <Image source={require('../imgs/order/ic_order_heng.png')}/>
+            <Image source={require('../imgs/order/ic_order_heng.png')}/>
         </TouchableOpacity>
      )
     }
@@ -264,59 +258,6 @@ class Menu extends Component {
         )
     }
 }
-
-const PARALLAX_HEADER_HEIGHT = 80
-const STICKY_HEADER_HEIGHT = 45
-
-const styles = StyleSheet.create({
-    topbar: {
-        flexDirection:'row',
-        marginLeft:15,
-        alignItems:'center',
-        height: PARALLAX_HEADER_HEIGHT
-    },
-    separator: {
-        marginLeft:8
-    },
-    separatorGood: {
-        height: 1,
-        backgroundColor: '#eee'
-    },
-    item_content: {
-        flex:1,
-        marginTop:10,
-        marginBottom:10
-    },
-    item_btn:{
-        justifyContent:'flex-end'
-    },
-    item_image: {
-        width:60,
-        height:60,
-        margin:10,
-        borderRadius:5
-    },
-    item_title:{
-        marginRight:8,
-        color:'black'
-    },
-    item_des:{
-        marginRight:10,
-        fontSize:11,
-        color:'#aaa'
-    },
-    item_price:{
-        color:'red',
-        fontSize:15,
-        marginTop:5
-    },
-    btn_add:{
-        width:30,
-        height:30,
-        marginRight:10,
-        marginBottom:10
-    }
-})
 
 function mapStateToProps(state) {
   const { foods, cart } = state
