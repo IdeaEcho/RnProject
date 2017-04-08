@@ -7,20 +7,21 @@ import{
     BackAndroid,
     TouchableOpacity,
     Image,
-    StyleSheet,
     InteractionManager,
     TextInput,
     Platform,
     ToastAndroid,
-} from 'react-native';
+} from 'react-native'
 
-import { NaviGoBack } from '../../utils/CommonUtils';
-import Header from '../../components/Header';
-import ShortLineTwo from '../../components/ShortLineTwo';
-import Loading from '../../components/Loading';
-import {NativeModules} from 'react-native';
+import { NaviGoBack } from '../../utils/CommonUtils'
+import Header from '../../components/Header'
+import ShortLineTwo from '../../components/ShortLineTwo'
+import Loading from '../../components/Loading'
+import {NativeModules} from 'react-native'
 import { toastShort } from '../../utils/ToastUtil'
 import { performRegisterAction } from '../../actions/RegisterAction'
+import formStyle from '../../styles/form'
+import commonStyle from '../../styles/common'
 let phone = ''
 let password = ''
 let repassword = ''
@@ -72,14 +73,14 @@ class Register extends Component {
     render() {
     const {register} = this.props
     return (
-         <View style={styles.container}>
+         <View style={commonStyle.container}>
             <Header title='注册' hasBack={true} backAction={() => {this.buttonBackAction()}} />
             <View style={{alignItems:'center',marginTop:10}}>
                <Image source={require('../../imgs/logo@round.png')} style={{width:90,height:90}}/>
             </View>
-            <View style={styles.input_box}>
+            <View style={formStyle.input_box}>
                   <TextInput
-                    style={styles.textInput}
+                    style={formStyle.textInput}
                     placeholder="请输入手机号码"
                     placeholderTextColor="#aaaaaa"
                     underlineColorAndroid="transparent"
@@ -92,9 +93,9 @@ class Register extends Component {
                     }}
               />
             </View>
-            <View style={styles.input_box}>
+            <View style={formStyle.input_box}>
                   <TextInput
-                    style={styles.textInput}
+                    style={formStyle.textInput}
                     placeholder="请输入密码(6位以上字符)"
                     placeholderTextColor="#aaaaaa"
                     underlineColorAndroid="transparent"
@@ -107,9 +108,9 @@ class Register extends Component {
                     }}
                    />
             </View>
-            <View style={styles.input_box}>
+            <View style={formStyle.input_box}>
                   <TextInput
-                    style={styles.textInput}
+                    style={formStyle.textInput}
                     placeholder="请重复输入密码"
                     placeholderTextColor="#aaaaaa"
                     underlineColorAndroid="transparent"
@@ -124,7 +125,7 @@ class Register extends Component {
             </View>
             <Text style={{marginTop:13,marginLeft:13,fontSize:12,color:'#777'}}>注册则视为您已同意《夹虾米用户协议》</Text>
             <TouchableOpacity onPress={() => {this.registerAction()}}
-                              style={styles.btn}>
+                              style={formStyle.btn}>
                       <Text style={{color:'#ff7e5e'}}>注册</Text>
             </TouchableOpacity>
             <Loading visible={register.loading} />
@@ -132,51 +133,6 @@ class Register extends Component {
     );
     }
 }
-const styles=StyleSheet.create({
-    container: {
-        backgroundColor:'#fff',
-        flex:1,
-        alignItems:'center'
-    },
-    item_layout: {
-        backgroundColor:'white',
-        height:48,
-        justifyContent:'center'
-    },
-    input_box:{
-        borderColor:'#1c2c3b',
-        borderRadius:15,
-        flexDirection:'row',
-        height:45,
-        width:260,
-        alignItems:'center',
-        marginTop:20,
-        borderWidth: 1
-    },
-    textInput:{
-        height:38,
-        alignItems:'center',
-        fontSize: 15,
-        textAlign: 'left',
-        textAlignVertical:'center',
-        flex:1
-    },
-    textInput_icon:{
-        width:19,
-        height:18,
-        marginLeft:13
-    },
-    btn:{
-        width:260,
-        height:40,
-        marginTop:20,
-        borderRadius:15,
-        justifyContent:'center',
-        alignItems:'center',
-        borderWidth: 1,
-        borderColor: '#ff7e5e'
-    }
-});
 
 function mapStateToProps(state) {
   const { register } = state

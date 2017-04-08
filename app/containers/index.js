@@ -120,7 +120,7 @@ class Index extends Component {
           });
   }
   topItemAction(position){
-      const { navigator} = this.props;
+      const { navigator } = this.props;
       if(position === 0){
           InteractionManager.runAfterInteractions(() => {
             navigator.push({
