@@ -13,6 +13,7 @@ import {
 } from 'react-native'
 
 import Header from '../components/Header'
+import TasteLevel from '../components/TasteLevel'
 import { NaviGoBack } from '../utils/CommonUtils'
 var {height, width} = Dimensions.get('window')
 
@@ -42,16 +43,20 @@ render() {
                     </View>
             </View>
             <View style={styles.info}>
-                <Text style={styles.info_title}>酸：{food.acid}</Text>
+                <Text style={styles.info_title}>酸：</Text>
+                <TasteLevel type='acid' level={food.acid} />
             </View>
             <View style={styles.info}>
-                <Text style={styles.info_title}>甜：{food.sweet}</Text>
+                <Text style={styles.info_title}>甜：</Text>
+                <TasteLevel type='sweet' level={food.sweet} />
             </View>
             <View style={styles.info}>
-                <Text style={styles.info_title}>辣：{food.hot}</Text>
+                <Text style={styles.info_title}>辣：</Text>
+                <TasteLevel type='hot' level={food.hot} />
             </View>
             <View style={styles.info}>
-                <Text style={styles.info_title}>咸：{food.salty}</Text>
+                <Text style={styles.info_title}>咸：</Text>
+                <TasteLevel type='salty' level={food.salty} />
             </View>
         </View>
     )
@@ -64,7 +69,7 @@ let styles = StyleSheet.create({
         height:370,
         width:322,
         alignItems:'center',
-        marginTop:30,
+        marginTop:20,
         borderWidth: 1
     },
     item_image: {
@@ -81,11 +86,11 @@ let styles = StyleSheet.create({
         flexDirection: 'row',
         width:322,
         height:20,
-        marginTop:10,
+        marginTop:15,
         marginLeft:30,
     },
     info_title:{
-        fontSize: 16,
+        fontSize: 18,
         color: '#1c2c3b'
     },
 })

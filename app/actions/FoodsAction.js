@@ -23,7 +23,7 @@ export function fetchFoodsAction(foods,table){
      return dispatch => {
         dispatch(dispatchFoodsAction())
         var store_info = formatInfo(foods.store,table)
-        // toastShort("table"+table+JSON.stringify(store_info))
+        toastShort(JSON.stringify(store_info))
         var right_items = formatFood(foods.tags, foods.dishes)
         var left_items = Object.keys(right_items)
         var data_length = calculateLength(foods.tags)

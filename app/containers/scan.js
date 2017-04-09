@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux'
 import {bindActionCreators} from 'redux';
-import BarcodeScanner from 'react-native-barcodescanner';
+import BarcodeScanner from 'react-native-barcode-scanner-universal';
 import Url from '../utils/Url';//获取url参数
 import Menu from './menu';
 import { toastShort } from '../utils/ToastUtil'
@@ -29,27 +29,47 @@ class Scan extends Component {
     // let tokenstr = JSON.stringify(tokenjson)
     // dispatch(performMenuAction(tokenstr, table, navigator))
     this.state = {
-      barcode: '',
-      cameraType: 'back',
-      token: '',
-      table:'',
-      torchMode: 'off',
-    };
-  }
-
+            cameraType: 'back',
+            torchMode: 'off',
+            backing:true,
+            barcode: '',
+            token: '',
+            table:'',
+        };
+    }
+    componentDidMount() {
+        this.timer = setTimeout(
+            () => { this.setState({
+              cameraType: 'back',
+              torchMode: 'off',
+              backing:false,
+              barcode: '',
+              token: '',
+              table:'',
+            }); },
+            500
+        );
+    }
+    /**
+     * 图形卸载同时清除Timer相关事件
+     */
+    componentWillUnMount() {
+       this.timer && clearTimeout(this.timer)
+   }
     barcodeReceived(e) {
         const {navigator,dispatch} = this.props
         if (e.data !== this.state.barcode || e.type !== this.state.type) Vibration.vibrate();
         let token = Url.getUrlParam(e.data, 'token')
-        let table = Url.getUrlParam(e.data, 'table')
+        let table = Url.getUrlParam(e.data, 'id')
         if(token != null) {
             this.setState({
               barcode: e.data,
               token: token,
               table: table,
+              backing:true,
             });
             let tokenjson = {
-                access_token :  'dec9373769b94787'
+                access_token :  token
             }
             let tokenstr = JSON.stringify(tokenjson)
             dispatch(performMenuAction(tokenstr, table, navigator))
@@ -57,37 +77,37 @@ class Scan extends Component {
     }
 
 
-  render() {
-    const { menu, state, actions } = this.props;
-    return (
-        <View style={styles.container}>
-          <BarcodeScanner
-            onBarCodeRead={this.barcodeReceived.bind(this)}
-            style={{ flex: 1 }}
-            torchMode={this.state.torchMode}
-            cameraType={this.state.cameraType}
-          />
-          <View style={styles.statusBar}>
-            <Text style={styles.statusBarText}>{menu.data}</Text>
-          </View>
-          <Loading visible={menu.loading} />
-        </View>
-    );
-  }
+    render() {
+        const { menu, state, actions } = this.props;
+        return (
+            <View style={styles.camera}>
+                { this.state.backing ? <View style={{flex:1,backgroundColor:'rgba(0,0,0,0)'}}/> : <BarcodeScanner
+                    onBarCodeRead={this.barcodeReceived.bind(this)}
+                    style={styles.camera}
+                    torchMode={this.state.torchMode}
+                    cameraType={this.state.cameraType} />
+                }
+                <View style={styles.statusBar}>
+                    <Text style={styles.statusBarText}></Text>
+                </View>
+                <Loading visible={menu.loading} />
+            </View>
+        )
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  statusBar: {
-    height: 100,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  statusBarText: {
-    fontSize: 20,
-  },
+    camera: {
+        flex: 1
+    },
+    statusBar: {
+        height: 100,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    statusBarText: {
+        fontSize: 20,
+    }
 })
 
 function mapStateToProps(state) {

@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
     modify_item:{
         alignItems:'flex-end',
         flex:1,
-        marginRight:12,
+        marginRight:20,
         marginTop:40
     }
 })
