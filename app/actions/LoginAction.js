@@ -35,7 +35,11 @@ export function performLoginAction(data, navigator){
                     key: 'userinfo',  // 注意:请不要在key中使用_下划线符号!
                     rawData: {
                     phone: result.phone,
-                    nickname: result.nickname
+                    nickname: result.nickname,
+                    acid: result.acid,
+                    sweet: result.sweet,
+                    hot: result.hot,
+                    salty: result.salty
                 },
                 // 如果不指定过期时间，则会使用defaultExpires参数
                 // 如果设为null，则永不过期

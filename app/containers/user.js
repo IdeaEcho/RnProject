@@ -20,8 +20,10 @@ import ImageButton from '../components/ImageButton'
 import ModifyInformation from './CenterContent/ModifyInformation'
 import Charge from './CenterContent/Charge'
 import FeedBack from './CenterContent/FeedBack'
+import Taste from './CenterContent/Taste'
 import Storage from 'react-native-storage'
 import Order from './order'
+
 import { performOrderHistoryAction } from '../actions/OrderAction'
 
 var {height,width} =  Dimensions.get('window')
@@ -91,7 +93,15 @@ class User extends Component {
     //判断当前点击了那个按钮
     itemActionIndex(position){
         const {navigator} = this.props
-        if(position === 1) {
+        if(position === 0) {
+            InteractionManager.runAfterInteractions(() => {
+            navigator.push({
+              component: Taste,
+              name: '我的口味'
+               })
+            })
+        }
+        else if(position === 1) {
             InteractionManager.runAfterInteractions(() => {
             navigator.push({
               component: Order,
@@ -157,7 +167,11 @@ class User extends Component {
                       </View>
                    </View>
                </View>
-
+               <CenterItem
+                  title='我的口味'
+                  icon={require('../imgs/tab_menu_press.png')}
+                  onPress={()=>this.itemActionIndex(0)}/>
+               <View style={[styles.top_line,styles.center_line]}></View>
                <CenterItem
                   title='我的订单'
                   icon={require('../imgs/tab_menu_press.png')}
