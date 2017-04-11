@@ -12,7 +12,7 @@ import{
 import { NaviGoBack } from '../../utils/CommonUtils'
 import Header from '../../components/Header'
 import ShortLine from '../../components/ShortLine'
-import Chart from 'react-native-chart'
+import { Radar } from 'react-native-pathjs-charts'
 
 class Taste extends Component {
   constructor(props) {
@@ -32,24 +32,42 @@ class Taste extends Component {
       }
   }
   render() {
-        const data = [
-            [0, 3],
-            [3, 5],
-            [5, 7],
-            [7, 9],
-        ];
+        let data = [{
+            "acid": 10,
+            "sweet": 20,
+            "hot": 3,
+            "salty": 40
+        }]
+
+        let options = {
+            width: 300,
+            height: 300,
+            margin: {
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0
+            },
+            r: 120,
+            max: 100,
+            fill: "#2980B9",
+            stroke: "#2980B9",
+            animate: {
+            type: 'oneByOne',
+            duration: 200
+            },
+            label: {
+            fontFamily: 'Arial',
+            fontSize: 14,
+            fontWeight: true,
+            fill: '#34495E'
+            }
+        }
         return (
              <View style={{backgroundColor:'white',flex:1}}>
                 <Header title='我的口味' hasBack={true} backAction={() => {this.buttonBackAction()}} />
                 <View style={styles.top_layout}>
-                    <Chart
-                        style={styles.chart}
-                        data={data}
-                        sliceColors={['#53da72','#5e84ff','#55798f','#ff7e5e']}
-                        showDataPoint={true}
-                        showAxis={false}
-                        type="pie"
-                     />
+                    <Radar data={data} options={options} />
                 </View>
                 <TouchableOpacity style={styles.item_layout} onPress={()=>{this.itemButtonAction(0)}}>
                     <Text style={{marginLeft:10}}>检查更新</Text>
@@ -62,7 +80,7 @@ class Taste extends Component {
 
 const styles=StyleSheet.create({
     top_layout:{
-        height:226,
+        height:300,
         justifyContent:'center',
         alignItems:'center',
         backgroundColor:'#f5f5f5'
@@ -71,10 +89,6 @@ const styles=StyleSheet.create({
         backgroundColor:'white',
         height:45,
         justifyContent:'center'
-    },
-    chart: {
-        width: 300,
-        height: 100,
-    },
+    }
 })
 export default Taste

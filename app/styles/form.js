@@ -21,7 +21,9 @@ var styles = StyleSheet.create({
         borderWidth: 1
     },
     textInput:{
-        height:38,
+        padding: 7,
+        height: 45,
+        lineHeight: 45,
         alignItems:'center',
         fontSize: 15,
         textAlign: 'left',
