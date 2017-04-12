@@ -85,11 +85,12 @@ let styles = StyleSheet.create({
     info:{
         flexDirection: 'row',
         width:322,
-        height:20,
+        height:25,
         marginTop:15,
         marginLeft:30,
     },
     info_title:{
+        marginTop:3,
         fontSize: 18,
         color: '#1c2c3b'
     },

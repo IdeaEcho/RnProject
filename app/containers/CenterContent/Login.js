@@ -68,7 +68,7 @@ class Login extends Component {
            }
            var string = JSON.stringify(data)
            dispatch(performLoginAction(string,navigator))
-        }else if(position === 1){
+        } else if(position === 1){
            //用户注册
            InteractionManager.runAfterInteractions(() => {
                navigator.push({
@@ -136,11 +136,11 @@ class Login extends Component {
                            />
                     </View>
                 <TouchableOpacity onPress={() => {this.buttonRegisterOrLoginAction(0)}}  style={formStyle.btn}>
-                          <Text style={{color:'#ff7e5e'}}>登录</Text>
+                    <Text style={{color:'#ff7e5e'}}>登录</Text>
                 </TouchableOpacity>
                 <View style={{alignItems:'flex-end',marginTop:13}}>
                     <TouchableOpacity onPress={()=>{this.findPwdAction()}} style={{marginRight:10}}>
-                        <Text style={{fontSize:13,color:'#777'}}>找回密码</Text>
+                        <Text style={{fontSize:13,color:'#777'}}>修改密码</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{marginTop:20,alignItems:'center'}}>

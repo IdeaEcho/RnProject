@@ -48,8 +48,8 @@ const styles=StyleSheet.create({
         flexDirection:'row'
     },
     item_image: {
-        marginTop:2,
-        width:22,
-        height:22
+        marginTop:0,
+        width:25,
+        height:25
     }
 });

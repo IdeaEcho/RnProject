@@ -15,7 +15,9 @@ import BarcodeScanner from 'react-native-barcode-scanner-universal';
 import Url from '../utils/Url';//获取url参数
 import Menu from './menu';
 import { toastShort } from '../utils/ToastUtil'
+import { NaviGoBack } from '../utils/CommonUtils'
 import { performMenuAction } from '../actions/MenuAction'
+import Header from '../components/Header'
 import Loading from '../components/Loading_DD'
 
 class Scan extends Component {
@@ -28,6 +30,7 @@ class Scan extends Component {
     // const {navigator, dispatch} = this.props
     // let tokenstr = JSON.stringify(tokenjson)
     // dispatch(performMenuAction(tokenstr, table, navigator))
+    this.buttonBackAction=this.buttonBackAction.bind(this)
     this.state = {
             cameraType: 'back',
             torchMode: 'off',
@@ -36,6 +39,11 @@ class Scan extends Component {
             token: '',
             table:'',
         };
+    }
+    //返回
+    buttonBackAction(){
+        const {navigator} = this.props
+        return NaviGoBack(navigator)
     }
     componentDidMount() {
         this.timer = setTimeout(
@@ -81,15 +89,16 @@ class Scan extends Component {
         const { menu, state, actions } = this.props;
         return (
             <View style={styles.camera}>
+                <View style={styles.statusBar}>
+                    <Header title='获取菜单' hasBack={true}
+                    backAction={()=>{this.buttonBackAction()}} />
+                </View>
                 { this.state.backing ? <View style={{flex:1,backgroundColor:'rgba(0,0,0,0)'}}/> : <BarcodeScanner
                     onBarCodeRead={this.barcodeReceived.bind(this)}
                     style={styles.camera}
                     torchMode={this.state.torchMode}
                     cameraType={this.state.cameraType} />
                 }
-                <View style={styles.statusBar}>
-                    <Text style={styles.statusBarText}></Text>
-                </View>
                 <Loading visible={menu.loading} />
             </View>
         )
@@ -101,7 +110,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     statusBar: {
-        height: 100,
+        height: 48,
         alignItems: 'center',
         justifyContent: 'center',
     },

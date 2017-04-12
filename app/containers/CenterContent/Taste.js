@@ -12,13 +12,34 @@ import{
 import { NaviGoBack } from '../../utils/CommonUtils'
 import Header from '../../components/Header'
 import ShortLine from '../../components/ShortLine'
+import { toastShort } from '../../utils/ToastUtil'
 import { Radar } from 'react-native-pathjs-charts'
 
+var acid = 0;
+var sweet = 0;
+var hot = 0;
+var salty = 0;
 class Taste extends Component {
   constructor(props) {
       super(props)
       this.buttonBackAction=this.buttonBackAction.bind(this)
       this.itemButtonAction=this.itemButtonAction.bind(this)
+  }
+  componentDidMount() {
+      // 读取
+      storage.load({
+        key: 'userinfo',
+        autoSync: true,
+        syncInBackground: true,
+      }).then(ret => {
+          acid = ret.acid
+          sweet = ret.sweet
+          hot = ret.hot
+          salty = ret.salty
+      }).catch(err => {
+        //console.warn(err.message)
+        toastShort("您还没有口味数据哦")
+      })
   }
   //返回
   buttonBackAction(){
@@ -33,10 +54,10 @@ class Taste extends Component {
   }
   render() {
         let data = [{
-            "acid": 10,
-            "sweet": 20,
-            "hot": 3,
-            "salty": 40
+            "acid": acid,
+            "sweet": sweet,
+            "hot": hot,
+            "salty": salty
         }]
 
         let options = {

@@ -40,12 +40,12 @@ class Menu extends Component {
         this.renderBottom=this.renderBottom.bind(this)
         //ListView.DataSource:从原始输入数据中抽取数据来创建ListViewDataSource对象
         this.state = {
-         dataSource: new ListView.DataSource({
-           getRowData: (dataBlob, sid, rid) => dataBlob[sid][rid],
-           getSectionHeaderData: (dataBlob, sid) => dataBlob[sid],
-           rowHasChanged: (row1, row2) => row1 !== row2,
-           sectionHeaderHasChanged: (s1, s2) => s1 !== s2
-        })
+            dataSource: new ListView.DataSource({
+                getRowData: (dataBlob, sid, rid) => dataBlob[sid][rid],
+                getSectionHeaderData: (dataBlob, sid) => dataBlob[sid],
+                rowHasChanged: (row1, row2) => row1 !== row2,
+                sectionHeaderHasChanged: (s1, s2) => s1 !== s2
+            })
         }
     }
 
@@ -56,9 +56,13 @@ class Menu extends Component {
           autoSync: true,
           syncInBackground: true,
         }).then(ret => {
-            // toastShort(JSON.parse(ret.foods))
-            //开始加载商品列表数据
-            dispatch(fetchFoodsAction(JSON.parse(ret.foods),ret.table))
+            if(ret) {
+                // toastShort(JSON.parse(ret.foods))
+                //开始加载商品列表数据
+                dispatch(fetchFoodsAction(JSON.parse(ret.foods),ret.table))
+            }
+        }).catch(err => {
+            toastShort("请扫码获取菜单")
         })
     }
 
@@ -78,7 +82,7 @@ class Menu extends Component {
     }
     //点击列表每一项响应按钮
     onPressItemLeft(data) {
-      const {foods,dispatch} = this.props
+      const {foods, dispatch} = this.props
       dispatch(changeCategoryAction(data))
       var distance = 0
       //开始计算滑动的距离
@@ -88,7 +92,6 @@ class Menu extends Component {
       for ( var i = 0;i <index;i++){
          distance += 25 + 84 * foods.right_items[foods.left_items[i]].length
       }
-
       this.refs['goodLv'].scrollTo({x:0,y:distance,animated:true})
     }
     //点击右侧列表每一项相应按钮
@@ -96,53 +99,53 @@ class Menu extends Component {
        const {navigator} = this.props
        InteractionManager.runAfterInteractions(() => {
             navigator.push({
-              component: FoodDetails,
-              name: 'FoodDetails',
-              food: data
-              })
+                component: FoodDetails,
+                name: 'FoodDetails',
+                food: data
+            })
         })
     }
 
     //进行渲染左侧列表数据-商品分类
     renderContentLeft(dataSource) {
         return (
-          <ListView
-            initialListSize={1}
-            dataSource={dataSource}
-            renderRow={this.renderItemLeft}
-            style={{flex:1}}
-            onEndReachedThreshold={10}
-            enableEmptySections={true}
-            showsVerticalScrollIndicator={false}
-            renderSeparator={this._renderSeparatorView}
-          />
+            <ListView
+                initialListSize={1}
+                dataSource={dataSource}
+                renderRow={this.renderItemLeft}
+                style={{flex:1}}
+                onEndReachedThreshold={10}
+                enableEmptySections={true}
+                showsVerticalScrollIndicator={false}
+                renderSeparator={this._renderSeparatorView}
+            />
         )
     }
     //渲染右侧商品列表(带有section)
     renderContentRight(dataSource) {
         const {foods} = this.props
         return (
-          <ListView
-            ref={'goodLv'}
-            initialListSize={foods.data_length}
-            dataSource={dataSource}
-            renderRow={this.renderItemRight}
-            style={{flex:1}}
-            showsVerticalScrollIndicator={false}
-            renderSectionHeader={this._renderSectionHeader}
-          />
+            <ListView
+                ref={'goodLv'}
+                initialListSize={foods.data_length}
+                dataSource={dataSource}
+                renderRow={this.renderItemRight}
+                style={{flex:1}}
+                showsVerticalScrollIndicator={false}
+                renderSectionHeader={this._renderSectionHeader}
+            />
         )
     }
 
-  _renderSectionHeader(sectionData, sectionID){
-     return(
-        <View key={sectionID} style={{backgroundColor:'#fff',height:25,justifyContent:'center'}}>
-             <Text style={{marginLeft:8,fontSize:11}}>{sectionID}</Text>
-        </View>
-     )
-  }
+    _renderSectionHeader(sectionData, sectionID){
+        return(
+            <View key={sectionID} style={{backgroundColor:'#fff',height:25,justifyContent:'center'}}>
+                 <Text style={{marginLeft:8,fontSize:11}}>{sectionID}</Text>
+            </View>
+        )
+    }
 
-  //渲染每一项的数据
+    //渲染每一项的数据
     renderItemLeft(data) {
         const {foods} = this.props
         if(data === foods.selectedItem){
@@ -225,9 +228,10 @@ class Menu extends Component {
     renderBottom(){
         const {foods} = this.props
         if (foods.loading) {
-              return <LoadingView />
+            return <LoadingView />
         }
-        if(foods.left_items==undefined||foods.right_items==undefined) {
+        console.log(foods.left_items.length <= 0);
+        if(foods==undefined||foods.left_items.length <= 0) {
             return <NoneItem />
         }else {
             return (
@@ -250,6 +254,7 @@ class Menu extends Component {
     render() {
         return (
             <View style={{flex:1}}>
+                <Header title='菜单' />
                 <View>
                     {this.renderStoreBaisc()}
                 </View>

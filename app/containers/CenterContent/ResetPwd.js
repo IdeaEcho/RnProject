@@ -14,6 +14,8 @@ import{
 import { NaviGoBack } from '../../utils/CommonUtils';
 import Header from '../../components/Header';
 import ShortLineTwo from '../../components/ShortLineTwo';
+import formStyle from '../../styles/form'
+import commonStyle from '../../styles/common'
 
 var username = '';
 var password = '';
@@ -43,12 +45,12 @@ class ResetPwd extends Component {
   }
   render() {
         return (
-             <View style={styles.container}>
+             <View style={commonStyle.container}>
                 <Header title='重置密码' hasBack={true} backAction={()=>{this.buttonBackAction()}} />
                 <View style={{backgroundColor:'white',marginTop:13}}>
-                    <View style={{flexDirection:'row',height:45,alignItems:'center'}}>
+                    <View style={formStyle.input_box}>
                           <TextInput
-                            style={{height:40,fontSize: 15,textAlign: 'left',textAlignVertical:'center',flex:1}}
+                            style={formStyle.textInput}
                             placeholder="请输入手机号码"
                             placeholderTextColor="#aaaaaa"
                             underlineColorAndroid="transparent"
@@ -58,34 +60,12 @@ class ResetPwd extends Component {
                             autoFocus={true}
                             onChangeText={(text) => {
                                username = text;
-                            }}
-                      />
+                            }} />
                     </View>
-                    <ShortLineTwo/>
-                    <View style={{flexDirection:'row',height:45,alignItems:'center'}}>
+                    <View style={formStyle.input_box}>
                           <TextInput
-                            style={{height:40,fontSize: 15,textAlign: 'left',textAlignVertical:'center',flex:1}}
-                            placeholder="请输入验证码"
-                            placeholderTextColor="#aaaaaa"
-                            underlineColorAndroid="transparent"
-                            numberOfLines={1}
-                            ref={'verifyCode'}
-                            multiline={true}
-                            autoFocus={true}
-                            onChangeText={(text) => {
-                               verifyCode = text;
-                            }}
-                           />
-                          <TouchableOpacity onPress={() => {this.queryVerifyCode()}}
-                                            style={{width:100,height:45,alignItems:'center',justifyContent:'center'}}>
-                                <Text style={{fontSize:13,color:'#777'}}>获取验证码</Text>
-                          </TouchableOpacity>
-                    </View>
-                    <ShortLineTwo/>
-                    <View style={{flexDirection:'row',height:45,alignItems:'center'}}>
-                          <TextInput
-                            style={{height:40,fontSize: 15,textAlign: 'left',textAlignVertical:'center',flex:1}}
-                            placeholder="请输入密码(6位以上字符)"
+                            style={formStyle.textInput}
+                            placeholder="请输入原密码"
                             placeholderTextColor="#aaaaaa"
                             underlineColorAndroid="transparent"
                             numberOfLines={1}
@@ -93,14 +73,26 @@ class ResetPwd extends Component {
                             multiline={true}
                             autoFocus={true}
                             onChangeText={(text) => {
-                               password = text;
-                            }}
-                           />
+                               verifyCode = text;
+                            }} />
                     </View>
-                    <ShortLineTwo/>
-                    <View style={{flexDirection:'row',height:45,alignItems:'center'}}>
+                    <View style={formStyle.input_box}>
                           <TextInput
-                            style={{height:40,fontSize: 15,textAlign: 'left',textAlignVertical:'center',flex:1}}
+                            style={formStyle.textInput}
+                            placeholder="请输入新密码(6位以上字符)"
+                            placeholderTextColor="#aaaaaa"
+                            underlineColorAndroid="transparent"
+                            numberOfLines={1}
+                            ref={'newpassword'}
+                            multiline={true}
+                            autoFocus={true}
+                            onChangeText={(text) => {
+                               password = text;
+                            }} />
+                    </View>
+                    <View style={formStyle.input_box}>
+                          <TextInput
+                            style={formStyle.textInput}
                             placeholder="请再输入一遍密码"
                             placeholderTextColor="#aaaaaa"
                             underlineColorAndroid="transparent"
@@ -114,8 +106,8 @@ class ResetPwd extends Component {
                            />
                     </View>
                 </View>
-                <TouchableOpacity onPress={() => {this.resetSuccesAction()}} style={styles.btn}>
-                          <Text style={{color:'#ff7e5e'}}>完成</Text>
+                <TouchableOpacity onPress={() => {this.resetSuccesAction()}} style={formStyle.btn}>
+                    <Text style={{color:'#ff7e5e'}}>完成</Text>
                 </TouchableOpacity>
              </View>
         );

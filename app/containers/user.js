@@ -17,6 +17,7 @@ import Login from './CenterContent/Login'
 import Header from '../components/Header'
 import CenterItem from '../components/CenterItem'
 import ImageButton from '../components/ImageButton'
+import { toastShort } from '../utils/ToastUtil'
 import ModifyInformation from './CenterContent/ModifyInformation'
 import Charge from './CenterContent/Charge'
 import FeedBack from './CenterContent/FeedBack'
@@ -56,15 +57,8 @@ class User extends Component {
                 nickname: ret.nickname
             })
         }).catch(err => {
-          console.warn(err.message)
-          switch (err.name) {
-              case 'NotFoundError':
-                  // TODO
-                  break
-              case 'ExpiredError':
-                  // TODO
-                  break
-          }
+            //console.warn(err.message)
+            toastShort("请点击头像登录账号")
         })
     }
     componentDidMount() {
@@ -148,6 +142,7 @@ class User extends Component {
     render() {
         return (
             <View style={styles.container}>
+               <Header title='我的' />
                <View style={{backgroundColor:'white'}}>
                    <View style={styles.topbar}>
                       <TouchableOpacity onPress={() => {this.loginButtonActiom()}} >

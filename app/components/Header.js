@@ -13,8 +13,9 @@ import{
 const Header = ({ title, hasBack, hasRight, backAction, rightAction, right }) => (
     <View style={styles.topbar_bg}>
         {hasBack &&
-            <TouchableOpacity onPress={backAction}
-                              style={styles.topbar_left_item}>
+            <TouchableOpacity
+                onPress={backAction}
+                style={styles.topbar_left_item}>
             <Image
               style={styles.topbar_back_btn}
               source={require('../imgs/ic_center_back.png')}
@@ -28,8 +29,9 @@ const Header = ({ title, hasBack, hasRight, backAction, rightAction, right }) =>
            <Text style={styles.topbar_center_tv}>{title}</Text>
         </View>
         {hasRight &&
-            <TouchableOpacity onPress={rightAction}
-                              style={styles.topbar_right_item}>
+            <TouchableOpacity
+                onPress={rightAction}
+                style={styles.topbar_right_item}>
                <Text style={styles.topbar_right_tv}>{right}</Text>
             </TouchableOpacity>
         }
