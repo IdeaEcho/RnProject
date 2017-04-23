@@ -61,7 +61,7 @@ class Cart extends Component {
         const {navigator, cart, dispatch} = this.props
         if(cart.total<=0) {
             toastShort('忘记点餐啦')
-        }else {
+        } else {
             storage.load({
               key: 'userinfo',
               autoSync: true,
@@ -89,7 +89,7 @@ class Cart extends Component {
                 console.warn(err.message);
               })
             }).catch(err => {
-              toastShort('未登录')
+              toastShort(err.message+'未登录')
             })
             // InteractionManager.runAfterInteractions(() => {
             // navigator.push({

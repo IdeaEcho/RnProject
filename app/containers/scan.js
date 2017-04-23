@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux'
 import {bindActionCreators} from 'redux';
-import BarcodeScanner from 'react-native-barcode-scanner-universal';
+import Camera from 'react-native-camera';
 import Url from '../utils/Url';//获取url参数
 import Menu from './menu';
 import { toastShort } from '../utils/ToastUtil'
@@ -93,7 +93,11 @@ class Scan extends Component {
                     <Header title='获取菜单' hasBack={true}
                     backAction={()=>{this.buttonBackAction()}} />
                 </View>
-                { this.state.backing ? <View style={{flex:1,backgroundColor:'rgba(0,0,0,0)'}}/> : <BarcodeScanner
+                { this.state.backing ? <View style={{flex:1,backgroundColor:'rgba(0,0,0,0)'}}/> : <Camera
+                    ref={(cam) => {
+                        this.camera = cam;
+                    }}
+                    aspect={Camera.constants.Aspect.stretch}
                     onBarCodeRead={this.barcodeReceived.bind(this)}
                     style={styles.camera}
                     torchMode={this.state.torchMode}

@@ -38,9 +38,6 @@ render() {
             <Header title={food.dish_name} hasBack={true} backAction={()=>{this.buttonBackAction()}} />
             <View style={styles.box}>
                     <Image source={food.dish_photo ? {uri:food.dish_photo} : require('../imgs/logo@round.png')} style={styles.item_image}/>
-                    <View style={{alignItems:'center',marginTop:10}}>
-                        <Text style={styles.item_title}>{food.dish_name}</Text>
-                    </View>
             </View>
             <View style={styles.info}>
                 <Text style={styles.info_title}>酸：</Text>
@@ -77,10 +74,6 @@ let styles = StyleSheet.create({
         borderRadius:15,
         width:320,
         height:320
-    },
-    item_title: {
-        fontSize: 20,
-        color: '#1c2c3b'
     },
     info:{
         flexDirection: 'row',
