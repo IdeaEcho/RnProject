@@ -164,7 +164,7 @@ class User extends Component {
                </View>
                <CenterItem
                   title='我的口味'
-                  icon={require('../imgs/tab_menu_press.png')}
+                  icon={require('../imgs/user_taste.png')}
                   onPress={()=>this.itemActionIndex(0)}/>
                <View style={[styles.top_line,styles.center_line]}></View>
                <CenterItem

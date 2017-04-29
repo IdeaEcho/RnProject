@@ -41,8 +41,10 @@ const Header = ({ title, hasBack, hasRight, backAction, rightAction, right }) =>
     </View>
 );
 const styles=StyleSheet.create({
+
     topbar_bg:{
-        height:48,
+        height:Platform.OS=='ios'?64:48,
+        paddingTop:Platform.OS=='ios'?14:0,
         backgroundColor:'#55798f',
         flexDirection:'row'
     },

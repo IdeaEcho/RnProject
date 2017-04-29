@@ -12,8 +12,9 @@ import{
 import { NaviGoBack } from '../../utils/CommonUtils'
 import Header from '../../components/Header'
 import ShortLine from '../../components/ShortLine'
+import NoneItem from '../../components/NoneItem'
 import { toastShort } from '../../utils/ToastUtil'
-import { Radar } from 'react-native-pathjs-charts'
+import Echarts from 'native-echarts'
 
 var acid = 0;
 var sweet = 0;
@@ -53,47 +54,94 @@ class Taste extends Component {
       }
   }
   render() {
-        let data = [{
-            "acid": acid,
-            "sweet": sweet,
-            "hot": hot,
-            "salty": salty
-        }]
-
-        let options = {
-            width: 300,
-            height: 300,
-            margin: {
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0
+        // let data = [{
+        //     "acid": acid,
+        //     "sweet": sweet,
+        //     "hot": hot,
+        //     "salty": salty
+        // }]
+        const optionBar = {
+            tooltip: {},
+            xAxis: {
+              data: ["酸","甜","辣","咸"]
             },
-            r: 120,
-            max: 100,
-            fill: "#2980B9",
-            stroke: "#2980B9",
-            animate: {
-            type: 'oneByOne',
-            duration: 200
+            yAxis: {},
+            color:['rgb(251,100,58)'],
+            series: [{
+              name: '口味指数',
+              type: 'bar',
+              data: [acid, sweet, hot, salty]
+            }]
+        };
+        const optionPie = {
+            tooltip : {},
+            visualMap: {
+                show: false,
+                min: 0,
+                max: 100,
+                inRange: {
+                    colorLightness: [0, 1.6]
+                }
             },
-            label: {
-            fontFamily: 'Arial',
-            fontSize: 14,
-            fontWeight: true,
-            fill: '#34495E'
-            }
+            series : [
+                {
+                    name:'口味分析',
+                    type:'pie',
+                    radius : '55%',
+                    center: ['50%', '50%'],
+                    data:[
+                        {value:acid, name:'甜'},
+                        {value:sweet, name:'辣'},
+                        {value:hot, name:'咸'},
+                        {value:salty, name:'酸'}
+                    ].sort(function (a, b) { return a.value - b.value}),
+                    roseType: 'angle',
+                    label: {
+                        normal: {
+                            textStyle: {
+                                color: 'rgba(251,100,58, 0.8)'
+                            }
+                        }
+                    },
+                    labelLine: {
+                        normal: {
+                            lineStyle: {
+                                color: 'rgba(251,100,58, 0.8)'
+                            },
+                            smooth: 0.2,
+                            length: 10,
+                            length2: 20
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#B8D3E4',
+                        }
+                    },
+                    animationType: 'scale',
+                    animationEasing: 'elasticOut',
+                    animationDelay: function (idx) {
+                        return Math.random() * 200;
+                    }
+                }
+            ]
         }
         return (
              <View style={{backgroundColor:'white',flex:1}}>
                 <Header title='我的口味' hasBack={true} backAction={() => {this.buttonBackAction()}} />
-                <View style={styles.top_layout}>
-                    <Radar data={data} options={options} />
-                </View>
-                <TouchableOpacity style={styles.item_layout} onPress={()=>{this.itemButtonAction(0)}}>
-                    <Text style={{marginLeft:10}}>检查更新</Text>
-                </TouchableOpacity>
-                <ShortLine/>
+                {acid!=0 || sweet!=0 || salty!=0 || hot!=0 &&<View style={styles.top_layout}>
+                    <Echarts
+                     option={optionBar}
+                     height={300}
+                     />
+                </View>}
+                {acid!=0 || sweet!=0 || salty!=0 || hot!=0 &&<View style={styles.top_layout}>
+                    <Echarts
+                     option={optionPie}
+                     height={300}
+                     />
+                </View>}
+                {acid==0 && sweet==0 && salty==0 && hot==0 && <NoneItem />}
              </View>
         )
     }
@@ -110,6 +158,6 @@ const styles=StyleSheet.create({
         backgroundColor:'white',
         height:45,
         justifyContent:'center'
-    }
+    },
 })
 export default Taste
