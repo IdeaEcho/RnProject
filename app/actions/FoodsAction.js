@@ -6,7 +6,6 @@
 import * as types from '../common/ActionTypes'
 import { STORE_DETAILS_DATA,TAGS_DETAILS_DATA,FOODS_DETAILS_DATA } from '../common/VirtualData'
 import {formatFood, calculateLength, formatInfo} from '../utils/StoreFormat'
-import { toastShort } from '../utils/ToastUtil'
 //添加到购物车
 export const addFoodAction=(data) => ({ type: types.ADD_FOOD, data })
 //从购物车删除
@@ -23,7 +22,6 @@ export function fetchFoodsAction(foods,table){
      return dispatch => {
         dispatch(dispatchFoodsAction())
         var store_info = formatInfo(foods.store,table)
-        toastShort(JSON.stringify(store_info))
         var right_items = formatFood(foods.tags, foods.dishes)
         var left_items = Object.keys(right_items)
         var data_length = calculateLength(foods.tags)

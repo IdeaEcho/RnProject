@@ -68,16 +68,13 @@ export function performOrderHistoryAction(data) {
         client.post(ORDER_HISTORY_ACTION,{
             form: { data: data }
         }).then(response => {
-            // toastShort(JSON.stringify(JSON.parse(response._bodyText).order_list))
-            return  JSON.parse(response._bodyText)
+            return JSON.parse(response._bodyText)
         }).then((result)=> {
                 if(result.returnCode === '200'){
-                    // toastShort(JSON.parse(result.order_list))
                     dispatch(receiveOrderHistoryResult(result.order_list))
-                }else if(result.returnCode === '300'){
+                } else if(result.returnCode === '300'){
                     dispatch(receiveOrderHistoryResult())
-                }
-                else{
+                } else {
                     toastShort(result)
                 }
             }).catch((error) => {

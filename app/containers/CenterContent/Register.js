@@ -30,47 +30,47 @@ class Register extends Component {
       super(props);
       this.buttonBackAction=this.buttonBackAction.bind(this);
       this.registerAction=this.registerAction.bind(this);
-}
-    //返回
-    buttonBackAction(){
-      const {navigator} = this.props;
-      return NaviGoBack(navigator);
-    }
-    isPhoneValid(phone){
-        let regExp =new RegExp( "^[1]([3][0-9]{1}|56|59|58|88|80|89)[0-9]{8}$")
-        return regExp.test(phone)//boolean
-    }
-    registerAction(){
-        const {navigator,dispatch} = this.props
-        //用户登录
-        if(phone === ''){
-            toastShort('手机号不能为空')
-            return;
+  }
+  //返回
+  buttonBackAction(){
+    const {navigator} = this.props;
+    return NaviGoBack(navigator);
+  }
+  isPhoneValid(phone){
+      let regExp =new RegExp( "^[1]([3][0-9]{1}|56|59|58|88|80|89)[0-9]{8}$")
+      return regExp.test(phone)//boolean
+  }
+  registerAction(){
+      const {navigator,dispatch} = this.props
+      //用户登录
+      if(phone === ''){
+          toastShort('手机号不能为空')
+          return;
+      }
+      if(password === ''){
+          toastShort('请输入密码')
+          return;
+      }
+      if(repassword === ''){
+          toastShort('请重复输入密码')
+          return;
+      }
+      if(password!=repassword){
+          toastShort('两次输入密码不一致')
+          return;
+      }
+      if(!this.isPhoneValid(phone)){
+           toastShort('手机号错误')
+          return
         }
-        if(password === ''){
-            toastShort('请输入密码')
-            return;
-        }
-        if(repassword === ''){
-            toastShort('请重复输入密码')
-            return;
-        }
-        if(password!=repassword){
-            toastShort('两次输入密码不一致')
-            return;
-        }
-        if(!this.isPhoneValid(phone)){
-             toastShort('手机号错误')
-            return
-          }
-        let data = {
-           phone : phone,
-           password : password
-        }
-        let string = JSON.stringify(data)
-        dispatch(performRegisterAction(string, navigator))
-    }
-    render() {
+      let data = {
+         phone : phone,
+         password : password
+      }
+      let string = JSON.stringify(data)
+      dispatch(performRegisterAction(string, navigator))
+  }
+  render() {
     const {register} = this.props
     return (
          <View style={commonStyle.container}>
@@ -86,7 +86,6 @@ class Register extends Component {
                     underlineColorAndroid="transparent"
                     numberOfLines={1}
                     ref={'phone'}
-                    multiline={true}
                     autoFocus={true}
                     onChangeText={(text) => {
                        phone = text;
@@ -96,12 +95,12 @@ class Register extends Component {
             <View style={formStyle.input_box}>
                   <TextInput
                     style={formStyle.textInput}
+                    password={true}
                     placeholder="请输入密码(6位以上字符)"
                     placeholderTextColor="#aaaaaa"
                     underlineColorAndroid="transparent"
                     numberOfLines={1}
                     ref={'password'}
-                    multiline={true}
                     secureTextEntry={true}
                     onChangeText={(text) => {
                        password = text;
@@ -111,12 +110,12 @@ class Register extends Component {
             <View style={formStyle.input_box}>
                   <TextInput
                     style={formStyle.textInput}
+                    password={true}
                     placeholder="请重复输入密码"
                     placeholderTextColor="#aaaaaa"
                     underlineColorAndroid="transparent"
                     numberOfLines={1}
                     ref={'repassword'}
-                    multiline={true}
                     secureTextEntry={true}
                     onChangeText={(text) => {
                        repassword = text;
@@ -131,7 +130,7 @@ class Register extends Component {
             <Loading visible={register.loading} />
          </View>
     );
-    }
+  }
 }
 
 function mapStateToProps(state) {

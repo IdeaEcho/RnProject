@@ -12,6 +12,7 @@ import{
     TouchableOpacity,
     ScrollView,
     InteractionManager,
+    Platform,
 } from 'react-native';
 import {IndicatorViewPager, PagerDotIndicator} from 'rn-viewpager';
 import Scan from './scan';
@@ -306,7 +307,8 @@ class Index extends Component {
 }
 const styles=StyleSheet.create({
     topbar_bg:{
-        height:48,
+        height:Platform.OS=='ios'?52:48,
+        paddingTop:Platform.OS=='ios'?10:0,
         backgroundColor:'#55798f',
         flexDirection:'row'
     },
@@ -324,6 +326,7 @@ const styles=StyleSheet.create({
         alignItems:'center'
     },
     topbar_center_bg:{
+        paddingTop:Platform.OS=='ios'?7:0,
         flex:1,
         alignItems:'center',
         justifyContent:'center'

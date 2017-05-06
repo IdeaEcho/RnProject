@@ -24,14 +24,11 @@ export function performRegisterAction(data, navigator){
         client.post(REGISTER_ACTION,{
             form: { data: base64url.encode(data)}
         }).then(response => {
-            // toastShort(base64url.decode(response._bodyText))
             return base64url.decode(response._bodyText)//解码
         }).then((result)=> {
             result = JSON.parse(result)//字符串转json
             dispatch(receiveRegisterResult(result))
-            // toastShort(result.returnCode)
             if(result.returnCode === '200'){
-                // console.log(result)
                 toastShort('注册成功')
                 storage.save({
                     key: 'userinfo',  // 注意:请不要在key中使用_下划线符号!
@@ -57,7 +54,7 @@ export function performRegisterAction(data, navigator){
             }
         }).catch((error) => {
             // console.log(error)
-            toastShort(error+'网络发生错误,请重试!')
+            toastShort('网络发生错误,请重试!')
         })
      }
 }

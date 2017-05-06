@@ -230,7 +230,6 @@ class Menu extends Component {
         if (foods.loading) {
             return <LoadingView />
         }
-        console.log(foods.left_items.length <= 0);
         if(foods==undefined||foods.left_items.length <= 0) {
             return <NoneItem />
         }else {

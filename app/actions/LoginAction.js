@@ -52,13 +52,15 @@ export function performLoginAction(data, navigator){
                         nickname: result.nickname
                     })
                 })
-            }else{
-             toastShort(result.msg)
+            } else if(result.returnCode === '300'){
+              toastShort('用户名或密码错误')
+            } else {
+              toastShort('数据不符合规范')
             }
-            }).catch((error) => {
-            // console.log(error)
-            toastShort(error+'网络发生错误,请重试!')
-            })
+          }).catch((error) => {
+          // console.log(error)
+          toastShort('网络发生错误,请重试!')
+          })
      }
 }
 

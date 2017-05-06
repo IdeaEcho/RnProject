@@ -39,22 +39,22 @@ render() {
             <View style={styles.box}>
                     <Image source={food.dish_photo ? {uri:food.dish_photo} : require('../imgs/logo@round.png')} style={styles.item_image}/>
             </View>
-            <View style={styles.info}>
+            {food.acid!=0 && <View style={styles.info}>
                 <Text style={styles.info_title}>酸：</Text>
                 <TasteLevel type='acid' level={food.acid} />
-            </View>
-            <View style={styles.info}>
+            </View> }
+            {food.sweet!=0 && <View style={styles.info}>
                 <Text style={styles.info_title}>甜：</Text>
                 <TasteLevel type='sweet' level={food.sweet} />
-            </View>
-            <View style={styles.info}>
+            </View> }
+            {food.hot!=0 && <View style={styles.info}>
                 <Text style={styles.info_title}>辣：</Text>
                 <TasteLevel type='hot' level={food.hot} />
-            </View>
-            <View style={styles.info}>
+            </View> }
+            {food.salty!=0 && <View style={styles.info}>
                 <Text style={styles.info_title}>咸：</Text>
                 <TasteLevel type='salty' level={food.salty} />
-            </View>
+            </View> }
         </View>
     )
     }
@@ -63,7 +63,7 @@ let styles = StyleSheet.create({
     box: {
         borderColor:'#1c2c3b',
         borderRadius:15,
-        height:370,
+        height:322,
         width:322,
         alignItems:'center',
         marginTop:20,

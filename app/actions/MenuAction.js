@@ -51,7 +51,7 @@ export function performMenuAction(token,table, navigator){
                 }
             }).catch((error) => {
                 // console.log(error)
-                toastShort(error+'网络发生错误,请重试!')
+                toastShort('网络发生错误,请重试!')
             })
      }
 }

@@ -53,7 +53,7 @@ class OrderResult extends React.Component {
             console.warn(err.message);
           })
         }).catch(err => {
-           toastShort('未登录')
+           toastShort(err)
         })
     }
     //返回
@@ -128,6 +128,7 @@ let styles = StyleSheet.create({
         marginTop:10,
         marginLeft:10,
         marginRight:10,
+        marginBottom:10,
         backgroundColor:'white'
     },
     title: {
@@ -153,7 +154,6 @@ let styles = StyleSheet.create({
         marginRight:15,
         marginTop:30,
         flex:1,
-        paddingBottom:22
     },
     btn_pay:{
         width:130,

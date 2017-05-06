@@ -66,6 +66,7 @@ class ResetPwd extends Component {
                           <TextInput
                             style={formStyle.textInput}
                             placeholder="请输入原密码"
+                            password={true}
                             placeholderTextColor="#aaaaaa"
                             underlineColorAndroid="transparent"
                             numberOfLines={1}
@@ -79,6 +80,7 @@ class ResetPwd extends Component {
                     <View style={formStyle.input_box}>
                           <TextInput
                             style={formStyle.textInput}
+                            password={true}
                             placeholder="请输入新密码(6位以上字符)"
                             placeholderTextColor="#aaaaaa"
                             underlineColorAndroid="transparent"
@@ -93,6 +95,7 @@ class ResetPwd extends Component {
                     <View style={formStyle.input_box}>
                           <TextInput
                             style={formStyle.textInput}
+                            password={true}
                             placeholder="请再输入一遍密码"
                             placeholderTextColor="#aaaaaa"
                             underlineColorAndroid="transparent"

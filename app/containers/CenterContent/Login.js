@@ -111,7 +111,6 @@ class Login extends Component {
                             underlineColorAndroid="transparent"
                             numberOfLines={1}
                             ref={'phone'}
-                            multiline={true}
                             autoFocus={true}
                             onChangeText={(text) => {
                                phone = text
@@ -123,12 +122,12 @@ class Login extends Component {
                                  style={formStyle.textInput_icon}/>
                           <TextInput
                             style={formStyle.textInput}
+                            password={true}
                             placeholder="密码"
                             placeholderTextColor="#aaaaaa"
                             underlineColorAndroid="transparent"
                             numberOfLines={1}
                             ref={'password'}
-                            multiline={true}
                             secureTextEntry={true}
                             onChangeText={(text) => {
                                password = text

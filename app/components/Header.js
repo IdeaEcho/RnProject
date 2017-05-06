@@ -9,6 +9,7 @@ import{
     TouchableOpacity,
     Image,
     StyleSheet,
+    Platform
 } from 'react-native';
 const Header = ({ title, hasBack, hasRight, backAction, rightAction, right }) => (
     <View style={styles.topbar_bg}>
@@ -41,10 +42,9 @@ const Header = ({ title, hasBack, hasRight, backAction, rightAction, right }) =>
     </View>
 );
 const styles=StyleSheet.create({
-
     topbar_bg:{
-        height:Platform.OS=='ios'?64:48,
-        paddingTop:Platform.OS=='ios'?14:0,
+        height:Platform.OS=='ios'?52:48,
+        paddingTop:Platform.OS=='ios'?10:0,
         backgroundColor:'#55798f',
         flexDirection:'row'
     },
@@ -59,6 +59,7 @@ const styles=StyleSheet.create({
         height:20,
     },
     topbar_center_bg:{
+        paddingTop:Platform.OS=='ios'?7:0,
         flex:1,
         alignItems:'center',
         justifyContent:'center'
