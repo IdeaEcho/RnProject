@@ -21,9 +21,6 @@ class FoodDetails extends React.Component {
   constructor(props) {
     super(props)
     this.buttonBackAction=this.buttonBackAction.bind(this)
-    this.state={
-
-      }
   }
     //返回
   buttonBackAction(){

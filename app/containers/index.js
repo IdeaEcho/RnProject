@@ -1,8 +1,8 @@
 /**
  * 推荐页
  */
-'use strict';
-import React, {Component} from 'react';
+'use strict'
+import React, {Component} from 'react'
 import{
     View,
     Text,
@@ -13,21 +13,26 @@ import{
     ScrollView,
     InteractionManager,
     Platform,
-} from 'react-native';
-import {IndicatorViewPager, PagerDotIndicator} from 'rn-viewpager';
-import Scan from './scan';
-import ShortLine from '../components/ShortLine';
-// import WebViewDetails from './WebViewDetails';
+} from 'react-native'
+import {IndicatorViewPager, PagerDotIndicator} from 'rn-viewpager'
+import Scan from './scan'
+import ShortLine from '../components/ShortLine'
+import StoreDetail from './StoreDetail'
+import WebViewDetails from './WebViewDetails'
+import {STORE_DATA} from '../common/VirtualData'
+import { performMenuAction } from '../actions/MenuAction'
+import { connect } from 'react-redux'
+import { toastShort } from '../utils/ToastUtil'
 
-var {height, width} = Dimensions.get('window');
-var item_width = (width-1)/2;
+var {height, width} = Dimensions.get('window')
+var item_width = (width-1)/2
 
 const BANNER_IMGS = [
     require('../imgs/home/1.jpg'),
     require('../imgs/home/2.jpg'),
     require('../imgs/home/3.jpg'),
     require('../imgs/home/4.jpg')
-];
+]
 const CENTER_IMGS = [
     require('../imgs/home/img_1.png'),
     require('../imgs/home/img_2.png'),
@@ -37,102 +42,45 @@ const CENTER_IMGS = [
     require('../imgs/home/img_6.png'),
     require('../imgs/home/img_7.png'),
     require('../imgs/home/img_8.png')
-];
-const STORE_DATA={
-    "api":"GetStoreList",
-    "v":"1.0",
-    "code":"0",
-    "msg":"success",
-    "data":[{
-        "id":1,
-        "name":"四川Brunch",
-        "star":4,
-        "comment":45,
-        "tag":"中国餐馆,四川菜,重辣",
-        "location":"6.6km",
-        "remark":"每日有优惠"
-    },{
-        "id":2,
-        "name":"聚星楼",
-        "star":4,
-        "comment":45,
-        "tag":"中国餐馆,四川菜,重辣",
-        "location":"6.6km",
-        "remark":"每日有优惠"
-    },{
-        "id":3,
-        "name":"四川川二娃",
-        "star":4,
-        "comment":45,
-        "tag":"中国餐馆,四川菜,重辣",
-        "location":"6.6km",
-        "remark":"每日有优惠"
-    },{
-        "id":4,
-        "name":"韩国大烤肉",
-        "star":4,
-        "comment":45,
-        "tag":"中国餐馆,四川菜,重辣",
-        "location":"6.6km",
-        "remark":"每日有优惠"
-    },{
-        "id":5,
-        "name":"釜山料理",
-        "star":4,
-        "comment":45,
-        "tag":"中国餐馆,四川菜,重辣",
-        "location":"6.6km",
-        "remark":"每日有优惠"
-    },{
-        "id":6,
-        "name":"釜山料理",
-        "star":4,
-        "comment":45,
-        "tag":"中国餐馆,四川菜,重辣",
-        "location":"6.6km",
-        "remark":"每日有优惠"
-    }
 ]
-};
 class Index extends Component {
-   constructor(props) {
-      super(props);
-      this.centerItemAction=this.centerItemAction.bind(this);
-      this.topItemAction=this.topItemAction.bind(this);
-      this.recomdStoreAction = this.recomdStoreAction.bind(this);
+    constructor(props) {
+        super(props)
+        this.centerItemAction=this.centerItemAction.bind(this)
+        this.topItemAction=this.topItemAction.bind(this)
+        this.recomdStoreAction = this.recomdStoreAction.bind(this)
     }
   centerItemAction(position){
-      const {navigator} = this.props;
+      const {navigator} = this.props
       InteractionManager.runAfterInteractions(() => {
             navigator.push({
               component: WebViewDetails,
               name: 'WebViewDetails',
-            });
-      });
+            })
+      })
   }
   recomdStoreAction(position){
-      const {navigator} = this.props;
-       InteractionManager.runAfterInteractions(() => {
-            navigator.push({
-              component: StoreDetails,
-              name: 'StoreDetails',
-              data: eval(STORE_DATA.data[position])
-            });
-          });
+      const {navigator, dispatch} = this.props
+      let token = eval(STORE_DATA.data[position]).accesstoken
+      let tokenjson = {
+          access_token :  token
+      }
+      let tokenstr = JSON.stringify(tokenjson)
+      dispatch(performMenuAction(tokenstr, 0, navigator))
   }
   topItemAction(position){
-      const { navigator } = this.props;
+      const { navigator } = this.props
       if(position === 0){
           InteractionManager.runAfterInteractions(() => {
             navigator.push({
               component: Scan,
               name: 'Scan'
-              });
-            });
+              })
+            })
       }
   }
   _renderDotIndicator() {
-        return <PagerDotIndicator pageCount={4} />;
+        return <PagerDotIndicator pageCount={4} />
   }
   render() {
         return (
@@ -273,36 +221,10 @@ class Index extends Component {
                                </TouchableOpacity>
                            </View>
                      </View>
-                     <View style={{flexDirection:'row',marginTop:10,paddingBottom:10}}>
-                           <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                               <TouchableOpacity onPress={()=>{this.recomdStoreAction(3)}}>
-                                  <Image source={require('../imgs/home/img.png')} style={{width:105,height:105}}/>
-                                  <View style={{marginTop:8,justifyContent:'center',alignItems:'center'}}>
-                                        <Text>大丰收李家</Text>
-                                  </View>
-                               </TouchableOpacity>
-                           </View>
-                           <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                               <TouchableOpacity onPress={()=>{this.recomdStoreAction(4)}}>
-                                  <Image source={require('../imgs/home/img.png')} style={{width:105,height:105}}/>
-                                  <View style={{marginTop:8,justifyContent:'center',alignItems:'center'}}>
-                                        <Text>咏蛙田鸡</Text>
-                                  </View>
-                               </TouchableOpacity>
-                           </View>
-                           <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                               <TouchableOpacity onPress={()=>{this.recomdStoreAction(5)}}>
-                                  <Image source={require('../imgs/home/img.png')} style={{width:105,height:105}}/>
-                                  <View style={{marginTop:8,justifyContent:'center',alignItems:'center'}}>
-                                        <Text>郑小姐茶餐厅</Text>
-                                  </View>
-                               </TouchableOpacity>
-                           </View>
-                     </View>
                 </View>
               </ScrollView>
            </View>
-        );
+        )
     }
 }
 const styles=StyleSheet.create({
@@ -358,5 +280,13 @@ const styles=StyleSheet.create({
         height:47,
         marginLeft:10
     }
-});
-export default Index;
+})
+function mapStateToProps(state) {
+  const { foods } = state
+  return {
+    foods
+  }
+}
+export default connect(
+    mapStateToProps
+)(Index)

@@ -1,5 +1,5 @@
 /**
- * 菜单页
+ * 推荐商家详情页
  */
 'use strict';
 import React, { Component, PropTypes } from 'react'
@@ -16,31 +16,30 @@ import {
 import Header from '../components/Header'
 import PureListView from '../components/PureListView'
 import { toastShort } from '../utils/ToastUtil'
+import { NaviGoBack } from '../utils/CommonUtils'
 import FoodDetails from './FoodDetails'
 import Loading from '../components/Loading_DD'
 import LoadingView from '../components/LoadingView'
 import NoneItem from '../components/NoneItem'
-
 import { connect } from 'react-redux'
+
 import {
     fetchFoodsAction,
-    changeCategoryAction,
-    addToCartAction
+    changeCategoryAction
 } from '../actions/FoodsAction'
 import menuStyle from '../styles/menu'
 
 let defaultColor = '#f5f5f5'  //默认颜色
 let selectedColor = '#fff'  //选中颜色
 
-class Menu extends Component {
+class StoreDetail extends Component {
     constructor(props) {
         super(props)
+        this.buttonBackAction=this.buttonBackAction.bind(this);
         this.onPressItemLeft=this.onPressItemLeft.bind(this)
         this.onPressItemRight=this.onPressItemRight.bind(this)
         this.renderItemLeft = this.renderItemLeft.bind(this)
         this.renderItemRight=this.renderItemRight.bind(this)
-        this.addFood=this.addFood.bind(this)
-        this.collectAction=this.collectAction.bind(this)
         this.renderBottom=this.renderBottom.bind(this)
         //ListView.DataSource:从原始输入数据中抽取数据来创建ListViewDataSource对象
         this.state = {
@@ -52,31 +51,15 @@ class Menu extends Component {
             })
         }
     }
-
     componentWillMount() {
-        const {dispatch} = this.props
-        storage.load({
-          key: 'foodsinfo',
-          autoSync: true,
-          syncInBackground: true,
-        }).then(ret => {
-            if(ret) {
-                // toastShort(JSON.parse(ret.foods))
-                //开始加载商品列表数据
-                dispatch(fetchFoodsAction(JSON.parse(ret.foods),ret.table))
-            }
-        }).catch(err => {
-            toastShort("请扫码获取菜单")
-        })
+        const {dispatch,route} = this.props
+        //开始加载商品列表数据
+        dispatch(fetchFoodsAction(JSON.parse(route.foods),0))
     }
-
-    collectAction(){
-        toastShort('点击收藏按钮...')
-    }
-
-    //加入购物车
-    addFood(data) {
-        this.props.addFoodAction(data)
+    //返回
+    buttonBackAction(){
+        const {navigator} = this.props;
+        return NaviGoBack(navigator);
     }
     // 渲染分割线
     _renderSeparatorView(sectionID, rowID, adjacentRowHighlighted) {
@@ -152,7 +135,7 @@ class Menu extends Component {
     //渲染每一项的数据
     renderItemLeft(data) {
         const {foods} = this.props
-        if(data === foods.selectedItem){
+        if(data === foods.selectedItem) {
           return (
               <View style={{backgroundColor:selectedColor}}>
                     <TouchableOpacity onPress={()=>{this.onPressItemLeft(data)}}>
@@ -162,7 +145,7 @@ class Menu extends Component {
                     </TouchableOpacity>
              </View>
           )
-        }else{
+        } else {
           return (
               <View style={{backgroundColor:defaultColor}}>
                     <TouchableOpacity onPress={()=>{this.onPressItemLeft(data)}}>
@@ -199,12 +182,6 @@ class Menu extends Component {
                                 <Text style={menuStyle.item_des}>评分{data.dish_grade}</Text>
                          </View>
                          <Text style={menuStyle.item_price}>¥{data.dish_price}</Text>
-                    </View>
-                    <View style={menuStyle.item_btn}>
-                         <TouchableOpacity style={menuStyle.btn_add} onPress={()=>{this.addFood(data)}}>
-                              <Image source={require('../imgs/store/addfood.png')}
-                                     style={{width:20,height:20}}/>
-                         </TouchableOpacity>
                     </View>
                </View>
           </TouchableOpacity>
@@ -247,7 +224,7 @@ class Menu extends Component {
                         </View>
                        <View style={{flex:3}}>
                             {this.renderContentRight(this.state.dataSource.cloneWithRowsAndSections(
-                                 foods.right_items === undefined ? [] : foods.right_items,foods.left_items))}
+                                 foods.right_items === undefined ? [] : foods.right_items, foods.left_items))}
                        </View>
                 </View>
             )
@@ -257,7 +234,7 @@ class Menu extends Component {
     render() {
         return (
             <View style={{flex:1}}>
-                <Header title='菜单' />
+                <Header title='推荐商家' hasBack={true} backAction={()=>{this.buttonBackAction()}} />
                 <View>
                     {this.renderStoreBaisc()}
                 </View>
@@ -268,12 +245,11 @@ class Menu extends Component {
 }
 
 function mapStateToProps(state) {
-  const { foods, cart } = state
+  const { foods } = state
   return {
-    foods,
-    cart
+    foods
   }
 }
 export default connect(
     mapStateToProps
-)(Menu)
+)(StoreDetail)

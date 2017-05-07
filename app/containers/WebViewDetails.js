@@ -12,8 +12,9 @@ import{
     TouchableOpacity,
     WebView,
 } from 'react-native';
-import { NaviGoBack } from '../utils/CommonUtils';
-import LoadingView from '../components/LoadingView';
+import { NaviGoBack } from '../utils/CommonUtils'
+import LoadingView from '../components/LoadingView'
+import Header from '../components/Header'
 
 let canGoBack = false;
 
@@ -35,25 +36,6 @@ class WebViewDetails extends Component {
   onNavigationStateChange(navState) {
     canGoBack = navState.canGoBack;
   }
-   //渲染顶部头布局
-  renderTopLayout(){
-     return (
-       <View style={{height:48,backgroundColor:'black',flexDirection:'row'}}>
-                <View style={{width:48,height:48,justifyContent:'center'}}>
-                     <TouchableOpacity onPress={() => {this.buttonBackAction()}} style={{justifyContent:'center',alignItems:'center'}} >
-                           <Image
-                                 style={{width:13,height:20}}
-                                 source={require('../imgs/ic_center_back.png')}
-                           />
-                     </TouchableOpacity>
-                </View>
-                <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                     <Text style={{color:'white',fontSize:18}}>网页页面</Text>
-                </View>
-                <View style={{width:48,height:48}} />
-          </View>
-     );
-   }
 
   renderLoading() {
     return <LoadingView />;
@@ -62,10 +44,10 @@ class WebViewDetails extends Component {
    render() {
     return (
         <View style={{flex:1,backgroundColor:'white'}}>
-          {this.renderTopLayout()}
+          <Header title='网页页面' hasBack={true} backAction={()=>{this.buttonBackAction()}}/>
           <WebView
           ref={(ref) => { this.webview = ref; }}
-          source={{uri: 'http://www.lcode.org'}}
+          source={{uri: 'https://www.baidu.com/'}}
           automaticallyAdjustContentInsets={false}
           style={{ flex: 1 }}
           javaScriptEnabled

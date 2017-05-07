@@ -1,5 +1,7 @@
+/**
+ * 扫码页面
+ */
 'use strict';
-
 import React, {Component} from 'react';
 import {
   AppRegistry,
@@ -23,13 +25,6 @@ import Loading from '../components/Loading_DD'
 class Scan extends Component {
   constructor(props) {
     super(props);
-    // let tokenjson = {
-    //     access_token : 'dec9373769b94787'
-    // }
-    // let table =1
-    // const {navigator, dispatch} = this.props
-    // let tokenstr = JSON.stringify(tokenjson)
-    // dispatch(performMenuAction(tokenstr, table, navigator))
     this.buttonBackAction=this.buttonBackAction.bind(this)
     this.state = {
             cameraType: 'back',
@@ -55,8 +50,7 @@ class Scan extends Component {
               token: '',
               table:'',
             }); },
-            500
-        );
+            500 );
     }
     /**
      * 图形卸载同时清除Timer相关事件
@@ -90,8 +84,7 @@ class Scan extends Component {
         return (
             <View style={styles.camera}>
                 <View style={styles.statusBar}>
-                    <Header title='获取菜单' hasBack={true}
-                    backAction={()=>{this.buttonBackAction()}} />
+                    <Header title='获取菜单' hasBack={true} backAction={()=>{this.buttonBackAction()}} />
                 </View>
                 { this.state.backing ? <View style={{flex:1,backgroundColor:'rgba(0,0,0,0)'}}/> : <Camera
                     ref={(cam) => {
@@ -99,6 +92,7 @@ class Scan extends Component {
                     }}
                     aspect={Camera.constants.Aspect.stretch}
                     onBarCodeRead={this.barcodeReceived.bind(this)}
+                    barCodeTypes={['qr']}
                     style={styles.camera}
                     torchMode={this.state.torchMode}
                     cameraType={this.state.cameraType} />

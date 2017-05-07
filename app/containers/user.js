@@ -1,3 +1,6 @@
+/**
+ * 用户个人中心
+ */
 'use strict'
 import React, {Component} from 'react'
 import{
@@ -19,10 +22,8 @@ import CenterItem from '../components/CenterItem'
 import ImageButton from '../components/ImageButton'
 import { toastShort } from '../utils/ToastUtil'
 import ModifyInformation from './CenterContent/ModifyInformation'
-import Charge from './CenterContent/Charge'
 import FeedBack from './CenterContent/FeedBack'
 import Taste from './CenterContent/Taste'
-import Storage from 'react-native-storage'
 import Order from './order'
 
 import { performOrderHistoryAction } from '../actions/OrderAction'
@@ -103,15 +104,7 @@ class User extends Component {
                })
             })
         }else if(position === 2) {
-           InteractionManager.runAfterInteractions(() => {
-            navigator.push({
-              component: Charge,
-              name: 'Charge'
-            })
-          })
-
         }else if(position === 3) {
-
         }else if(position === 4) {
             InteractionManager.runAfterInteractions(() => {
                   navigator.push({
@@ -171,11 +164,6 @@ class User extends Component {
                   title='我的订单'
                   icon={require('../imgs/tab_menu_press.png')}
                   onPress={()=>this.itemActionIndex(1)}/>
-               <View style={[styles.top_line,styles.center_line]}></View>
-               <CenterItem
-                  title='信用卡管理'
-                  icon={require('../imgs/user_card.png')}
-                  onPress={()=>this.itemActionIndex(2)}/>
                <View style={[styles.top_line,styles.center_line]}></View>
                <CenterItem
                   title='收藏'

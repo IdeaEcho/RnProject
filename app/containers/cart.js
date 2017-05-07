@@ -22,7 +22,6 @@ import { toastShort } from '../utils/ToastUtil'
 import { performOrderAction } from '../actions/OrderAction'
 import { connect } from 'react-redux'
 
-
 class Cart extends Component {
     static propTypes = {
         cart: PropTypes.object.isRequired,
@@ -40,18 +39,22 @@ class Cart extends Component {
             table_id:1
         }
     }
+    //清空购物车
     onClearCart() {
         const {actions} = this.props
         actions.clearCartAction()
     }
+    //删除菜品
     onDeleteFood(data) {
         const {actions} = this.props
         actions.deleteFoodAction(data)
     }
+    //数量增
     onAddNum(id,price) {
         const {actions} = this.props
         actions.addNumAction(id,price)
     }
+    //数量减
     onCutNum(id,price) {
         const {actions} = this.props
         actions.cutNumAction(id,price)
@@ -91,13 +94,6 @@ class Cart extends Component {
             }).catch(err => {
               toastShort('未登录')
             })
-            // InteractionManager.runAfterInteractions(() => {
-            // navigator.push({
-            //   component: OrderResult,
-            //   name: '订单结果',
-            //   order: cart
-            //    })
-            // })
         }
     }
     render() {

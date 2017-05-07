@@ -1,28 +1,30 @@
-'use strict';
-
-import React, {Component, PropTypes} from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+/**
+ * 程序主框架（推荐、菜单、购物车、我的入口）
+ */
+'use strict'
+import React, {Component, PropTypes} from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import {
     Text,
     View,
     Image,
     StyleSheet
- } from 'react-native';
-import TabNavigator from 'react-native-tab-navigator';
-import Menu from './menu';
-import Cart from './cart';
-import Index from './index';
-import Scan from './scan';
-import User from './user';
+ } from 'react-native'
+import TabNavigator from 'react-native-tab-navigator'
+import Menu from './menu'
+import Cart from './cart'
+import Index from './index'
+import Scan from './scan'
+import User from './user'
 import * as FoodsAction from '../actions/FoodsAction'
 
 class Home extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             selectedTab:'home'
-        };
+        }
     }
     componentWillMount() {
         const {route, dispatch} = this.props
@@ -79,7 +81,7 @@ class Home extends Component {
                 <User {...this.props}/>
                 </TabNavigator.Item>
         </TabNavigator>
-        );
+        )
     }
 }
 const styles=StyleSheet.create({
@@ -107,7 +109,7 @@ const styles=StyleSheet.create({
          color:'#fff',
          fontSize:8,
     }
-});
+})
 
 Home.propTypes = {
     cart: PropTypes.object.isRequired,
@@ -124,4 +126,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Home);
+)(Home)
