@@ -198,25 +198,25 @@ class Index extends Component {
                      <View style={{flexDirection:'row'}}>
                            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
                                <TouchableOpacity onPress={()=>{this.recomdStoreAction(0)}}>
-                                  <Image source={require('../imgs/home/img.png')} style={{width:105,height:105}}/>
+                                  <Image source={require('../imgs/home/img1.png')} style={{width:105,height:105}}/>
                                   <View style={{marginTop:8,justifyContent:'center',alignItems:'center'}}>
-                                        <Text>鯔·只有寿司</Text>
+                                        <Text>夹虾米</Text>
                                   </View>
                                </TouchableOpacity>
                            </View>
                            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
                                <TouchableOpacity onPress={()=>{this.recomdStoreAction(1)}}>
-                                  <Image source={require('../imgs/home/img.png')} style={{width:105,height:105}}/>
+                                  <Image source={require('../imgs/home/img2.jpg')} style={{width:105,height:105}}/>
                                   <View style={{marginTop:8,justifyContent:'center',alignItems:'center'}}>
-                                        <Text>轰咖咖喱饭</Text>
+                                        <Text>鯔·只有</Text>
                                   </View>
                                </TouchableOpacity>
                            </View>
                            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
                                <TouchableOpacity onPress={()=>{this.recomdStoreAction(2)}}>
-                                  <Image source={require('../imgs/home/img.png')} style={{width:105,height:105}}/>
+                                  <Image source={require('../imgs/home/img3.jpg')} style={{width:105,height:105}}/>
                                   <View style={{marginTop:8,justifyContent:'center',alignItems:'center'}}>
-                                        <Text>坛烧八味</Text>
+                                        <Text>轰咖咖</Text>
                                   </View>
                                </TouchableOpacity>
                            </View>
