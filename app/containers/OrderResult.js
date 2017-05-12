@@ -16,6 +16,7 @@ import {
 import { NaviGoBack } from '../utils/CommonUtils'
 import Header from '../components/Header'
 import OrderDetails from './OrderDetails'
+import { toastShort } from '../utils/ToastUtil'
 var {height, width} = Dimensions.get('window')
 
 class OrderResult extends React.Component {
@@ -53,7 +54,7 @@ class OrderResult extends React.Component {
             console.warn(err.message);
           })
         }).catch(err => {
-           toastShort(err)
+           console.warn(err);
         })
     }
     //返回
@@ -110,7 +111,7 @@ class OrderResult extends React.Component {
                                 <Text style={styles.btn_tv}>查看订单</Text>
                           </TouchableOpacity>
                           <TouchableOpacity style={styles.btn_pay} onPress={()=>{this.itemButtonActiom(1)}}>
-                                <Text style={styles.btn_tv}>付款</Text>
+                                <Text style={styles.btn_tv}>请到柜台付款</Text>
                           </TouchableOpacity>
                      </View>
                 </View>
