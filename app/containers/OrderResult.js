@@ -17,7 +17,6 @@ import { NaviGoBack } from '../utils/CommonUtils'
 import Header from '../components/Header'
 import OrderDetails from './OrderDetails'
 import { toastShort } from '../utils/ToastUtil'
-var {height, width} = Dimensions.get('window')
 
 class OrderResult extends React.Component {
     constructor(props) {
@@ -126,7 +125,7 @@ let styles = StyleSheet.create({
         flex:1
     },
     content: {
-        height:height,
+        height:300,
         marginTop:10,
         marginLeft:10,
         marginRight:10,

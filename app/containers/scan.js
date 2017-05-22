@@ -91,8 +91,7 @@ class Scan extends Component {
                         this.camera = cam;
                     }}
                     aspect={Camera.constants.Aspect.stretch}
-                    onBarCodeRead={this.barcodeReceived.bind(this)}
-                    barCodeTypes={['qr']}
+                    onBarCodeRead={this.barcodeReceived.bind(this)}s
                     style={styles.camera}
                     torchMode={this.state.torchMode}
                     cameraType={this.state.cameraType} />

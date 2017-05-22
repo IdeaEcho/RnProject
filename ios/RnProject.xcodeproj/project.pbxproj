@@ -941,7 +941,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.Jiaxiami;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.Chenshuyao;
 				PRODUCT_NAME = RnProject;
 				PROVISIONING_PROFILE = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -962,7 +962,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.Jiaxiami;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.Chenshuyao;
 				PRODUCT_NAME = RnProject;
 				PROVISIONING_PROFILE = "";
 				VERSIONING_SYSTEM = "apple-generic";
